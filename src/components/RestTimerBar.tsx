@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   iconButtonText: {
     ...typography.caption,
-    fontWeight: '700',
+    fontWeight: '600',
     color: colors.textPrimary,
   },
 });

@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   rowTitle: {
     ...typography.body,
     color: colors.textPrimary,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   rowCaption: {
     ...typography.caption,

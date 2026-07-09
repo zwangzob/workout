@@ -69,7 +69,7 @@ export default function ProgramDetailScreen() {
                 {day.isRestDay ? (
                   <Text style={styles.restText}>Rest day</Text>
                 ) : (
-                  day.blocks.map((block) => <ProgramBlockPreview key={block.id} block={block} />)
+                  day.blocks.map((block, idx) => <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />)
                 )}
               </View>
             ))}
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   activeBadgeText: {
     ...typography.caption,
     color: colors.success,
-    fontWeight: '700',
+    fontWeight: '600',
   },
   weekSection: {
     marginBottom: spacing.lg,

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   name: {
     ...typography.body,
-    fontWeight: '600',
+    fontWeight: '500',
     color: colors.textPrimary,
   },
   meta: {

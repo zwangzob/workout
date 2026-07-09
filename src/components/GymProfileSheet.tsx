@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   label: {
     ...typography.caption,
-    fontWeight: '700',
+    fontWeight: '600',
     color: colors.textSecondary,
     textTransform: 'uppercase',
   },

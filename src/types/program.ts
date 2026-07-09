@@ -53,8 +53,10 @@ export const BLOCK_TYPE_LABELS: Record<BlockType, string> = {
   giant_set: 'Giant Set',
 };
 
-/** Returns the letter for an exercise's position within a block (A, B, C, ...). Blocks of type 'single' have no letter. */
-export function blockExerciseLetter(block: ProgramBlock, index: number): string | null {
-  if (block.type === 'single') return null;
-  return String.fromCharCode('A'.charCodeAt(0) + index);
+/** Badge label for an exercise's row: plain block number for a single ("2"), or the
+ * block's number with a letter suffix for grouped blocks ("2A", "2B", "2C", ...).
+ * Takes just `{ type }` so it works for both ProgramBlock and SessionBlock. */
+export function blockExerciseBadge(blockNumber: number, block: { type: BlockType }, index: number): string {
+  if (block.type === 'single') return String(blockNumber);
+  return `${blockNumber}${String.fromCharCode('A'.charCodeAt(0) + index)}`;
 }

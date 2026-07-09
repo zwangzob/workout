@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   chipText: {
     ...typography.caption,
-    fontWeight: '600',
+    fontWeight: '500',
     color: colors.textSecondary,
   },
   chipTextActive: {

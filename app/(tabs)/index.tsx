@@ -121,8 +121,8 @@ export default function TodayScreen() {
           </Card>
         ) : (
           <>
-            {day.blocks.map((block) => (
-              <ProgramBlockPreview key={block.id} block={block} />
+            {day.blocks.map((block, idx) => (
+              <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />
             ))}
             <Button
               label={inProgressSession ? 'Resume Workout' : 'Start Workout'}

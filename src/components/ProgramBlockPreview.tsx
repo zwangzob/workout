@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
-import { ExerciseThumbnail } from '@/components/ExerciseThumbnail';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
-import { BLOCK_TYPE_LABELS, ProgramBlock, blockExerciseLetter } from '@/types';
+import { BLOCK_TYPE_LABELS, ProgramBlock, blockExerciseBadge } from '@/types';
 
 function formatRest(seconds: number): string {
   const min = seconds / 60;
@@ -13,7 +12,7 @@ function formatRest(seconds: number): string {
   return `${min.toFixed(1)} min`;
 }
 
-export function ProgramBlockPreview({ block }: { block: ProgramBlock }) {
+export function ProgramBlockPreview({ block, blockNumber }: { block: ProgramBlock; blockNumber: number }) {
   const getExercise = useExerciseStore((s) => s.getExercise);
   const isGroup = block.exercises.length > 1;
 
@@ -23,16 +22,16 @@ export function ProgramBlockPreview({ block }: { block: ProgramBlock }) {
       {block.exercises.map((ex, idx) => {
         const info = getExercise(ex.exerciseId);
         if (!info) return null;
-        const letter = blockExerciseLetter(block, idx);
+        const badge = blockExerciseBadge(blockNumber, block, idx);
+        const showConnector = isGroup && idx < block.exercises.length - 1;
         return (
           <View key={ex.id} style={styles.row}>
-            {letter ? (
-              <View style={styles.letterBadge}>
-                <Text style={styles.letterBadgeText}>{letter}</Text>
+            <View style={styles.badgeColumn}>
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{badge}</Text>
               </View>
-            ) : (
-              <ExerciseThumbnail muscle={info.primaryMuscle} size={36} />
-            )}
+              {showConnector ? <View style={styles.connector} /> : null}
+            </View>
             <Text style={styles.name} numberOfLines={1}>
               {info.name}
             </Text>
@@ -43,7 +42,7 @@ export function ProgramBlockPreview({ block }: { block: ProgramBlock }) {
         );
       })}
       <View style={styles.restRow}>
-        <Ionicons name="time-outline" size={14} color={colors.textTertiary} />
+        <Ionicons name="watch-outline" size={14} color={colors.textTertiary} />
         <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
       </View>
     </Card>
@@ -64,23 +63,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.sm,
   },
-  letterBadge: {
-    width: 36,
-    height: 36,
+  badgeColumn: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
+  },
+  badge: {
+    minWidth: 32,
+    height: 32,
+    paddingHorizontal: spacing.xs,
     borderRadius: radii.full,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  letterBadgeText: {
+  badgeText: {
     ...typography.caption,
     fontWeight: '700',
     color: colors.textInverse,
   },
+  connector: {
+    flex: 1,
+    width: 2,
+    backgroundColor: colors.accentMuted,
+    marginTop: 2,
+  },
   name: {
     ...typography.body,
     color: colors.textPrimary,
-    fontWeight: '600',
+    textDecorationLine: 'underline',
     flex: 1,
   },
   target: {

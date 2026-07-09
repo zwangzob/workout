@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   filterChipText: {
     ...typography.caption,
-    fontWeight: '600',
+    fontWeight: '500',
     color: colors.textSecondary,
   },
   filterChipTextActive: {

@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
   },
   labelActive: {
     color: colors.accent,
-    fontWeight: '700',
+    fontWeight: '600',
   },
 });

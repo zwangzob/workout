@@ -9,12 +9,13 @@ import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
-import { BLOCK_TYPE_LABELS } from '@/types';
+import { BLOCK_TYPE_LABELS, blockExerciseBadge } from '@/types';
 import type { LoggedSet, SessionBlock } from '@/types';
 
 type WorkoutBlockCardProps = {
   sessionId: string;
   block: SessionBlock;
+  blockNumber: number;
 };
 
 function formatRest(seconds: number): string {
@@ -24,7 +25,7 @@ function formatRest(seconds: number): string {
   return `${min.toFixed(1)} min`;
 }
 
-export function WorkoutBlockCard({ sessionId, block }: WorkoutBlockCardProps) {
+export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlockCardProps) {
   const isGroup = block.exercises.length > 1;
   const allComplete = block.exercises.every((ex) => ex.sets.every((s) => s.completedAt));
 
@@ -43,14 +44,14 @@ export function WorkoutBlockCard({ sessionId, block }: WorkoutBlockCardProps) {
           sessionId={sessionId}
           blockId={block.id}
           exercise={ex}
-          letter={isGroup ? String.fromCharCode(65 + idx) : null}
+          badge={blockExerciseBadge(blockNumber, block, idx)}
           showConnector={isGroup && idx < block.exercises.length - 1}
           restSeconds={block.restSeconds}
         />
       ))}
 
       <View style={styles.restRow}>
-        <Ionicons name="time-outline" size={16} color={colors.textTertiary} />
+        <Ionicons name="watch-outline" size={16} color={colors.textTertiary} />
         <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
       </View>
     </Card>
@@ -61,14 +62,14 @@ function ExerciseRow({
   sessionId,
   blockId,
   exercise,
-  letter,
+  badge,
   showConnector,
   restSeconds,
 }: {
   sessionId: string;
   blockId: string;
   exercise: SessionBlock['exercises'][number];
-  letter: string | null;
+  badge: string;
   showConnector: boolean;
   restSeconds: number;
 }) {
@@ -101,14 +102,12 @@ function ExerciseRow({
 
   return (
     <View style={styles.exerciseRow}>
-      {letter ? (
-        <View style={styles.letterColumn}>
-          <View style={styles.letterBadge}>
-            <Text style={styles.letterBadgeText}>{letter}</Text>
-          </View>
-          {showConnector ? <View style={styles.connector} /> : null}
+      <View style={styles.letterColumn}>
+        <View style={styles.letterBadge}>
+          <Text style={styles.letterBadgeText}>{badge}</Text>
         </View>
-      ) : null}
+        {showConnector ? <View style={styles.connector} /> : null}
+      </View>
 
       <View style={styles.exerciseContent}>
         <View style={styles.exerciseHeader}>
@@ -241,12 +240,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   letterColumn: {
-    width: 28,
+    width: 34,
     alignItems: 'center',
   },
   letterBadge: {
-    width: 24,
-    height: 24,
+    minWidth: 28,
+    height: 28,
+    paddingHorizontal: spacing.xs,
     borderRadius: radii.full,
     backgroundColor: colors.accent,
     alignItems: 'center',
@@ -275,8 +275,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   exerciseTitle: {
-    ...typography.bodyStrong,
+    ...typography.body,
     color: colors.textPrimary,
+    textDecorationLine: 'underline',
   },
   target: {
     ...typography.caption,

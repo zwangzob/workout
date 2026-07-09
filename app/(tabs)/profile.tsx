@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   rowTitle: {
     ...typography.body,
-    fontWeight: '600',
+    fontWeight: '500',
     color: colors.textPrimary,
   },
   rowMeta: {

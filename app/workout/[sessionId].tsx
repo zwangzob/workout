@@ -63,8 +63,8 @@ export default function WorkoutSessionScreen() {
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {session.blocks.map((block) => (
-          <WorkoutBlockCard key={block.id} sessionId={session.id} block={block} />
+        {session.blocks.map((block, idx) => (
+          <WorkoutBlockCard key={block.id} sessionId={session.id} block={block} blockNumber={idx + 1} />
         ))}
         <Button label="Complete Workout" size="lg" onPress={handleComplete} icon={<Ionicons name="checkmark" size={18} color={colors.textInverse} />} />
       </ScrollView>
