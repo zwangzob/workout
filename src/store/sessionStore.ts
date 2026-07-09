@@ -3,6 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoggedSet, Program, ProgramDay, SessionBlock, WorkoutSession } from '@/types';
 import { generateId } from '@/lib/id';
+import { SEED_SESSIONS } from '@/data/seedHistory';
 
 function buildSetsForBlock(targetSets: number): LoggedSet[] {
   return Array.from({ length: targetSets }, (_, i) => ({
@@ -215,6 +216,16 @@ export const useSessionStore = create<SessionStore>()(
     {
       name: 'forge/sessions',
       storage: createJSONStorage(() => AsyncStorage),
+      merge: (persistedState, currentState) => {
+        const persisted = (persistedState ?? {}) as Partial<SessionStore>;
+        const sessions = persisted.sessions ?? [];
+        const seedIds = new Set(SEED_SESSIONS.map((s) => s.id));
+        const hasSeed = sessions.some((s) => seedIds.has(s.id));
+        if (hasSeed) {
+          return { ...currentState, ...persisted } as SessionStore;
+        }
+        return { ...currentState, ...persisted, sessions: [...SEED_SESSIONS, ...sessions] } as SessionStore;
+      },
     },
   ),
 );

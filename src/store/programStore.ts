@@ -3,6 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Program, ProgramDay } from '@/types';
 import { generateId } from '@/lib/id';
+import { SEED_PROGRAM } from '@/data/seedProgram';
 
 interface ProgramCursor {
   weekIndex: number;
@@ -93,6 +94,21 @@ export const useProgramStore = create<ProgramStore>()(
     {
       name: 'forge/programs',
       storage: createJSONStorage(() => AsyncStorage),
+      merge: (persistedState, currentState) => {
+        const persisted = (persistedState ?? {}) as Partial<ProgramStore>;
+        const programs = persisted.programs ?? [];
+        const hasSeed = programs.some((p) => p.id === SEED_PROGRAM.id);
+        if (hasSeed) {
+          return { ...currentState, ...persisted } as ProgramStore;
+        }
+        return {
+          ...currentState,
+          ...persisted,
+          programs: [SEED_PROGRAM, ...programs],
+          activeProgramId: SEED_PROGRAM.id,
+          cursor: { weekIndex: 0, dayIndex: 0 },
+        } as ProgramStore;
+      },
     },
   ),
 );
