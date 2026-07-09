@@ -31,25 +31,30 @@ export function SegmentedControl({ segments, value, onChange }: SegmentedControl
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: colors.surfaceSunken,
-    borderRadius: radii.md,
+    alignSelf: 'flex-start',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radii.full,
     padding: 4,
   },
   segment: {
-    flex: 1,
-    paddingVertical: spacing.sm,
-    borderRadius: radii.sm,
+    paddingVertical: spacing.xs + 2,
+    paddingHorizontal: spacing.md,
+    borderRadius: radii.full,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
     alignItems: 'center',
   },
   segmentActive: {
-    backgroundColor: colors.surfaceElevated,
+    borderColor: colors.accent,
   },
   label: {
     ...typography.caption,
     color: colors.textTertiary,
   },
   labelActive: {
-    color: colors.textPrimary,
+    color: colors.accent,
     fontWeight: '700',
   },
 });

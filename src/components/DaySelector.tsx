@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { ProgramDay } from '@/types';
@@ -12,36 +12,30 @@ type DaySelectorProps = {
 
 export function DaySelector({ days, currentIndex, completedDayIds, onSelect }: DaySelectorProps) {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
+    <View style={styles.row}>
       {days.map((day, index) => {
         const active = index === currentIndex;
         const completed = completedDayIds.has(day.id);
         return (
           <Pressable key={day.id} onPress={() => onSelect(index)} style={[styles.tile, active && styles.tileActive]}>
-            {completed ? (
-              <View style={styles.check}>
-                <Ionicons name="checkmark" size={12} color={colors.textInverse} />
-              </View>
-            ) : (
-              <View style={styles.checkEmpty} />
-            )}
-            <Text style={[styles.label, active ? styles.labelActive : completed ? null : styles.labelMuted]}>
-              Day {index + 1}
-            </Text>
+            <View style={[styles.check, completed ? styles.checkDone : styles.checkPending]}>
+              <Ionicons name="checkmark" size={12} color={colors.textInverse} />
+            </View>
+            <Text style={[styles.label, active && styles.labelActive]}>Day {index + 1}</Text>
           </Pressable>
         );
       })}
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   row: {
+    flexDirection: 'row',
     gap: spacing.sm,
-    paddingVertical: spacing.xs,
   },
   tile: {
-    width: 84,
+    flex: 1,
     paddingVertical: spacing.md,
     borderRadius: radii.md,
     borderWidth: 1.5,
@@ -57,26 +51,21 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: radii.full,
-    backgroundColor: colors.success,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  checkEmpty: {
-    width: 20,
-    height: 20,
-    borderRadius: radii.full,
-    borderWidth: 1.5,
-    borderColor: colors.border,
+  checkDone: {
+    backgroundColor: colors.success,
+  },
+  checkPending: {
+    backgroundColor: colors.border,
   },
   label: {
     ...typography.caption,
     fontWeight: '700',
-    color: colors.textPrimary,
+    color: colors.textTertiary,
   },
   labelActive: {
-    color: colors.accent,
-  },
-  labelMuted: {
-    color: colors.textTertiary,
+    color: colors.textPrimary,
   },
 });

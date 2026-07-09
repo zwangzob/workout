@@ -8,6 +8,7 @@ import { Card } from '@/components/Card';
 import { SegmentedControl } from '@/components/SegmentedControl';
 import { DaySelector } from '@/components/DaySelector';
 import { ProgramBlockPreview } from '@/components/ProgramBlockPreview';
+import { getDayEmoji } from '@/lib/dayEmoji';
 import { colors, spacing, typography } from '@/theme/theme';
 import { useProgramStore } from '@/store/programStore';
 import { useGymStore } from '@/store/gymStore';
@@ -75,12 +76,6 @@ export default function TodayScreen() {
           <Ionicons name="settings-outline" size={22} color={colors.textSecondary} onPress={() => router.push('/(tabs)/profile')} />
         </View>
 
-        <SegmentedControl
-          segments={profiles.map((p) => ({ key: p.id, label: p.name }))}
-          value={activeProfileId}
-          onChange={setActiveProfile}
-        />
-
         <DaySelector
           days={week.days}
           currentIndex={cursor.dayIndex}
@@ -88,7 +83,15 @@ export default function TodayScreen() {
           onSelect={(index) => setCursor(cursor.weekIndex, index)}
         />
 
-        <Text style={styles.dayTitle}>{day.label}</Text>
+        <SegmentedControl
+          segments={profiles.map((p) => ({ key: p.id, label: p.name }))}
+          value={activeProfileId}
+          onChange={setActiveProfile}
+        />
+
+        <Text style={styles.dayTitle}>
+          {getDayEmoji(day.label)} {day.label} {getDayEmoji(day.label)}
+        </Text>
 
         {day.isRestDay ? (
           <Card style={styles.restCard} elevated>

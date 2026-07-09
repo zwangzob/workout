@@ -49,6 +49,26 @@ export const useGymStore = create<GymStore>()(
     {
       name: 'forge/gym-profiles',
       storage: createJSONStorage(() => AsyncStorage),
+      merge: (persistedState, currentState) => {
+        const persisted = (persistedState ?? {}) as Partial<GymStore>;
+        if (!persisted.profiles) return { ...currentState, ...persisted } as GymStore;
+        // One-time rename migration: only touch profiles that still have their old
+        // default label, so a user's own rename is never overwritten.
+        const OLD_NAMES: Record<string, string> = {
+          gym_commercial: 'Commercial Gym',
+          gym_home: 'Home Gym',
+          gym_bodyweight: 'Bodyweight Only',
+        };
+        const seedById = new Map(SEED_GYM_PROFILES.map((p) => [p.id, p]));
+        const profiles = persisted.profiles.map((p) => {
+          const seed = seedById.get(p.id);
+          if (seed && p.name === OLD_NAMES[p.id]) {
+            return { ...p, name: seed.name };
+          }
+          return p;
+        });
+        return { ...currentState, ...persisted, profiles } as GymStore;
+      },
     },
   ),
 );

@@ -3,7 +3,7 @@ import { GymProfile } from '@/types';
 export const SEED_GYM_PROFILES: GymProfile[] = [
   {
     id: 'gym_commercial',
-    name: 'Commercial Gym',
+    name: 'Gym',
     availableEquipment: [
       'barbell',
       'ez_bar',
@@ -22,12 +22,12 @@ export const SEED_GYM_PROFILES: GymProfile[] = [
   },
   {
     id: 'gym_home',
-    name: 'Home Gym',
+    name: 'Home',
     availableEquipment: ['dumbbell', 'kettlebell', 'bodyweight', 'bench', 'pull_up_bar', 'resistance_band'],
   },
   {
     id: 'gym_bodyweight',
-    name: 'Bodyweight Only',
+    name: 'Bodyweight',
     availableEquipment: ['bodyweight', 'pull_up_bar'],
   },
 ];

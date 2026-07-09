@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { WorkoutBlockCard } from '@/components/WorkoutBlockCard';
 import { RestTimerBar } from '@/components/RestTimerBar';
+import { getDayEmoji } from '@/lib/dayEmoji';
 import { colors, spacing, typography } from '@/theme/theme';
 import { useSessionStore } from '@/store/sessionStore';
 import { useProgramStore } from '@/store/programStore';
@@ -51,7 +52,9 @@ export default function WorkoutSessionScreen() {
           <Ionicons name="chevron-down" size={26} color={colors.textPrimary} />
         </Pressable>
         <View style={styles.headerCenter}>
-          <Text style={styles.title}>{session.dayLabel}</Text>
+          <Text style={styles.title}>
+            {getDayEmoji(session.dayLabel)} {session.dayLabel} {getDayEmoji(session.dayLabel)}
+          </Text>
           <Text style={styles.subtitle}>
             {completedSets}/{totalSets.length} sets logged
           </Text>
