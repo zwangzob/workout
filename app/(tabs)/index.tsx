@@ -18,6 +18,7 @@ export default function TodayScreen() {
   const cursor = useProgramStore((s) => s.cursor);
   const setCursor = useProgramStore((s) => s.setCursor);
   const advanceCursor = useProgramStore((s) => s.advanceCursor);
+  const cycleStartedAt = useProgramStore((s) => s.cycleStartedAt);
 
   const profiles = useGymStore((s) => s.profiles);
   const activeProfileId = useGymStore((s) => s.activeProfileId);
@@ -32,10 +33,12 @@ export default function TodayScreen() {
   const completedDayIds = useMemo(() => {
     const ids = new Set<string>();
     sessions.forEach((s) => {
-      if (s.status === 'completed') ids.add(s.programDayId);
+      if (s.status !== 'completed') return;
+      if (cycleStartedAt && s.completedAt && s.completedAt < cycleStartedAt) return;
+      ids.add(s.programDayId);
     });
     return ids;
-  }, [sessions]);
+  }, [sessions, cycleStartedAt]);
 
   const inProgressSession = useMemo(
     () => sessions.find((s) => s.programDayId === day?.id && s.status === 'in_progress'),

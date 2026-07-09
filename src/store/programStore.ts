@@ -14,6 +14,10 @@ interface ProgramStore {
   programs: Program[];
   activeProgramId: string | null;
   cursor: ProgramCursor;
+  /** Timestamp the current lap through the rotation began. Only sessions completed
+   * on/after this count toward "day complete" — otherwise a day stays checked off
+   * forever after its very first completion, even in later laps. */
+  cycleStartedAt: string | null;
 
   addProgram: (program: Omit<Program, 'id' | 'createdAt'>) => Program;
   updateProgram: (id: string, patch: Partial<Omit<Program, 'id'>>) => void;
@@ -33,6 +37,7 @@ export const useProgramStore = create<ProgramStore>()(
       programs: [],
       activeProgramId: null,
       cursor: { weekIndex: 0, dayIndex: 0 },
+      cycleStartedAt: null,
 
       addProgram: (program) => {
         const newProgram: Program = { ...program, id: generateId('prog'), createdAt: new Date().toISOString() };
@@ -57,7 +62,8 @@ export const useProgramStore = create<ProgramStore>()(
         });
       },
 
-      setActiveProgram: (id) => set({ activeProgramId: id, cursor: { weekIndex: 0, dayIndex: 0 } }),
+      setActiveProgram: (id) =>
+        set({ activeProgramId: id, cursor: { weekIndex: 0, dayIndex: 0 }, cycleStartedAt: new Date().toISOString() }),
 
       advanceCursor: () => {
         const program = get().getActiveProgram();
@@ -73,12 +79,12 @@ export const useProgramStore = create<ProgramStore>()(
           if (nextWeekIndex < program.weeks.length) {
             return { cursor: { weekIndex: nextWeekIndex, dayIndex: 0 } };
           }
-          // Program complete: loop back to the start.
-          return { cursor: { weekIndex: 0, dayIndex: 0 } };
+          // Program complete: loop back to the start of a fresh lap.
+          return { cursor: { weekIndex: 0, dayIndex: 0 }, cycleStartedAt: new Date().toISOString() };
         });
       },
 
-      resetCursor: () => set({ cursor: { weekIndex: 0, dayIndex: 0 } }),
+      resetCursor: () => set({ cursor: { weekIndex: 0, dayIndex: 0 }, cycleStartedAt: new Date().toISOString() }),
 
       setCursor: (weekIndex, dayIndex) => set({ cursor: { weekIndex, dayIndex } }),
 
@@ -99,7 +105,13 @@ export const useProgramStore = create<ProgramStore>()(
         const programs = persisted.programs ?? [];
         const hasSeed = programs.some((p) => p.id === SEED_PROGRAM.id);
         if (hasSeed) {
-          return { ...currentState, ...persisted } as ProgramStore;
+          return {
+            ...currentState,
+            ...persisted,
+            // One-time migration for installs from before cycleStartedAt existed:
+            // without this, every historically-completed day would stay checked off forever.
+            cycleStartedAt: persisted.cycleStartedAt ?? new Date().toISOString(),
+          } as ProgramStore;
         }
         return {
           ...currentState,
@@ -107,6 +119,7 @@ export const useProgramStore = create<ProgramStore>()(
           programs: [SEED_PROGRAM, ...programs],
           activeProgramId: SEED_PROGRAM.id,
           cursor: { weekIndex: 0, dayIndex: 0 },
+          cycleStartedAt: new Date().toISOString(),
         } as ProgramStore;
       },
     },
