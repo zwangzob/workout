@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { router } from 'expo-router';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
@@ -8,8 +8,11 @@ import { Card } from '@/components/Card';
 import { SegmentedControl } from '@/components/SegmentedControl';
 import { DaySelector } from '@/components/DaySelector';
 import { ProgramBlockPreview } from '@/components/ProgramBlockPreview';
+import { ConfigurationSheet } from '@/components/ConfigurationSheet';
+import { Toast } from '@/components/Toast';
 import { getDayEmoji } from '@/lib/dayEmoji';
-import { colors, spacing, typography } from '@/theme/theme';
+import { formatWeekRange } from '@/lib/dateRange';
+import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useProgramStore } from '@/store/programStore';
 import { useGymStore } from '@/store/gymStore';
 import { useSessionStore } from '@/store/sessionStore';
@@ -20,6 +23,10 @@ export default function TodayScreen() {
   const setCursor = useProgramStore((s) => s.setCursor);
   const advanceCursor = useProgramStore((s) => s.advanceCursor);
   const cycleStartedAt = useProgramStore((s) => s.cycleStartedAt);
+  const setDaysPerWeek = useProgramStore((s) => s.setDaysPerWeek);
+
+  const [configOpen, setConfigOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const profiles = useGymStore((s) => s.profiles);
   const activeProfileId = useGymStore((s) => s.activeProfileId);
@@ -67,13 +74,26 @@ export default function TodayScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
+      <View pointerEvents="box-none" style={styles.toastSlot}>
+        <Toast message={toastMessage} onHide={() => setToastMessage(null)} />
+      </View>
+
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.programName}>{program.name}</Text>
-            <Text style={styles.weekLabel}>Week {week.weekNumber}</Text>
+            <Text style={styles.weekRange}>{formatWeekRange()}</Text>
+            <Text style={styles.programName}>
+              {program.name} · Week {week.weekNumber}
+            </Text>
           </View>
-          <Ionicons name="settings-outline" size={22} color={colors.textSecondary} onPress={() => router.push('/(tabs)/profile')} />
+          <Pressable onPress={() => setConfigOpen(true)} hitSlop={8}>
+            <View style={styles.calendarIcon}>
+              <Ionicons name="calendar-outline" size={20} color={colors.textPrimary} />
+              <View style={styles.calendarIconBadge}>
+                <Ionicons name="settings" size={11} color={colors.textInverse} />
+              </View>
+            </View>
+          </Pressable>
         </View>
 
         <DaySelector
@@ -115,6 +135,16 @@ export default function TodayScreen() {
           </>
         )}
       </ScrollView>
+
+      <ConfigurationSheet
+        visible={configOpen}
+        onClose={() => setConfigOpen(false)}
+        currentDays={week.days.length}
+        onSave={(days) => {
+          setDaysPerWeek(program.id, days);
+          setToastMessage('Training frequency updated!');
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -134,14 +164,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  programName: {
+  weekRange: {
     ...typography.title,
     color: colors.textPrimary,
   },
-  weekLabel: {
+  programName: {
     ...typography.caption,
     color: colors.textSecondary,
     marginTop: 2,
+  },
+  calendarIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: radii.md,
+    backgroundColor: colors.surfaceSunken,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  calendarIconBadge: {
+    position: 'absolute',
+    bottom: -2,
+    right: -2,
+    width: 16,
+    height: 16,
+    borderRadius: radii.full,
+    backgroundColor: colors.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.background,
+  },
+  toastSlot: {
+    position: 'absolute',
+    top: spacing.sm,
+    left: spacing.lg,
+    right: spacing.lg,
+    zIndex: 10,
   },
   dayTitle: {
     ...typography.headline,

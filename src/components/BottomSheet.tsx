@@ -8,9 +8,21 @@ type BottomSheetProps = {
   title: string;
   children: React.ReactNode;
   maxHeightRatio?: number;
+  rightLabel?: string;
+  rightIcon?: React.ReactNode;
+  onRightPress?: () => void;
 };
 
-export function BottomSheet({ visible, onClose, title, children, maxHeightRatio = 0.8 }: BottomSheetProps) {
+export function BottomSheet({
+  visible,
+  onClose,
+  title,
+  children,
+  maxHeightRatio = 0.8,
+  rightLabel = 'Done',
+  rightIcon,
+  onRightPress,
+}: BottomSheetProps) {
   const insets = useSafeAreaInsets();
 
   return (
@@ -20,8 +32,9 @@ export function BottomSheet({ visible, onClose, title, children, maxHeightRatio 
         <View style={styles.handle} />
         <View style={styles.header}>
           <Text style={styles.title}>{title}</Text>
-          <Pressable onPress={onClose} hitSlop={12}>
-            <Text style={styles.done}>Done</Text>
+          <Pressable onPress={onRightPress ?? onClose} hitSlop={12} style={styles.rightAction}>
+            {rightIcon}
+            <Text style={styles.done}>{rightLabel}</Text>
           </Pressable>
         </View>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -65,6 +78,11 @@ const styles = StyleSheet.create({
   title: {
     ...typography.headline,
     color: colors.textPrimary,
+  },
+  rightAction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
   },
   done: {
     ...typography.bodyStrong,

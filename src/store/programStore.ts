@@ -5,6 +5,18 @@ import { Program, ProgramDay } from '@/types';
 import { generateId } from '@/lib/id';
 import { SEED_PROGRAM } from '@/data/seedProgram';
 
+function cloneDayWithNewIds(day: ProgramDay): ProgramDay {
+  return {
+    ...day,
+    id: generateId('day'),
+    blocks: day.blocks.map((block) => ({
+      ...block,
+      id: generateId('block'),
+      exercises: block.exercises.map((ex) => ({ ...ex, id: generateId('pex') })),
+    })),
+  };
+}
+
 interface ProgramCursor {
   weekIndex: number;
   dayIndex: number;
@@ -26,6 +38,7 @@ interface ProgramStore {
   advanceCursor: () => void;
   resetCursor: () => void;
   setCursor: (weekIndex: number, dayIndex: number) => void;
+  setDaysPerWeek: (programId: string, count: number) => void;
 
   getActiveProgram: () => Program | undefined;
   getCurrentDay: () => ProgramDay | undefined;
@@ -87,6 +100,29 @@ export const useProgramStore = create<ProgramStore>()(
       resetCursor: () => set({ cursor: { weekIndex: 0, dayIndex: 0 }, cycleStartedAt: new Date().toISOString() }),
 
       setCursor: (weekIndex, dayIndex) => set({ cursor: { weekIndex, dayIndex } }),
+
+      setDaysPerWeek: (programId, count) => {
+        set((state) => ({
+          programs: state.programs.map((p) => {
+            if (p.id !== programId) return p;
+            const weeks = p.weeks.map((week) => {
+              const original = week.days;
+              if (original.length === 0 || original.length === count) return week;
+              if (original.length > count) {
+                return { ...week, days: original.slice(0, count) };
+              }
+              const extra: ProgramDay[] = [];
+              for (let i = original.length; i < count; i++) {
+                extra.push(cloneDayWithNewIds(original[i % original.length]));
+              }
+              return { ...week, days: [...original, ...extra] };
+            });
+            return { ...p, weeks };
+          }),
+          cursor: { weekIndex: 0, dayIndex: 0 },
+          cycleStartedAt: new Date().toISOString(),
+        }));
+      },
 
       getActiveProgram: () => get().programs.find((p) => p.id === get().activeProgramId),
 
