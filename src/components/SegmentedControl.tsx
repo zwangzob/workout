@@ -31,7 +31,7 @@ export function SegmentedControl({ segments, value, onChange }: SegmentedControl
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
