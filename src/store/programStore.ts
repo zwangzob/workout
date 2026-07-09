@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Program, ProgramDay } from '@/types';
 import { generateId } from '@/lib/id';
 import { SEED_PROGRAM } from '@/data/seedProgram';
+import { CORE_DAY, HIP_THRUST_DAY } from '@/data/seedExtraDays';
 
 function cloneDayWithNewIds(day: ProgramDay): ProgramDay {
   return {
@@ -106,16 +107,27 @@ export const useProgramStore = create<ProgramStore>()(
           programs: state.programs.map((p) => {
             if (p.id !== programId) return p;
             const weeks = p.weeks.map((week) => {
-              const original = week.days;
-              if (original.length === 0 || original.length === count) return week;
-              if (original.length > count) {
-                return { ...week, days: original.slice(0, count) };
+              // Recompute from the underlying base pattern every time (not the
+              // previous day list) so toggling frequency back and forth is
+              // idempotent instead of compounding.
+              const base = week.days.filter((d) => d.id !== CORE_DAY.id && d.id !== HIP_THRUST_DAY.id);
+              if (base.length === 0) return week;
+
+              let days: ProgramDay[] = base.slice(0, Math.min(count, base.length));
+              if (count >= 4) days = [...days, CORE_DAY];
+              if (count >= 5) days = [...days, HIP_THRUST_DAY];
+
+              // Fallback for frequencies beyond what the fixed slots cover:
+              // repeat the base pattern rather than leaving days missing.
+              if (days.length < count) {
+                const extra: ProgramDay[] = [];
+                for (let i = days.length; i < count; i++) {
+                  extra.push(cloneDayWithNewIds(base[(i - days.length) % base.length]));
+                }
+                days = [...days, ...extra];
               }
-              const extra: ProgramDay[] = [];
-              for (let i = original.length; i < count; i++) {
-                extra.push(cloneDayWithNewIds(original[i % original.length]));
-              }
-              return { ...week, days: [...original, ...extra] };
+
+              return { ...week, days };
             });
             return { ...p, weeks };
           }),
