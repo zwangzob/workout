@@ -44,14 +44,14 @@ export const radii = {
 } as const;
 
 export const typography = {
-  display: { fontSize: 32, fontWeight: '800' as const, letterSpacing: -0.5 },
-  title: { fontSize: 22, fontWeight: '700' as const, letterSpacing: -0.3 },
-  headline: { fontSize: 17, fontWeight: '700' as const, letterSpacing: -0.2 },
-  body: { fontSize: 15, fontWeight: '500' as const },
-  bodyStrong: { fontSize: 15, fontWeight: '700' as const },
-  caption: { fontSize: 13, fontWeight: '500' as const },
-  micro: { fontSize: 11, fontWeight: '700' as const, letterSpacing: 0.5 },
-  statValue: { fontSize: 26, fontWeight: '800' as const, letterSpacing: -0.5 },
+  display: { fontSize: 32, fontWeight: '700' as const, letterSpacing: 0 },
+  title: { fontSize: 22, fontWeight: '400' as const, letterSpacing: 0 },
+  headline: { fontSize: 18, fontWeight: '600' as const, letterSpacing: 0 },
+  body: { fontSize: 15, fontWeight: '400' as const },
+  bodyStrong: { fontSize: 15, fontWeight: '600' as const },
+  caption: { fontSize: 13, fontWeight: '400' as const },
+  micro: { fontSize: 11, fontWeight: '600' as const, letterSpacing: 0.4 },
+  statValue: { fontSize: 26, fontWeight: '700' as const, letterSpacing: 0 },
 } as const;
 
 export const shadow = {

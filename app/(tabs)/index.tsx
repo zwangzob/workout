@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { router } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
@@ -18,6 +18,7 @@ import { useGymStore } from '@/store/gymStore';
 import { useSessionStore } from '@/store/sessionStore';
 
 export default function TodayScreen() {
+  const insets = useSafeAreaInsets();
   const program = useProgramStore((s) => s.getActiveProgram());
   const cursor = useProgramStore((s) => s.cursor);
   const setCursor = useProgramStore((s) => s.setCursor);
@@ -74,7 +75,7 @@ export default function TodayScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <View pointerEvents="box-none" style={styles.toastSlot}>
+      <View pointerEvents="box-none" style={[styles.toastSlot, { top: insets.top + spacing.sm }]}>
         <Toast message={toastMessage} onHide={() => setToastMessage(null)} />
       </View>
 
@@ -82,9 +83,7 @@ export default function TodayScreen() {
         <View style={styles.header}>
           <View>
             <Text style={styles.weekRange}>{formatWeekRange()}</Text>
-            <Text style={styles.programName}>
-              {program.name} · Week {week.weekNumber}
-            </Text>
+            <Text style={styles.programName}>Week {week.weekNumber}</Text>
           </View>
           <Pressable onPress={() => setConfigOpen(true)} hitSlop={8}>
             <View style={styles.calendarIcon}>
@@ -196,7 +195,6 @@ const styles = StyleSheet.create({
   },
   toastSlot: {
     position: 'absolute',
-    top: spacing.sm,
     left: spacing.lg,
     right: spacing.lg,
     zIndex: 10,
