@@ -32,9 +32,7 @@ export function ProgramBlockPreview({ block, blockNumber }: { block: ProgramBloc
               </View>
               {showConnector ? <View style={styles.connector} /> : null}
             </View>
-            <Text style={styles.name} numberOfLines={1}>
-              {info.name}
-            </Text>
+            <Text style={styles.name}>{info.name}</Text>
             <Text style={styles.target}>
               {ex.targetSets}x{ex.targetReps}
             </Text>
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: spacing.sm,
   },
   badgeColumn: {
@@ -68,23 +66,23 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   badge: {
-    minWidth: 32,
-    height: 32,
-    paddingHorizontal: spacing.xs,
-    borderRadius: radii.full,
+    minWidth: 26,
+    height: 22,
+    paddingHorizontal: 5,
+    borderRadius: radii.sm,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },
   badgeText: {
-    ...typography.caption,
-    fontWeight: '700',
+    fontSize: 11,
+    fontWeight: '600',
     color: colors.textInverse,
   },
   connector: {
     flex: 1,
-    width: 2,
-    backgroundColor: colors.accentMuted,
+    width: 1.5,
+    backgroundColor: colors.accent,
     marginTop: 2,
   },
   name: {
