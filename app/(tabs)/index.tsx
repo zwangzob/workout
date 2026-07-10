@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
+    borderTopColor: colors.borderStrong,
   },
   emptyState: {
     flex: 1,
