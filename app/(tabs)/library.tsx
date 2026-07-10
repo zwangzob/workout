@@ -25,7 +25,7 @@ export default function LibraryScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.title}>Library</Text>
+        <Text style={styles.title}>Resources</Text>
         <Pressable onPress={() => router.push('/exercise/new')} style={styles.addButton} hitSlop={8}>
           <Ionicons name="add" size={22} color={colors.textInverse} />
         </Pressable>

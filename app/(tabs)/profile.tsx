@@ -28,7 +28,7 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text style={styles.screenTitle}>Profile</Text>
+        <Text style={styles.screenTitle}>Settings</Text>
 
         <Section
           title="Gym Profiles"

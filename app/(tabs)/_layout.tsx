@@ -19,29 +19,29 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Today',
+          title: 'Home',
           tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="library"
         options={{
-          title: 'Library',
-          tabBarIcon: ({ color, size }) => <Ionicons name="barbell" color={color} size={size} />,
+          title: 'Resources',
+          tabBarIcon: ({ color, size }) => <Ionicons name="play-circle-outline" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="progress"
         options={{
-          title: 'Progress',
-          tabBarIcon: ({ color, size }) => <Ionicons name="stats-chart" color={color} size={size} />,
+          title: 'Journal',
+          tabBarIcon: ({ color, size }) => <Ionicons name="book-outline" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => <Ionicons name="person-circle" color={color} size={size} />,
+          title: 'Settings',
+          tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" color={color} size={size} />,
         }}
       />
     </Tabs>

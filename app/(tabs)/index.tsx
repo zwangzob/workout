@@ -9,10 +9,11 @@ import { SegmentedControl } from '@/components/SegmentedControl';
 import { DaySelector } from '@/components/DaySelector';
 import { ProgramBlockPreview } from '@/components/ProgramBlockPreview';
 import { ConfigurationSheet } from '@/components/ConfigurationSheet';
+import { OptionalSessionToggle } from '@/components/OptionalSessionToggle';
 import { Toast } from '@/components/Toast';
 import { getDayEmoji } from '@/lib/dayEmoji';
 import { formatWeekRange } from '@/lib/dateRange';
-import { colors, radii, spacing, typography } from '@/theme/theme';
+import { colors, radii, shadow, spacing, typography } from '@/theme/theme';
 import { useProgramStore } from '@/store/programStore';
 import { useGymStore } from '@/store/gymStore';
 import { useSessionStore } from '@/store/sessionStore';
@@ -28,6 +29,8 @@ export default function TodayScreen() {
 
   const [configOpen, setConfigOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [warmupEnabled, setWarmupEnabled] = useState(false);
+  const [conditioningEnabled, setConditioningEnabled] = useState(false);
 
   const profiles = useGymStore((s) => s.profiles);
   const activeProfileId = useGymStore((s) => s.activeProfileId);
@@ -121,19 +124,36 @@ export default function TodayScreen() {
           </Card>
         ) : (
           <>
+            <OptionalSessionToggle
+              label="Warm Up"
+              description="5-8 min dynamic stretches + light cardio to raise heart rate before working sets."
+              value={warmupEnabled}
+              onChange={setWarmupEnabled}
+            />
+            <OptionalSessionToggle
+              label="Conditioning"
+              description="10 min finisher circuit after your last working set."
+              value={conditioningEnabled}
+              onChange={setConditioningEnabled}
+            />
             {day.blocks.map((block, idx) => (
               <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />
             ))}
-            <Button
-              label={inProgressSession ? 'Resume Workout' : 'Start Workout'}
-              onPress={handleStart}
-              size="lg"
-              style={{ marginTop: spacing.sm }}
-              icon={<Ionicons name="arrow-forward" size={18} color={colors.textInverse} />}
-            />
           </>
         )}
       </ScrollView>
+
+      {!day.isRestDay ? (
+        <View style={[styles.stickyFooter, { paddingBottom: insets.bottom > 0 ? insets.bottom : spacing.md }]}>
+          <Pressable
+            onPress={handleStart}
+            style={({ pressed }) => [styles.startPill, pressed && styles.startPillPressed]}
+          >
+            <Text style={styles.startPillLabel}>{inProgressSession ? 'Resume Workout' : 'Start Workout'}</Text>
+            <Ionicons name="chevron-forward" size={20} color={colors.textInverse} />
+          </Pressable>
+        </View>
+      ) : null}
 
       <ConfigurationSheet
         visible={configOpen}
@@ -156,7 +176,32 @@ const styles = StyleSheet.create({
   content: {
     padding: spacing.lg,
     gap: spacing.lg,
-    paddingBottom: spacing.xxxl,
+    paddingBottom: spacing.xxxl * 2,
+  },
+  stickyFooter: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
+  },
+  startPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    backgroundColor: colors.accent,
+    borderRadius: radii.full,
+    paddingVertical: spacing.md + 2,
+    ...shadow.card,
+  },
+  startPillPressed: {
+    opacity: 0.85,
+  },
+  startPillLabel: {
+    ...typography.bodyStrong,
+    color: colors.textInverse,
   },
   header: {
     flexDirection: 'row',

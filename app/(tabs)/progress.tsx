@@ -89,7 +89,7 @@ export default function ProgressScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text style={styles.screenTitle}>Progress</Text>
+        <Text style={styles.screenTitle}>Journal</Text>
 
         <View style={styles.statRow}>
           <StatTile label="Workouts" value={String(completedSessions.length)} />
