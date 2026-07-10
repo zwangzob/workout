@@ -6,6 +6,8 @@ export const colors = {
   border: '#E4E2DB',
   borderSubtle: '#ECEAE4',
   borderStrong: '#A8A395',
+  borderCool: '#DCE1E8',
+  borderLavender: '#C9C3DE',
 
   textPrimary: '#1C1B1F',
   textSecondary: '#6F6E76',

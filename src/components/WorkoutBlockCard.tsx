@@ -9,6 +9,7 @@ import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
+import { useActiveBlockStore } from '@/store/activeBlockStore';
 import { BLOCK_TYPE_LABELS, blockExerciseBadge, formatSetGroups } from '@/types';
 import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
 
@@ -34,15 +35,23 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
   const [notesOpen, setNotesOpen] = useState(false);
   const getExercise = useExerciseStore((s) => s.getExercise);
   const toggleSetComplete = useSessionStore((s) => s.toggleSetComplete);
+  const setActiveBlockId = useActiveBlockStore((s) => s.setActiveBlockId);
   const isGroup = block.exercises.length > 1;
   const allComplete = block.exercises.every((ex) => ex.sets.every((s) => s.completedAt));
   const notes = getExercise(block.exercises[0]?.exerciseId)?.notes;
 
+  function toggleExpanded() {
+    setExpanded((e) => {
+      if (!e) setActiveBlockId(block.id);
+      return !e;
+    });
+  }
+
   return (
     <Card style={styles.blockCard} elevated>
       <View style={styles.groupHeader}>
-        <Pressable style={styles.groupHeaderLeft} onPress={() => setExpanded((e) => !e)} hitSlop={8}>
-          <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={16} color={colors.textPrimary} />
+        <Pressable style={styles.groupHeaderLeft} onPress={toggleExpanded} hitSlop={8}>
+          <Ionicons name={expanded ? 'caret-up' : 'caret-down'} size={22} color={colors.textPrimary} />
           <Text style={styles.groupLabel}>{BLOCK_TYPE_LABELS[block.type].toUpperCase()}</Text>
         </Pressable>
         <View style={[styles.doneWidget, allComplete && styles.doneWidgetSuccess]}>
@@ -133,7 +142,7 @@ function CompactExerciseRow({
           {exercise.sets.map((set) => (
             <Pressable key={set.id} onPress={() => toggleSetComplete(sessionId, blockId, exercise.id, set.id)}>
               <View style={[styles.checkCircleSmall, set.completedAt && styles.checkCircleDone]}>
-                <Ionicons name="checkmark" size={12} color={colors.textInverse} />
+                <Ionicons name="checkmark" size={18} color={colors.textInverse} />
               </View>
             </Pressable>
           ))}
@@ -382,11 +391,11 @@ const styles = StyleSheet.create({
   },
   headerDivider: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.borderSubtle,
+    borderTopColor: colors.borderStrong,
   },
   groupLabel: {
     fontSize: 17,
-    fontWeight: '500',
+    fontWeight: '600',
     letterSpacing: 0.4,
     color: colors.textPrimary,
   },
@@ -411,7 +420,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: radii.full,
-    backgroundColor: colors.border,
+    backgroundColor: colors.borderCool,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -460,7 +469,6 @@ const styles = StyleSheet.create({
   exerciseTitle: {
     ...typography.body,
     color: colors.textPrimary,
-    textDecorationLine: 'underline',
     flex: 1,
   },
   target: {
@@ -500,7 +508,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: colors.border,
+    borderColor: colors.borderCool,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -531,7 +539,7 @@ const styles = StyleSheet.create({
     height: 22,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: colors.border,
+    borderColor: colors.borderCool,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { WorkoutBlockCard } from '@/components/WorkoutBlockCard';
 import { RestTimerBar } from '@/components/RestTimerBar';
+import { WorkoutFloatingToolbar } from '@/components/WorkoutFloatingToolbar';
 import { getDayEmoji } from '@/lib/dayEmoji';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useSessionStore } from '@/store/sessionStore';
@@ -87,6 +88,7 @@ export default function WorkoutSessionScreen() {
       </ScrollView>
 
       <RestTimerBar />
+      <WorkoutFloatingToolbar blocks={session.blocks} />
     </SafeAreaView>
   );
 }

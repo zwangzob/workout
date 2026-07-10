@@ -1,4 +1,4 @@
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TextStyle, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 
@@ -11,6 +11,10 @@ type BottomSheetProps = {
   rightLabel?: string;
   rightIcon?: React.ReactNode;
   onRightPress?: () => void;
+  handleColor?: string;
+  handleSpacing?: number;
+  titleColor?: string;
+  titleWeight?: TextStyle['fontWeight'];
 };
 
 export function BottomSheet({
@@ -22,6 +26,10 @@ export function BottomSheet({
   rightLabel = 'Done',
   rightIcon,
   onRightPress,
+  handleColor,
+  handleSpacing,
+  titleColor,
+  titleWeight,
 }: BottomSheetProps) {
   const insets = useSafeAreaInsets();
 
@@ -29,13 +37,24 @@ export function BottomSheet({
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <Pressable style={styles.overlay} onPress={onClose} />
       <View style={[styles.sheet, { maxHeight: `${maxHeightRatio * 100}%`, paddingBottom: insets.bottom + spacing.lg }]}>
-        <View style={styles.handle} />
+        <View style={[styles.handle, handleColor ? { backgroundColor: handleColor } : null, handleSpacing != null ? { marginBottom: handleSpacing } : null]} />
         <View style={styles.header}>
-          <Text style={styles.title}>{title}</Text>
-          <Pressable onPress={onRightPress ?? onClose} hitSlop={12} style={styles.rightAction}>
-            {rightIcon}
-            <Text style={styles.done}>{rightLabel}</Text>
-          </Pressable>
+          <Text
+            style={[
+              styles.title,
+              !rightLabel && styles.titleCentered,
+              titleColor ? { color: titleColor } : null,
+              titleWeight ? { fontWeight: titleWeight } : null,
+            ]}
+          >
+            {title}
+          </Text>
+          {rightLabel ? (
+            <Pressable onPress={onRightPress ?? onClose} hitSlop={12} style={styles.rightAction}>
+              {rightIcon}
+              <Text style={styles.done}>{rightLabel}</Text>
+            </Pressable>
+          ) : null}
         </View>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           {children}
@@ -78,6 +97,10 @@ const styles = StyleSheet.create({
   title: {
     ...typography.headline,
     color: colors.textPrimary,
+  },
+  titleCentered: {
+    flex: 1,
+    textAlign: 'center',
   },
   rightAction: {
     flexDirection: 'row',
