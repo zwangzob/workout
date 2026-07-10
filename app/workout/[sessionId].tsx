@@ -1,21 +1,23 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { WorkoutBlockCard } from '@/components/WorkoutBlockCard';
 import { RestTimerBar } from '@/components/RestTimerBar';
 import { getDayEmoji } from '@/lib/dayEmoji';
-import { colors, spacing, typography } from '@/theme/theme';
+import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useSessionStore } from '@/store/sessionStore';
 import { useProgramStore } from '@/store/programStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
 
 export default function WorkoutSessionScreen() {
+  const insets = useSafeAreaInsets();
   const { sessionId } = useLocalSearchParams<{ sessionId: string }>();
   const session = useSessionStore((s) => s.sessions.find((sess) => sess.id === sessionId));
   const completeSession = useSessionStore((s) => s.completeSession);
   const discardSession = useSessionStore((s) => s.discardSession);
+  const program = useProgramStore((s) => s.programs.find((p) => p.id === session?.programId));
   const advanceCursor = useProgramStore((s) => s.advanceCursor);
   const dismissTimer = useRestTimerStore((s) => s.dismiss);
 
@@ -42,24 +44,39 @@ export default function WorkoutSessionScreen() {
     router.back();
   }
 
-  const totalSets = session.blocks.flatMap((b) => b.exercises).flatMap((e) => e.sets);
-  const completedSets = totalSets.filter((s) => s.completedAt).length;
+  let dayNumber: number | undefined;
+  for (const week of program?.weeks ?? []) {
+    const idx = week.days.findIndex((d) => d.id === session.programDayId);
+    if (idx !== -1) {
+      dayNumber = idx + 1;
+      break;
+    }
+  }
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top']}>
-      <View style={styles.header}>
-        <Pressable onPress={handleClose} hitSlop={12}>
-          <Ionicons name="chevron-down" size={26} color={colors.textPrimary} />
-        </Pressable>
-        <View style={styles.headerCenter}>
-          <Text style={styles.title}>
-            {getDayEmoji(session.dayLabel)} {session.dayLabel} {getDayEmoji(session.dayLabel)}
-          </Text>
-          <Text style={styles.subtitle}>
-            {completedSets}/{totalSets.length} sets logged
+    <SafeAreaView style={styles.safe} edges={[]}>
+      <View style={styles.hero}>
+        <Text style={styles.heroEmoji}>{getDayEmoji(session.dayLabel)}</Text>
+
+        <View style={[styles.heroTopRow, { paddingTop: insets.top + spacing.sm }]}>
+          <Pressable onPress={handleClose} hitSlop={12} style={styles.heroIconButton}>
+            <Ionicons name="chevron-down" size={22} color={colors.textPrimary} />
+          </Pressable>
+          <View style={styles.heroIconButton}>
+            <Ionicons name="settings" size={18} color={colors.accent} />
+          </View>
+        </View>
+
+        <View style={styles.heroBottom}>
+          {dayNumber != null ? (
+            <View style={styles.dayBadge}>
+              <Text style={styles.dayBadgeText}>Day {dayNumber}</Text>
+            </View>
+          ) : null}
+          <Text style={styles.heroTitle}>
+            {getDayEmoji(session.dayLabel)} {session.dayLabel}
           </Text>
         </View>
-        <View style={{ width: 26 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
@@ -79,24 +96,58 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  header: {
+  hero: {
+    backgroundColor: colors.textPrimary,
+    overflow: 'hidden',
+    paddingBottom: spacing.lg,
+  },
+  heroEmoji: {
+    position: 'absolute',
+    fontSize: 160,
+    opacity: 0.15,
+    top: -20,
+    right: -20,
+  },
+  heroTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
   },
-  headerCenter: {
+  heroIconButton: {
+    width: 36,
+    height: 36,
+    borderRadius: radii.full,
+    backgroundColor: colors.surface,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroBottom: {
+    alignItems: 'center',
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.xl,
+    gap: spacing.xs,
+  },
+  dayBadge: {
+    backgroundColor: 'rgba(255,255,255,0.16)',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: radii.full,
+  },
+  dayBadgeText: {
+    ...typography.caption,
+    fontWeight: '600',
+    color: colors.textInverse,
+  },
+  heroTitle: {
+    ...typography.display,
+    fontSize: 26,
+    color: colors.textInverse,
+    textAlign: 'center',
   },
   title: {
     ...typography.headline,
     color: colors.textPrimary,
-  },
-  subtitle: {
-    ...typography.caption,
-    color: colors.textSecondary,
-    marginTop: 2,
   },
   content: {
     padding: spacing.lg,

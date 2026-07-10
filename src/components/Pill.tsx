@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
 const toneStyles = StyleSheet.create({
   neutral: { backgroundColor: colors.surfaceSunken },
   accent: { backgroundColor: colors.accent },
-  success: { backgroundColor: colors.successMuted },
+  success: { backgroundColor: colors.success },
 });
 
 const toneLabelStyles = StyleSheet.create({
   neutral: { color: colors.textSecondary },
   accent: { color: colors.textInverse },
-  success: { color: colors.success },
+  success: { color: colors.textInverse },
 });

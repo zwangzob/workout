@@ -66,7 +66,7 @@ export const SPLIT_TYPE_LABELS: Record<SplitType, string> = {
 };
 
 export const BLOCK_TYPE_LABELS: Record<BlockType, string> = {
-  single: 'Exercise',
+  single: 'Primary',
   superset: 'Superset',
   giant_set: 'Giant Set',
 };

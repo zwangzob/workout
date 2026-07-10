@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   weekRange: {
-    ...typography.title,
+    ...typography.headline,
     color: colors.textPrimary,
   },
   programName: {

@@ -10,7 +10,7 @@ import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
 import { BLOCK_TYPE_LABELS, blockExerciseBadge, formatSetGroups } from '@/types';
-import type { LoggedSet, SessionBlock } from '@/types';
+import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
 
 type WorkoutBlockCardProps = {
   sessionId: string;
@@ -25,36 +25,121 @@ function formatRest(seconds: number): string {
   return `${min.toFixed(1)} min`;
 }
 
+function hasAmrap(setGroups: SetGroup[]): boolean {
+  return setGroups.some((g) => /\+|amrap/i.test(g.reps));
+}
+
 export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlockCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const getExercise = useExerciseStore((s) => s.getExercise);
+  const toggleSetComplete = useSessionStore((s) => s.toggleSetComplete);
   const isGroup = block.exercises.length > 1;
   const allComplete = block.exercises.every((ex) => ex.sets.every((s) => s.completedAt));
+  const notes = getExercise(block.exercises[0]?.exerciseId)?.notes;
 
   return (
     <Card style={styles.blockCard} elevated>
-      {isGroup ? (
-        <View style={styles.groupHeader}>
+      <View style={styles.groupHeader}>
+        <Pressable style={styles.groupHeaderLeft} onPress={() => setExpanded((e) => !e)} hitSlop={8}>
+          <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={16} color={colors.textPrimary} />
           <Text style={styles.groupLabel}>{BLOCK_TYPE_LABELS[block.type].toUpperCase()}</Text>
-          {allComplete ? <Pill label="Done" tone="success" icon={<Ionicons name="checkmark" size={13} color={colors.success} />} /> : null}
+        </Pressable>
+        <View style={[styles.doneWidget, allComplete && styles.doneWidgetSuccess]}>
+          <Text style={[styles.doneLabel, allComplete && styles.doneLabelSuccess]}>Done</Text>
+          <View style={styles.doneCircle}>
+            <Ionicons name="checkmark" size={11} color={allComplete ? colors.success : colors.surfaceSunken} />
+          </View>
         </View>
-      ) : null}
+      </View>
 
-      {block.exercises.map((ex, idx) => (
-        <ExerciseRow
-          key={ex.id}
-          sessionId={sessionId}
-          blockId={block.id}
-          exercise={ex}
-          badge={blockExerciseBadge(blockNumber, block, idx)}
-          showConnector={isGroup && idx < block.exercises.length - 1}
-          restSeconds={block.restSeconds}
-        />
-      ))}
+      {notes ? (
+        <Pressable onPress={() => setNotesOpen((o) => !o)} hitSlop={8}>
+          <View style={styles.readMoreRow}>
+            <Text style={styles.readMoreText}>Read more</Text>
+            <Ionicons name={notesOpen ? 'chevron-up' : 'chevron-down'} size={14} color={colors.accent} />
+          </View>
+        </Pressable>
+      ) : null}
+      {notesOpen && notes ? <Text style={styles.notesText}>{notes}</Text> : null}
+
+      <View style={styles.headerDivider} />
+
+      {block.exercises.map((ex, idx) =>
+        expanded ? (
+          <ExerciseRow
+            key={ex.id}
+            sessionId={sessionId}
+            blockId={block.id}
+            exercise={ex}
+            badge={blockExerciseBadge(blockNumber, block, idx)}
+            showConnector={isGroup && idx < block.exercises.length - 1}
+            restSeconds={block.restSeconds}
+          />
+        ) : (
+          <CompactExerciseRow
+            key={ex.id}
+            sessionId={sessionId}
+            blockId={block.id}
+            exercise={ex}
+            badge={blockExerciseBadge(blockNumber, block, idx)}
+            showConnector={isGroup && idx < block.exercises.length - 1}
+            toggleSetComplete={toggleSetComplete}
+          />
+        ),
+      )}
 
       <View style={styles.restRow}>
-        <Ionicons name="watch-outline" size={16} color={colors.textTertiary} />
+        <Ionicons name="timer-outline" size={16} color={colors.textTertiary} />
         <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
       </View>
     </Card>
+  );
+}
+
+function CompactExerciseRow({
+  sessionId,
+  blockId,
+  exercise,
+  badge,
+  showConnector,
+  toggleSetComplete,
+}: {
+  sessionId: string;
+  blockId: string;
+  exercise: SessionBlock['exercises'][number];
+  badge: string;
+  showConnector: boolean;
+  toggleSetComplete: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
+}) {
+  const getExercise = useExerciseStore((s) => s.getExercise);
+  const exerciseInfo = getExercise(exercise.exerciseId);
+  if (!exerciseInfo) return null;
+
+  return (
+    <View style={styles.compactRow}>
+      <View style={styles.letterColumn}>
+        <View style={[styles.letterBadge, badge.length > 1 && styles.letterBadgeOval]}>
+          <Text style={styles.letterBadgeText}>{badge}</Text>
+        </View>
+        {showConnector ? <View style={styles.connector} /> : null}
+      </View>
+      <View style={styles.compactContent}>
+        <View style={styles.compactTitleRow}>
+          <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
+          <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
+        </View>
+        <View style={styles.compactCheckRow}>
+          {exercise.sets.map((set) => (
+            <Pressable key={set.id} onPress={() => toggleSetComplete(sessionId, blockId, exercise.id, set.id)}>
+              <View style={[styles.checkCircleSmall, set.completedAt && styles.checkCircleDone]}>
+                <Ionicons name="checkmark" size={12} color={colors.textInverse} />
+              </View>
+            </Pressable>
+          ))}
+        </View>
+      </View>
+    </View>
   );
 }
 
@@ -78,6 +163,7 @@ function ExerciseRow({
   const logSet = useSessionStore((s) => s.logSet);
   const rawToggleSetComplete = useSessionStore((s) => s.toggleSetComplete);
   const addSet = useSessionStore((s) => s.addSet);
+  const removeSet = useSessionStore((s) => s.removeSet);
   const swapExercise = useSessionStore((s) => s.swapExercise);
   const getHistoryForExercise = useSessionStore((s) => s.getHistoryForExercise);
   const startRestTimer = useRestTimerStore((s) => s.start);
@@ -99,36 +185,40 @@ function ExerciseRow({
 
   const warmupSets = exercise.sets.filter((s) => s.isWarmup);
   const workingSets = exercise.sets.filter((s) => !s.isWarmup);
+  const lastWarmup = warmupSets[warmupSets.length - 1];
+  const lastWorking = workingSets[workingSets.length - 1];
 
   return (
     <View style={styles.exerciseRow}>
       <View style={styles.letterColumn}>
-        <View style={styles.letterBadge}>
+        <View style={[styles.letterBadge, badge.length > 1 && styles.letterBadgeOval]}>
           <Text style={styles.letterBadgeText}>{badge}</Text>
         </View>
         {showConnector ? <View style={styles.connector} /> : null}
       </View>
 
       <View style={styles.exerciseContent}>
+        <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
+        {lastEntry ? (
+          <Text style={styles.lastPerformance}>
+            Last: {lastEntry.reps} x {lastEntry.weight} lb
+          </Text>
+        ) : null}
+
         <View style={styles.exerciseHeader}>
-          <ExerciseThumbnail muscle={exerciseInfo.primaryMuscle} size={48} />
-          <View style={styles.exerciseTitleBlock}>
-            <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
-            <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
-            {lastEntry ? (
-              <Text style={styles.lastPerformance}>
-                Last: {lastEntry.reps} x {lastEntry.weight} lb
-              </Text>
-            ) : null}
-          </View>
+          <ExerciseThumbnail muscle={exerciseInfo.primaryMuscle} size={64} />
+          <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
         </View>
 
         <View style={styles.actionRow}>
           <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textSecondary} />} onPress={() => setSubstituteOpen(true)} />
+          {hasAmrap(exercise.setGroups) ? (
+            <Pill label="AMRAP" icon={<Ionicons name="information-circle-outline" size={14} color={colors.textSecondary} />} />
+          ) : null}
         </View>
 
         <View style={styles.columnHeaders}>
-          <Text style={[styles.columnHeaderText, styles.setCol]}>Set</Text>
+          <Text style={[styles.columnHeaderText, styles.setCol]}>Sets</Text>
           <Text style={[styles.columnHeaderText, styles.repsCol]}>Reps</Text>
           <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
         </View>
@@ -136,22 +226,36 @@ function ExerciseRow({
         {warmupSets.map((set) => (
           <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
         ))}
-        <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.addRow}>
-          <View style={styles.addCircle}>
-            <Ionicons name="add" size={14} color={colors.accent} />
-          </View>
+        <View style={styles.addRow}>
+          <Pressable
+            disabled={!lastWarmup}
+            onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
+            style={[styles.stepCircle, !lastWarmup && styles.stepCircleDisabled]}
+          >
+            <Ionicons name="remove" size={14} color={lastWarmup ? colors.textSecondary : colors.textTertiary} />
+          </Pressable>
           <Text style={styles.addLabel}>Add Warm Up</Text>
-        </Pressable>
+          <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
+            <Ionicons name="add" size={14} color={colors.accent} />
+          </Pressable>
+        </View>
 
         {workingSets.map((set, i) => (
           <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} index={i + 1} logSet={logSet} toggleSetComplete={toggleSetComplete} />
         ))}
-        <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, false)} style={styles.addRow}>
-          <View style={styles.addCircle}>
-            <Ionicons name="add" size={14} color={colors.accent} />
-          </View>
+        <View style={styles.addRow}>
+          <Pressable
+            disabled={!lastWorking}
+            onPress={() => lastWorking && removeSet(sessionId, blockId, exercise.id, lastWorking.id)}
+            style={[styles.stepCircle, !lastWorking && styles.stepCircleDisabled]}
+          >
+            <Ionicons name="remove" size={14} color={lastWorking ? colors.textSecondary : colors.textTertiary} />
+          </Pressable>
           <Text style={styles.addLabel}>Add Set</Text>
-        </Pressable>
+          <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, false)} style={styles.stepCircleAccent}>
+            <Ionicons name="add" size={14} color={colors.accent} />
+          </Pressable>
+        </View>
       </View>
 
       <SubstituteSheet
@@ -229,9 +333,87 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  doneWidget: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.md,
+    borderRadius: radii.full,
+    backgroundColor: colors.surfaceSunken,
+  },
+  doneWidgetSuccess: {
+    backgroundColor: colors.success,
+  },
+  doneLabel: {
+    ...typography.caption,
+    fontWeight: '500',
+    color: colors.textSecondary,
+  },
+  doneLabelSuccess: {
+    color: colors.textInverse,
+  },
+  doneCircle: {
+    width: 18,
+    height: 18,
+    borderRadius: radii.full,
+    backgroundColor: colors.textPrimary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  groupHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  readMoreRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  readMoreText: {
+    ...typography.caption,
+    color: colors.accent,
+    fontWeight: '500',
+  },
+  notesText: {
+    ...typography.body,
+    color: colors.textSecondary,
+  },
+  headerDivider: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.borderSubtle,
+  },
   groupLabel: {
-    ...typography.micro,
+    fontSize: 17,
+    fontWeight: '500',
+    letterSpacing: 0.4,
     color: colors.textPrimary,
+  },
+  compactRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  compactContent: {
+    flex: 1,
+    gap: spacing.sm,
+  },
+  compactTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: spacing.sm,
+  },
+  compactCheckRow: {
+    flexDirection: 'row',
+    gap: spacing.xl,
+  },
+  checkCircleSmall: {
+    width: 22,
+    height: 22,
+    borderRadius: radii.full,
+    backgroundColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   exerciseRow: {
     flexDirection: 'row',
@@ -241,13 +423,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   letterBadge: {
-    minWidth: 24,
-    height: 18,
-    paddingHorizontal: 6,
+    width: 26,
+    height: 26,
     borderRadius: radii.full,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  letterBadgeOval: {
+    width: undefined,
+    minWidth: 24,
+    height: 18,
+    paddingHorizontal: 6,
   },
   letterBadgeText: {
     ...typography.body,
@@ -266,26 +453,24 @@ const styles = StyleSheet.create({
   },
   exerciseHeader: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     gap: spacing.md,
-  },
-  exerciseTitleBlock: {
-    flex: 1,
-    justifyContent: 'center',
   },
   exerciseTitle: {
     ...typography.body,
     color: colors.textPrimary,
     textDecorationLine: 'underline',
+    flex: 1,
   },
   target: {
     ...typography.caption,
     color: colors.textSecondary,
-    marginTop: 2,
+    textAlign: 'right',
   },
   lastPerformance: {
     ...typography.caption,
     color: colors.accent,
-    marginTop: 2,
   },
   actionRow: {
     flexDirection: 'row',
@@ -341,7 +526,19 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     paddingVertical: spacing.xs,
   },
-  addCircle: {
+  stepCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: radii.full,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stepCircleDisabled: {
+    opacity: 0.5,
+  },
+  stepCircleAccent: {
     width: 22,
     height: 22,
     borderRadius: radii.full,
@@ -353,6 +550,8 @@ const styles = StyleSheet.create({
   addLabel: {
     ...typography.caption,
     color: colors.textSecondary,
+    flex: 1,
+    textAlign: 'center',
   },
   restRow: {
     flexDirection: 'row',

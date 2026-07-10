@@ -76,9 +76,11 @@ const styles = StyleSheet.create({
   },
   connector: {
     flex: 1,
+    minHeight: 12,
     width: 1.5,
     backgroundColor: colors.accent,
     marginTop: 2,
+    marginBottom: -spacing.sm,
   },
   name: {
     ...typography.body,
