@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Program, ProgramDay } from '@/types';
 import { generateId } from '@/lib/id';
 import { SEED_PROGRAM } from '@/data/seedProgram';
+import { SEED_MAY_BLOCK } from '@/data/seedMayBlock';
 import { CORE_DAY, HIP_THRUST_DAY } from '@/data/seedExtraDays';
 
 function cloneDayWithNewIds(day: ProgramDay): ProgramDay {
@@ -150,9 +151,26 @@ export const useProgramStore = create<ProgramStore>()(
       storage: createJSONStorage(() => AsyncStorage),
       merge: (persistedState, currentState) => {
         const persisted = (persistedState ?? {}) as Partial<ProgramStore>;
-        const programs = persisted.programs ?? [];
-        const hasSeed = programs.some((p) => p.id === SEED_PROGRAM.id);
-        if (hasSeed) {
+        let programs = persisted.programs ?? [];
+        let activeProgramId = persisted.activeProgramId ?? null;
+        let injected = false;
+
+        if (!programs.some((p) => p.id === SEED_PROGRAM.id)) {
+          programs = [SEED_PROGRAM, ...programs];
+          activeProgramId = SEED_PROGRAM.id;
+          injected = true;
+        }
+
+        // Injected after SEED_PROGRAM so it wins as the active program on fresh
+        // installs too, without disturbing an already-persisted install's state
+        // beyond adding this program and switching to it.
+        if (!programs.some((p) => p.id === SEED_MAY_BLOCK.id)) {
+          programs = [...programs, SEED_MAY_BLOCK];
+          activeProgramId = SEED_MAY_BLOCK.id;
+          injected = true;
+        }
+
+        if (!injected) {
           return {
             ...currentState,
             ...persisted,
@@ -164,8 +182,8 @@ export const useProgramStore = create<ProgramStore>()(
         return {
           ...currentState,
           ...persisted,
-          programs: [SEED_PROGRAM, ...programs],
-          activeProgramId: SEED_PROGRAM.id,
+          programs,
+          activeProgramId,
           cursor: { weekIndex: 0, dayIndex: 0 },
           cycleStartedAt: new Date().toISOString(),
         } as ProgramStore;

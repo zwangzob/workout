@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LoggedSet, Program, ProgramDay, SessionBlock, WorkoutSession } from '@/types';
+import { LoggedSet, Program, ProgramDay, SessionBlock, SetGroup, WorkoutSession } from '@/types';
+import { totalSets } from '@/types/program';
 import { generateId } from '@/lib/id';
 import { SEED_SESSIONS } from '@/data/seedHistory';
 
-function buildSetsForBlock(targetSets: number): LoggedSet[] {
-  return Array.from({ length: targetSets }, (_, i) => ({
+function buildSetsForBlock(setGroups: SetGroup[]): LoggedSet[] {
+  return Array.from({ length: totalSets(setGroups) }, (_, i) => ({
     id: generateId('set'),
     setIndex: i,
     isWarmup: false,
@@ -25,10 +26,8 @@ function buildSessionFromDay(program: Program, day: ProgramDay): WorkoutSession 
     exercises: block.exercises.map((ex) => ({
       id: generateId('sex'),
       exerciseId: ex.exerciseId,
-      targetSets: ex.targetSets,
-      targetReps: ex.targetReps,
-      targetLoad: ex.targetLoad,
-      sets: buildSetsForBlock(ex.targetSets),
+      setGroups: ex.setGroups,
+      sets: buildSetsForBlock(ex.setGroups),
     })),
   }));
 

@@ -2,12 +2,29 @@ export type SplitType = 'full_body' | 'upper_lower' | 'push_pull_legs' | 'bro_sp
 
 export type BlockType = 'single' | 'superset' | 'giant_set';
 
+/** One rep/load scheme within an exercise, e.g. "3x4 @85%". Most exercises have a
+ * single group; percentage-based lifts with an AMRAP backoff set (e.g. "3x4@85%,
+ * then 1x4+@85%") use two groups in sequence. */
+export interface SetGroup {
+  sets: number;
+  reps: string; // e.g. "8-10", "5", "4+" (AMRAP), "40s", "AMRAP"
+  load?: string; // free text, e.g. "RPE 8", "70%", "85%"
+}
+
 export interface ProgramExercise {
   id: string;
   exerciseId: string;
-  targetSets: number;
-  targetReps: string; // e.g. "8-10" or "5"
-  targetLoad?: string; // free text, e.g. "RPE 8" or "70% 1RM"
+  setGroups: SetGroup[];
+}
+
+/** Renders an exercise's set groups as a compact line, e.g. "3x4 @85%, 1x4+ @85%". */
+export function formatSetGroups(setGroups: SetGroup[]): string {
+  return setGroups.map((g) => `${g.sets}x${g.reps}${g.load ? ` @${g.load}` : ''}`).join(', ');
+}
+
+/** Total logged sets an exercise's set groups expand to (sum across all groups). */
+export function totalSets(setGroups: SetGroup[]): number {
+  return setGroups.reduce((sum, g) => sum + g.sets, 0);
 }
 
 /** A block is one lettered group on the day screen: a single lift, or a superset/giant set of 2+ lifts sharing one rest window. */

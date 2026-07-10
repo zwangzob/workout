@@ -1,4 +1,4 @@
-import { BlockType } from '@/types/program';
+import { BlockType, SetGroup } from '@/types/program';
 
 export interface LoggedSet {
   id: string;
@@ -14,9 +14,7 @@ export interface SessionExercise {
   id: string;
   exerciseId: string;
   originalExerciseId?: string; // set when swapped from the program's default exercise
-  targetSets: number;
-  targetReps: string;
-  targetLoad?: string;
+  setGroups: SetGroup[];
   sets: LoggedSet[];
 }
 

@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
-import { BLOCK_TYPE_LABELS, ProgramBlock, blockExerciseBadge } from '@/types';
+import { BLOCK_TYPE_LABELS, ProgramBlock, blockExerciseBadge, formatSetGroups } from '@/types';
 
 function formatRest(seconds: number): string {
   const min = seconds / 60;
@@ -33,9 +33,7 @@ export function ProgramBlockPreview({ block, blockNumber }: { block: ProgramBloc
               {showConnector ? <View style={styles.connector} /> : null}
             </View>
             <Text style={styles.name}>{info.name}</Text>
-            <Text style={styles.target}>
-              {ex.targetSets}x{ex.targetReps}
-            </Text>
+            <Text style={styles.target}>{formatSetGroups(ex.setGroups)}</Text>
           </View>
         );
       })}

@@ -55,8 +55,7 @@ export function generateProgramDay(
           {
             id: generateId('pex'),
             exerciseId: exercise.id,
-            targetSets: isCompound ? 4 : 3,
-            targetReps: isCompound ? '6-8' : '10-12',
+            setGroups: [{ sets: isCompound ? 4 : 3, reps: isCompound ? '6-8' : '10-12' }],
           },
         ],
       });

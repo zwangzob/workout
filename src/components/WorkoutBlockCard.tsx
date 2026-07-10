@@ -9,7 +9,7 @@ import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
-import { BLOCK_TYPE_LABELS, blockExerciseBadge } from '@/types';
+import { BLOCK_TYPE_LABELS, blockExerciseBadge, formatSetGroups } from '@/types';
 import type { LoggedSet, SessionBlock } from '@/types';
 
 type WorkoutBlockCardProps = {
@@ -114,10 +114,7 @@ function ExerciseRow({
           <ExerciseThumbnail muscle={exerciseInfo.primaryMuscle} size={48} />
           <View style={styles.exerciseTitleBlock}>
             <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
-            <Text style={styles.target}>
-              {exercise.targetSets} x {exercise.targetReps}
-              {exercise.targetLoad ? ` @ ${exercise.targetLoad}` : ''}
-            </Text>
+            <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
             {lastEntry ? (
               <Text style={styles.lastPerformance}>
                 Last: {lastEntry.reps} x {lastEntry.weight} lb

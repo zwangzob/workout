@@ -21,7 +21,7 @@ export const SEED_PROGRAM: Program = {
               type: 'single',
               restSeconds: 180,
               exercises: [
-                { id: 'pex_seed_ohp', exerciseId: 'ex_overhead_press', targetSets: 4, targetReps: '7', targetLoad: '75%' },
+                { id: 'pex_seed_ohp', exerciseId: 'ex_overhead_press', setGroups: [{ sets: 4, reps: '7', load: '75%' }] },
               ],
             },
             {
@@ -29,8 +29,8 @@ export const SEED_PROGRAM: Program = {
               type: 'superset',
               restSeconds: 90,
               exercises: [
-                { id: 'pex_seed_deficit_dl', exerciseId: 'ex_deficit_deadlift', targetSets: 3, targetReps: '5', targetLoad: '80%' },
-                { id: 'pex_seed_face_pull_pause', exerciseId: 'ex_banded_face_pull_pause', targetSets: 3, targetReps: '15' },
+                { id: 'pex_seed_deficit_dl', exerciseId: 'ex_deficit_deadlift', setGroups: [{ sets: 3, reps: '5', load: '80%' }] },
+                { id: 'pex_seed_face_pull_pause', exerciseId: 'ex_banded_face_pull_pause', setGroups: [{ sets: 3, reps: '15' }] },
               ],
             },
             {
@@ -38,9 +38,9 @@ export const SEED_PROGRAM: Program = {
               type: 'giant_set',
               restSeconds: 60,
               exercises: [
-                { id: 'pex_seed_ham_curl', exerciseId: 'ex_single_leg_banded_ham_curl', targetSets: 2, targetReps: '40sec' },
-                { id: 'pex_seed_lat_raise', exerciseId: 'ex_lateral_raise', targetSets: 2, targetReps: '40sec' },
-                { id: 'pex_seed_oh_tricep', exerciseId: 'ex_overhead_tricep_ext', targetSets: 2, targetReps: 'AMRAP' },
+                { id: 'pex_seed_ham_curl', exerciseId: 'ex_single_leg_banded_ham_curl', setGroups: [{ sets: 2, reps: '40sec' }] },
+                { id: 'pex_seed_lat_raise', exerciseId: 'ex_lateral_raise', setGroups: [{ sets: 2, reps: '40sec' }] },
+                { id: 'pex_seed_oh_tricep', exerciseId: 'ex_overhead_tricep_ext', setGroups: [{ sets: 2, reps: 'AMRAP' }] },
               ],
             },
             {
@@ -48,8 +48,8 @@ export const SEED_PROGRAM: Program = {
               type: 'superset',
               restSeconds: 60,
               exercises: [
-                { id: 'pex_seed_ffe_split_squat', exerciseId: 'ex_ffe_split_squat', targetSets: 2, targetReps: '10/side' },
-                { id: 'pex_seed_wall_sit', exerciseId: 'ex_wall_sit', targetSets: 2, targetReps: '10sec' },
+                { id: 'pex_seed_ffe_split_squat', exerciseId: 'ex_ffe_split_squat', setGroups: [{ sets: 2, reps: '10/side' }] },
+                { id: 'pex_seed_wall_sit', exerciseId: 'ex_wall_sit', setGroups: [{ sets: 2, reps: '10sec' }] },
               ],
             },
           ],
@@ -63,7 +63,7 @@ export const SEED_PROGRAM: Program = {
               type: 'single',
               restSeconds: 180,
               exercises: [
-                { id: 'pex_seed_squat', exerciseId: 'ex_back_squat', targetSets: 4, targetReps: '4', targetLoad: '85%' },
+                { id: 'pex_seed_squat', exerciseId: 'ex_back_squat', setGroups: [{ sets: 4, reps: '4', load: '85%' }] },
               ],
             },
             {
@@ -71,8 +71,8 @@ export const SEED_PROGRAM: Program = {
               type: 'superset',
               restSeconds: 120,
               exercises: [
-                { id: 'pex_seed_bench', exerciseId: 'ex_barbell_bench_press', targetSets: 3, targetReps: '6', targetLoad: '82.5%' },
-                { id: 'pex_seed_db_row', exerciseId: 'ex_dumbbell_row', targetSets: 3, targetReps: '10/side' },
+                { id: 'pex_seed_bench', exerciseId: 'ex_barbell_bench_press', setGroups: [{ sets: 3, reps: '6', load: '82.5%' }] },
+                { id: 'pex_seed_db_row', exerciseId: 'ex_dumbbell_row', setGroups: [{ sets: 3, reps: '10/side' }] },
               ],
             },
             {
@@ -80,8 +80,8 @@ export const SEED_PROGRAM: Program = {
               type: 'superset',
               restSeconds: 75,
               exercises: [
-                { id: 'pex_seed_box_stepup', exerciseId: 'ex_db_box_step_up', targetSets: 3, targetReps: '10/side' },
-                { id: 'pex_seed_ab_walkout', exerciseId: 'ex_ab_walkout', targetSets: 3, targetReps: '6' },
+                { id: 'pex_seed_box_stepup', exerciseId: 'ex_db_box_step_up', setGroups: [{ sets: 3, reps: '10/side' }] },
+                { id: 'pex_seed_ab_walkout', exerciseId: 'ex_ab_walkout', setGroups: [{ sets: 3, reps: '6' }] },
               ],
             },
             {
@@ -89,9 +89,9 @@ export const SEED_PROGRAM: Program = {
               type: 'giant_set',
               restSeconds: 60,
               exercises: [
-                { id: 'pex_seed_hammer_curl', exerciseId: 'ex_hammer_curl', targetSets: 3, targetReps: '15' },
-                { id: 'pex_seed_hip_thrust', exerciseId: 'ex_2up1down_hip_thrust', targetSets: 3, targetReps: '12/side' },
-                { id: 'pex_seed_pallof', exerciseId: 'ex_half_kneeling_pallof_press', targetSets: 3, targetReps: '8/side' },
+                { id: 'pex_seed_hammer_curl', exerciseId: 'ex_hammer_curl', setGroups: [{ sets: 3, reps: '15' }] },
+                { id: 'pex_seed_hip_thrust', exerciseId: 'ex_2up1down_hip_thrust', setGroups: [{ sets: 3, reps: '12/side' }] },
+                { id: 'pex_seed_pallof', exerciseId: 'ex_half_kneeling_pallof_press', setGroups: [{ sets: 3, reps: '8/side' }] },
               ],
             },
           ],
@@ -105,8 +105,8 @@ export const SEED_PROGRAM: Program = {
               type: 'superset',
               restSeconds: 60,
               exercises: [
-                { id: 'pex_seed_face_pull_extrot', exerciseId: 'ex_banded_face_pull_ext_rot', targetSets: 3, targetReps: '8' },
-                { id: 'pex_seed_lat_pulldown', exerciseId: 'ex_supinated_lat_pulldown_band', targetSets: 3, targetReps: '12' },
+                { id: 'pex_seed_face_pull_extrot', exerciseId: 'ex_banded_face_pull_ext_rot', setGroups: [{ sets: 3, reps: '8' }] },
+                { id: 'pex_seed_lat_pulldown', exerciseId: 'ex_supinated_lat_pulldown_band', setGroups: [{ sets: 3, reps: '12' }] },
               ],
             },
             {
@@ -114,7 +114,7 @@ export const SEED_PROGRAM: Program = {
               type: 'single',
               restSeconds: 180,
               exercises: [
-                { id: 'pex_seed_deadlift', exerciseId: 'ex_deadlift', targetSets: 5, targetReps: '3', targetLoad: '87.5%' },
+                { id: 'pex_seed_deadlift', exerciseId: 'ex_deadlift', setGroups: [{ sets: 5, reps: '3', load: '87.5%' }] },
               ],
             },
             {
@@ -122,8 +122,8 @@ export const SEED_PROGRAM: Program = {
               type: 'superset',
               restSeconds: 90,
               exercises: [
-                { id: 'pex_seed_db_bench', exerciseId: 'ex_dumbbell_bench_press', targetSets: 2, targetReps: '12' },
-                { id: 'pex_seed_kb_rdl', exerciseId: 'ex_kb_rdl', targetSets: 2, targetReps: '14' },
+                { id: 'pex_seed_db_bench', exerciseId: 'ex_dumbbell_bench_press', setGroups: [{ sets: 2, reps: '12' }] },
+                { id: 'pex_seed_kb_rdl', exerciseId: 'ex_kb_rdl', setGroups: [{ sets: 2, reps: '14' }] },
               ],
             },
             {
@@ -131,9 +131,9 @@ export const SEED_PROGRAM: Program = {
               type: 'giant_set',
               restSeconds: 60,
               exercises: [
-                { id: 'pex_seed_skullcrusher', exerciseId: 'ex_db_skullcrusher_pause', targetSets: 3, targetReps: '10' },
-                { id: 'pex_seed_incline_curl', exerciseId: 'ex_seated_incline_db_curl', targetSets: 3, targetReps: '10/side' },
-                { id: 'pex_seed_bulg_split_squat', exerciseId: 'ex_bulgarian_split_squat', targetSets: 3, targetReps: '12/side' },
+                { id: 'pex_seed_skullcrusher', exerciseId: 'ex_db_skullcrusher_pause', setGroups: [{ sets: 3, reps: '10' }] },
+                { id: 'pex_seed_incline_curl', exerciseId: 'ex_seated_incline_db_curl', setGroups: [{ sets: 3, reps: '10/side' }] },
+                { id: 'pex_seed_bulg_split_squat', exerciseId: 'ex_bulgarian_split_squat', setGroups: [{ sets: 3, reps: '12/side' }] },
               ],
             },
           ],
