@@ -96,7 +96,7 @@ export default function WorkoutSessionScreen() {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundLavender,
   },
   hero: {
     backgroundColor: colors.textPrimary,
@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   content: {
-    padding: spacing.lg,
+    paddingHorizontal: spacing.sm,
+    paddingTop: spacing.lg,
     gap: spacing.md,
     paddingBottom: spacing.xxxl * 2,
   },

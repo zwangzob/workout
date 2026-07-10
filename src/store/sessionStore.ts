@@ -60,6 +60,7 @@ interface SessionStore {
     patch: Partial<Pick<LoggedSet, 'weight' | 'reps' | 'rpe'>>,
   ) => void;
   toggleSetComplete: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
+  setBlockComplete: (sessionId: string, blockId: string, complete: boolean) => void;
   addSet: (sessionId: string, blockId: string, sessionExerciseId: string, isWarmup: boolean) => void;
   removeSet: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
   swapExercise: (sessionId: string, blockId: string, sessionExerciseId: string, newExerciseId: string) => void;
@@ -128,6 +129,31 @@ export const useSessionStore = create<SessionStore>()(
                 set.id === setId ? { ...set, completedAt: set.completedAt ? null : new Date().toISOString() } : set,
               ),
             }));
+          }),
+        }));
+      },
+
+      setBlockComplete: (sessionId, blockId, complete) => {
+        set((state) => ({
+          sessions: state.sessions.map((s) => {
+            if (s.id !== sessionId) return s;
+            return {
+              ...s,
+              blocks: s.blocks.map((block) =>
+                block.id !== blockId
+                  ? block
+                  : {
+                      ...block,
+                      exercises: block.exercises.map((ex) => ({
+                        ...ex,
+                        sets: ex.sets.map((set) => ({
+                          ...set,
+                          completedAt: complete ? (set.completedAt ?? new Date().toISOString()) : null,
+                        })),
+                      })),
+                    },
+              ),
+            };
           }),
         }));
       },

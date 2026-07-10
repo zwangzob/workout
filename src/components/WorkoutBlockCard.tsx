@@ -35,6 +35,7 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
   const [notesOpen, setNotesOpen] = useState(false);
   const getExercise = useExerciseStore((s) => s.getExercise);
   const toggleSetComplete = useSessionStore((s) => s.toggleSetComplete);
+  const setBlockComplete = useSessionStore((s) => s.setBlockComplete);
   const setActiveBlockId = useActiveBlockStore((s) => s.setActiveBlockId);
   const isGroup = block.exercises.length > 1;
   const allComplete = block.exercises.every((ex) => ex.sets.every((s) => s.completedAt));
@@ -49,59 +50,64 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
 
   return (
     <Card style={styles.blockCard} elevated>
-      <View style={styles.groupHeader}>
-        <Pressable style={styles.groupHeaderLeft} onPress={toggleExpanded} hitSlop={8}>
-          <Ionicons name={expanded ? 'caret-up' : 'caret-down'} size={22} color={colors.textPrimary} />
-          <Text style={styles.groupLabel}>{BLOCK_TYPE_LABELS[block.type].toUpperCase()}</Text>
-        </Pressable>
-        <View style={[styles.doneWidget, allComplete && styles.doneWidgetSuccess]}>
-          <Text style={[styles.doneLabel, allComplete && styles.doneLabelSuccess]}>Done</Text>
-          <View style={styles.doneCircle}>
-            <Ionicons name="checkmark" size={11} color={allComplete ? colors.success : colors.surfaceSunken} />
+      <Pressable style={styles.cardBody} onPress={toggleExpanded}>
+        <View style={styles.groupHeader}>
+          <View style={styles.groupHeaderLeft}>
+            <Ionicons name={expanded ? 'caret-up' : 'caret-down'} size={22} color={colors.textPrimary} />
+            <Text style={styles.groupLabel}>{BLOCK_TYPE_LABELS[block.type].toUpperCase()}</Text>
           </View>
+          <Pressable
+            style={[styles.doneWidget, allComplete && styles.doneWidgetSuccess]}
+            onPress={() => setBlockComplete(sessionId, block.id, !allComplete)}
+          >
+            <Text style={[styles.doneLabel, allComplete && styles.doneLabelSuccess]}>Done</Text>
+            <View style={styles.doneCircle}>
+              <Ionicons name="checkmark" size={11} color={allComplete ? colors.success : colors.surfaceSunken} />
+            </View>
+          </Pressable>
         </View>
-      </View>
 
-      {notes ? (
-        <Pressable onPress={() => setNotesOpen((o) => !o)} hitSlop={8}>
-          <View style={styles.readMoreRow}>
-            <Text style={styles.readMoreText}>Read more</Text>
-            <Ionicons name={notesOpen ? 'chevron-up' : 'chevron-down'} size={14} color={colors.accent} />
-          </View>
-        </Pressable>
-      ) : null}
-      {notesOpen && notes ? <Text style={styles.notesText}>{notes}</Text> : null}
+        {notes ? (
+          <Pressable onPress={() => setNotesOpen((o) => !o)} hitSlop={8}>
+            <View style={styles.readMoreRow}>
+              <Text style={styles.readMoreText}>Read more</Text>
+              <Ionicons name={notesOpen ? 'chevron-up' : 'chevron-down'} size={14} color={colors.accent} />
+            </View>
+          </Pressable>
+        ) : null}
+        {notesOpen && notes ? <Text style={styles.notesText}>{notes}</Text> : null}
 
-      <View style={styles.headerDivider} />
+        <View style={styles.headerDivider} />
 
-      {block.exercises.map((ex, idx) =>
-        expanded ? (
-          <ExerciseRow
-            key={ex.id}
-            sessionId={sessionId}
-            blockId={block.id}
-            exercise={ex}
-            badge={blockExerciseBadge(blockNumber, block, idx)}
-            showConnector={isGroup && idx < block.exercises.length - 1}
-            restSeconds={block.restSeconds}
-          />
-        ) : (
-          <CompactExerciseRow
-            key={ex.id}
-            sessionId={sessionId}
-            blockId={block.id}
-            exercise={ex}
-            badge={blockExerciseBadge(blockNumber, block, idx)}
-            showConnector={isGroup && idx < block.exercises.length - 1}
-            toggleSetComplete={toggleSetComplete}
-          />
-        ),
-      )}
+        {block.exercises.map((ex, idx) =>
+          expanded ? (
+            <ExerciseRow
+              key={ex.id}
+              sessionId={sessionId}
+              blockId={block.id}
+              exercise={ex}
+              badge={blockExerciseBadge(blockNumber, block, idx)}
+              showConnector={isGroup && idx < block.exercises.length - 1}
+              restSeconds={block.restSeconds}
+            />
+          ) : (
+            <CompactExerciseRow
+              key={ex.id}
+              sessionId={sessionId}
+              blockId={block.id}
+              exercise={ex}
+              badge={blockExerciseBadge(blockNumber, block, idx)}
+              showConnector={isGroup && idx < block.exercises.length - 1}
+              toggleSetComplete={toggleSetComplete}
+            />
+          ),
+        )}
 
-      <View style={styles.restRow}>
-        <Ionicons name="timer-outline" size={16} color={colors.textTertiary} />
-        <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
-      </View>
+        <View style={styles.restRow}>
+          <Ionicons name="timer-outline" size={16} color={colors.textTertiary} />
+          <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
+        </View>
+      </Pressable>
     </Card>
   );
 }
@@ -334,7 +340,10 @@ function SetRow({
 
 const styles = StyleSheet.create({
   blockCard: {
-    marginBottom: spacing.md,
+    marginBottom: spacing.md * 0.75,
+    borderRadius: 6,
+  },
+  cardBody: {
     gap: spacing.md,
   },
   groupHeader: {
@@ -349,7 +358,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
     paddingHorizontal: spacing.md,
     borderRadius: radii.full,
-    backgroundColor: colors.surfaceSunken,
+    backgroundColor: '#EDF1F5',
   },
   doneWidgetSuccess: {
     backgroundColor: colors.success,
