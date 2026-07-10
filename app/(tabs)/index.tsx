@@ -124,21 +124,23 @@ export default function TodayScreen() {
           </Card>
         ) : (
           <>
+            <View style={styles.divider} />
             <OptionalSessionToggle
               label="Warm Up"
               description="5-8 min dynamic stretches + light cardio to raise heart rate before working sets."
               value={warmupEnabled}
               onChange={setWarmupEnabled}
             />
+            {day.blocks.map((block, idx) => (
+              <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />
+            ))}
+            <View style={styles.divider} />
             <OptionalSessionToggle
               label="Conditioning"
               description="10 min finisher circuit after your last working set."
               value={conditioningEnabled}
               onChange={setConditioningEnabled}
             />
-            {day.blocks.map((block, idx) => (
-              <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />
-            ))}
           </>
         )}
       </ScrollView>
@@ -247,6 +249,10 @@ const styles = StyleSheet.create({
   dayTitle: {
     ...typography.headline,
     color: colors.textPrimary,
+  },
+  divider: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
   },
   emptyState: {
     flex: 1,
