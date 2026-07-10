@@ -241,17 +241,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   letterBadge: {
-    minWidth: 34,
-    height: 25,
-    paddingHorizontal: 8,
+    minWidth: 24,
+    height: 18,
+    paddingHorizontal: 6,
     borderRadius: radii.full,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },
   letterBadgeText: {
-    fontSize: 13,
-    fontWeight: '400',
+    ...typography.body,
+    fontSize: 12,
     color: colors.textInverse,
   },
   connector: {

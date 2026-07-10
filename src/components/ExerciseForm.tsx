@@ -56,7 +56,7 @@ export function ExerciseForm({ initial, onSubmit, onDelete, submitLabel }: Exerc
           style={styles.input}
           value={name}
           onChangeText={setName}
-          placeholder="e.g. Incline Dumbbell Press"
+          placeholder="e.g. Incline DB Press"
           placeholderTextColor={colors.textTertiary}
         />
       </View>

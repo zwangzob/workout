@@ -5,7 +5,7 @@ export const colors = {
   surfaceSunken: '#EDECE7',
   border: '#E4E2DB',
   borderSubtle: '#ECEAE4',
-  borderStrong: '#C9C6BB',
+  borderStrong: '#A8A395',
 
   textPrimary: '#1C1B1F',
   textSecondary: '#6F6E76',
@@ -58,10 +58,10 @@ export const typography = {
 export const shadow = {
   card: {
     shadowColor: '#1C1B1F',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.22,
     shadowRadius: 8,
-    elevation: 2,
+    elevation: 4,
   },
 } as const;
 

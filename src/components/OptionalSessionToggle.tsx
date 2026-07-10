@@ -29,7 +29,7 @@ export function OptionalSessionToggle({
         </View>
       </View>
       {value ? (
-        <Card style={styles.card}>
+        <Card style={styles.card} elevated>
           <Text style={styles.description}>{description}</Text>
         </Card>
       ) : null}

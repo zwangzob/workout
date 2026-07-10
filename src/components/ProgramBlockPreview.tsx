@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
-import { BLOCK_TYPE_LABELS, ProgramBlock, blockExerciseBadge, formatSetGroups } from '@/types';
+import { ProgramBlock, blockExerciseBadge, formatSetGroups } from '@/types';
 
 function formatRest(seconds: number): string {
   const min = seconds / 60;
@@ -18,7 +18,6 @@ export function ProgramBlockPreview({ block, blockNumber }: { block: ProgramBloc
 
   return (
     <Card style={styles.card} elevated>
-      {isGroup ? <Text style={styles.groupLabel}>{BLOCK_TYPE_LABELS[block.type].toUpperCase()}</Text> : null}
       {block.exercises.map((ex, idx) => {
         const info = getExercise(ex.exerciseId);
         if (!info) return null;
@@ -38,7 +37,7 @@ export function ProgramBlockPreview({ block, blockNumber }: { block: ProgramBloc
         );
       })}
       <View style={styles.restRow}>
-        <Ionicons name="watch-outline" size={14} color={colors.textTertiary} />
+        <Ionicons name="watch-outline" size={18} color={colors.textPrimary} />
         <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
       </View>
     </Card>
@@ -47,12 +46,10 @@ export function ProgramBlockPreview({ block, blockNumber }: { block: ProgramBloc
 
 const styles = StyleSheet.create({
   card: {
-    marginBottom: spacing.sm,
+    marginBottom: 3,
     gap: spacing.sm,
-  },
-  groupLabel: {
-    ...typography.micro,
-    color: colors.textSecondary,
+    borderRadius: 10,
+    paddingBottom: spacing.sm,
   },
   row: {
     flexDirection: 'row',
@@ -64,17 +61,17 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   badge: {
-    minWidth: 34,
-    height: 25,
-    paddingHorizontal: 8,
+    minWidth: 24,
+    height: 18,
+    paddingHorizontal: 6,
     borderRadius: radii.full,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },
   badgeText: {
-    fontSize: 13,
-    fontWeight: '400',
+    ...typography.body,
+    fontSize: 12,
     color: colors.textInverse,
   },
   connector: {
@@ -92,14 +89,12 @@ const styles = StyleSheet.create({
   target: {
     ...typography.caption,
     color: colors.textSecondary,
+    textAlign: 'right',
   },
   restRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.xs,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.borderSubtle,
-    paddingTop: spacing.xs,
   },
   restText: {
     ...typography.caption,

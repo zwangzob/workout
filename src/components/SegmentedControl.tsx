@@ -32,25 +32,28 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignSelf: 'center',
+    width: '90%',
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: radii.full,
-    padding: 4,
+    padding: 3,
   },
   segment: {
-    paddingVertical: spacing.xs + 2,
+    flex: 1,
+    paddingVertical: spacing.xs - 1,
     paddingHorizontal: spacing.md,
     borderRadius: radii.full,
     borderWidth: 1.5,
     borderColor: 'transparent',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   segmentActive: {
     borderColor: colors.accent,
   },
   label: {
-    ...typography.caption,
+    ...typography.body,
     color: colors.textTertiary,
   },
   labelActive: {

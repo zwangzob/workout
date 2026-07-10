@@ -62,11 +62,9 @@ const styles = StyleSheet.create({
   },
   label: {
     ...typography.caption,
-    fontWeight: '500',
     color: colors.textTertiary,
   },
   labelActive: {
     color: colors.textPrimary,
-    fontWeight: '600',
   },
 });

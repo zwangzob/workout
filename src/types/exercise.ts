@@ -62,8 +62,8 @@ export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
 export const EQUIPMENT_LABELS: Record<Equipment, string> = {
   barbell: 'Barbell',
   ez_bar: 'EZ Bar',
-  dumbbell: 'Dumbbell',
-  kettlebell: 'Kettlebell',
+  dumbbell: 'DB',
+  kettlebell: 'KB',
   cable: 'Cable',
   machine: 'Machine',
   smith_machine: 'Smith Machine',

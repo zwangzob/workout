@@ -17,9 +17,10 @@ export interface ProgramExercise {
   setGroups: SetGroup[];
 }
 
-/** Renders an exercise's set groups as a compact line, e.g. "3x4 @85%, 1x4+ @85%". */
+/** Renders an exercise's set groups as one compact scheme per line, e.g.
+ * "3x4@85%\n1x4+@85%". */
 export function formatSetGroups(setGroups: SetGroup[]): string {
-  return setGroups.map((g) => `${g.sets}x${g.reps}${g.load ? ` @${g.load}` : ''}`).join(', ');
+  return setGroups.map((g) => `${g.sets}x${g.reps}${g.load ? `@${g.load}` : ''}`).join('\n');
 }
 
 /** Total logged sets an exercise's set groups expand to (sum across all groups). */

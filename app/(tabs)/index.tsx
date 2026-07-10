@@ -82,67 +82,76 @@ export default function TodayScreen() {
         <Toast message={toastMessage} onHide={() => setToastMessage(null)} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.weekRange}>{formatWeekRange()}</Text>
+      <View style={styles.weekBar}>
+        <Text style={styles.weekRange}>{formatWeekRange()}</Text>
+      </View>
+
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={styles.topSection}>
+          <View style={styles.header}>
             <Text style={styles.programName}>Week {week.weekNumber}</Text>
-          </View>
-          <Pressable onPress={() => setConfigOpen(true)} hitSlop={8}>
-            <View style={styles.calendarIcon}>
-              <Ionicons name="calendar-outline" size={20} color={colors.textPrimary} />
-              <View style={styles.calendarIconBadge}>
-                <Ionicons name="settings" size={11} color={colors.textInverse} />
+            <Pressable onPress={() => setConfigOpen(true)} hitSlop={8}>
+              <View style={styles.calendarIcon}>
+                <Ionicons name="calendar-outline" size={20} color={colors.textPrimary} />
+                <View style={styles.calendarIconBadge}>
+                  <Ionicons name="settings" size={11} color={colors.textInverse} />
+                </View>
               </View>
-            </View>
-          </Pressable>
+            </Pressable>
+          </View>
+
+          <DaySelector
+            days={week.days}
+            currentIndex={cursor.dayIndex}
+            completedDayIds={completedDayIds}
+            onSelect={(index) => setCursor(cursor.weekIndex, index)}
+          />
         </View>
 
-        <DaySelector
-          days={week.days}
-          currentIndex={cursor.dayIndex}
-          completedDayIds={completedDayIds}
-          onSelect={(index) => setCursor(cursor.weekIndex, index)}
-        />
+        <View style={styles.sectionDivider} />
 
-        <SegmentedControl
-          segments={profiles.map((p) => ({ key: p.id, label: p.name }))}
-          value={activeProfileId}
-          onChange={setActiveProfile}
-        />
+        <View style={styles.bottomSection}>
+          <SegmentedControl
+            segments={profiles.map((p) => ({ key: p.id, label: p.name }))}
+            value={activeProfileId}
+            onChange={setActiveProfile}
+          />
 
-        <Text style={styles.dayTitle}>
-          {getDayEmoji(day.label)} {day.label} {getDayEmoji(day.label)}
-        </Text>
+          <Text style={styles.dayTitle}>
+            {getDayEmoji(day.label)} {day.label} {getDayEmoji(day.label)}
+          </Text>
 
-        {day.isRestDay ? (
-          <Card style={styles.restCard} elevated>
-            <Ionicons name="moon-outline" size={28} color={colors.textTertiary} />
-            <Text style={styles.restTitle}>Rest Day</Text>
-            <Text style={styles.restBody}>Recovery is part of the program. See you next session.</Text>
-            <Button label="Mark Complete & Continue" variant="secondary" onPress={advanceCursor} style={{ marginTop: spacing.md }} />
-          </Card>
-        ) : (
-          <>
-            <View style={styles.divider} />
-            <OptionalSessionToggle
-              label="Warm Up"
-              description="5-8 min dynamic stretches + light cardio to raise heart rate before working sets."
-              value={warmupEnabled}
-              onChange={setWarmupEnabled}
-            />
-            {day.blocks.map((block, idx) => (
-              <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />
-            ))}
-            <View style={styles.divider} />
-            <OptionalSessionToggle
-              label="Conditioning"
-              description="10 min finisher circuit after your last working set."
-              value={conditioningEnabled}
-              onChange={setConditioningEnabled}
-            />
-          </>
-        )}
+          {day.isRestDay ? (
+            <Card style={styles.restCard} elevated>
+              <Ionicons name="moon-outline" size={28} color={colors.textTertiary} />
+              <Text style={styles.restTitle}>Rest Day</Text>
+              <Text style={styles.restBody}>Recovery is part of the program. See you next session.</Text>
+              <Button label="Mark Complete & Continue" variant="secondary" onPress={advanceCursor} style={{ marginTop: spacing.md }} />
+            </Card>
+          ) : (
+            <>
+              <View style={styles.divider} />
+              <OptionalSessionToggle
+                label="Warm Up"
+                description="5-8 min dynamic stretches + light cardio to raise heart rate before working sets."
+                value={warmupEnabled}
+                onChange={setWarmupEnabled}
+              />
+              <View style={styles.divider} />
+              <Text style={styles.workoutSectionLabel}>Workout</Text>
+              {day.blocks.map((block, idx) => (
+                <ProgramBlockPreview key={block.id} block={block} blockNumber={idx + 1} />
+              ))}
+              <View style={styles.divider} />
+              <OptionalSessionToggle
+                label="Conditioning"
+                description="10 min finisher circuit after your last working set."
+                value={conditioningEnabled}
+                onChange={setConditioningEnabled}
+              />
+            </>
+          )}
+        </View>
       </ScrollView>
 
       {!day.isRestDay ? (
@@ -173,12 +182,28 @@ export default function TodayScreen() {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.surface,
   },
-  content: {
+  scrollContent: {
+    flexGrow: 1,
+  },
+  topSection: {
+    backgroundColor: colors.surface,
     padding: spacing.lg,
+    paddingBottom: spacing.xl,
     gap: spacing.lg,
+  },
+  sectionDivider: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.borderStrong,
+  },
+  bottomSection: {
+    flexGrow: 1,
+    backgroundColor: colors.background,
+    padding: spacing.lg,
+    paddingTop: spacing.xl,
     paddingBottom: spacing.xxxl * 2,
+    gap: spacing.lg,
   },
   stickyFooter: {
     position: 'absolute',
@@ -205,6 +230,12 @@ const styles = StyleSheet.create({
     ...typography.bodyStrong,
     color: colors.textInverse,
   },
+  weekBar: {
+    alignItems: 'center',
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.sm,
+    backgroundColor: colors.surface,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -217,7 +248,6 @@ const styles = StyleSheet.create({
   programName: {
     ...typography.caption,
     color: colors.textSecondary,
-    marginTop: 2,
   },
   calendarIcon: {
     width: 36,
@@ -238,7 +268,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: colors.background,
+    borderColor: colors.surface,
   },
   toastSlot: {
     position: 'absolute',
@@ -248,6 +278,10 @@ const styles = StyleSheet.create({
   },
   dayTitle: {
     ...typography.headline,
+    color: colors.textPrimary,
+  },
+  workoutSectionLabel: {
+    ...typography.body,
     color: colors.textPrimary,
   },
   divider: {
