@@ -234,12 +234,7 @@ function ExerciseRow({
         </View>
 
         <View style={styles.columnHeaders}>
-          <View style={[styles.setCol, styles.setsHeaderCell]}>
-            <Text style={styles.columnHeaderText}>Sets</Text>
-            <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
-              <Ionicons name="checkmark" size={22} color={colors.textInverse} />
-            </View>
-          </View>
+          <Text style={[styles.columnHeaderText, styles.setCol]}>Sets</Text>
           <Text style={[styles.columnHeaderText, styles.repsCol]}>Reps</Text>
           <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
         </View>
@@ -248,6 +243,11 @@ function ExerciseRow({
           <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
         ))}
         <View style={styles.addRow}>
+          <View style={styles.setCol}>
+            <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
+              <Ionicons name="checkmark" size={22} color={colors.textInverse} />
+            </View>
+          </View>
           <Pressable
             disabled={!lastWarmup}
             onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
@@ -506,17 +506,12 @@ const styles = StyleSheet.create({
   },
   columnHeaders: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
     paddingTop: spacing.xs,
     marginLeft: FULL_BLEED_OFFSET,
   },
   columnHeaderText: {
     ...typography.micro,
     color: colors.textPrimary,
-  },
-  setsHeaderCell: {
-    alignItems: 'center',
-    gap: spacing.xs,
   },
   setCol: { width: 44, alignItems: 'center' },
   repsCol: { flex: 1, textAlign: 'center' },
