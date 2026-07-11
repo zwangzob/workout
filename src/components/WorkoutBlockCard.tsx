@@ -236,7 +236,7 @@ function ExerciseRow({
         <View style={styles.columnHeaders}>
           <View style={[styles.setCol, styles.setsHeaderCell]}>
             <Text style={styles.columnHeaderText}>Sets</Text>
-            <View style={[styles.checkCircleSmall, allSetsComplete && styles.checkCircleDone]}>
+            <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
               <Ionicons name="checkmark" size={14} color={colors.textInverse} />
             </View>
           </View>
