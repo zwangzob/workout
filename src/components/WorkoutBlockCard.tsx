@@ -3,7 +3,6 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
-import { ExerciseThumbnail } from '@/components/ExerciseThumbnail';
 import { SubstituteSheet } from '@/components/SubstituteSheet';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
@@ -220,10 +219,7 @@ function ExerciseRow({
           </Text>
         ) : null}
 
-        <View style={styles.exerciseHeader}>
-          <ExerciseThumbnail muscle={exerciseInfo.primaryMuscle} size={64} />
-          <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
-        </View>
+        <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
 
         <View style={styles.actionRow}>
           <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textSecondary} />} onPress={() => setSubstituteOpen(true)} />
@@ -468,12 +464,6 @@ const styles = StyleSheet.create({
   exerciseContent: {
     flex: 1,
     gap: spacing.sm,
-  },
-  exerciseHeader: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: spacing.md,
   },
   exerciseTitle: {
     ...typography.body,
