@@ -212,20 +212,23 @@ function ExerciseRow({
       </View>
 
       <View style={styles.exerciseContent}>
-        <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
-        {lastEntry ? (
-          <Text style={styles.lastPerformance}>
-            Last: {lastEntry.reps} x {lastEntry.weight} lb
-          </Text>
-        ) : null}
+        <View style={styles.titleGroup}>
+          <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
+          {lastEntry ? (
+            <Text style={styles.lastPerformance}>
+              Last: {lastEntry.reps} x {lastEntry.weight} lb
+            </Text>
+          ) : null}
+        </View>
 
         <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
 
         <View style={styles.actionRow}>
-          <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textSecondary} />} onPress={() => setSubstituteOpen(true)} />
           {hasAmrap(exercise.setGroups) ? (
             <Pill label="AMRAP" icon={<Ionicons name="information-circle-outline" size={14} color={colors.textSecondary} />} />
           ) : null}
+          <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textSecondary} />} onPress={() => setSubstituteOpen(true)} />
+          <Pill label="Reps + Weight" icon={<Ionicons name="options-outline" size={13} color={colors.textSecondary} />} />
         </View>
 
         <View style={styles.columnHeaders}>
@@ -431,6 +434,7 @@ const styles = StyleSheet.create({
   },
   exerciseRow: {
     flexDirection: 'row',
+    gap: spacing.sm,
   },
   letterColumn: {
     width: 30,
@@ -465,6 +469,9 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: spacing.sm,
   },
+  titleGroup: {
+    gap: spacing.xs,
+  },
   exerciseTitle: {
     ...typography.body,
     color: colors.textPrimary,
@@ -473,7 +480,7 @@ const styles = StyleSheet.create({
   target: {
     ...typography.caption,
     color: colors.textSecondary,
-    textAlign: 'right',
+    textAlign: 'left',
   },
   lastPerformance: {
     ...typography.caption,
