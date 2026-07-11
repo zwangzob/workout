@@ -337,6 +337,11 @@ function SetRow({
   );
 }
 
+// Letter/number badge column width; full-bleed rows (pills, set rows) offset by
+// this much so they align with the badge instead of sitting under the title.
+const LETTER_COLUMN_WIDTH = 30;
+const FULL_BLEED_OFFSET = -(LETTER_COLUMN_WIDTH + spacing.sm);
+
 const styles = StyleSheet.create({
   blockCard: {
     marginBottom: spacing.md * 0.75,
@@ -437,7 +442,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   letterColumn: {
-    width: 30,
+    width: LETTER_COLUMN_WIDTH,
     alignItems: 'center',
   },
   letterBadge: {
@@ -489,10 +494,12 @@ const styles = StyleSheet.create({
   actionRow: {
     flexDirection: 'row',
     gap: spacing.sm,
+    marginLeft: FULL_BLEED_OFFSET,
   },
   columnHeaders: {
     flexDirection: 'row',
     paddingTop: spacing.xs,
+    marginLeft: FULL_BLEED_OFFSET,
   },
   columnHeaderText: {
     ...typography.micro,
@@ -505,6 +512,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
+    marginLeft: FULL_BLEED_OFFSET,
   },
   checkWrap: {
     alignItems: 'center',
@@ -539,6 +547,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.sm,
     paddingVertical: spacing.xs,
+    marginLeft: FULL_BLEED_OFFSET,
   },
   stepCircle: {
     width: 22,
