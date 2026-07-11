@@ -237,7 +237,7 @@ function ExerciseRow({
           <View style={[styles.setCol, styles.setsHeaderCell]}>
             <Text style={styles.columnHeaderText}>Sets</Text>
             <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
-              <Ionicons name="checkmark" size={14} color={colors.textInverse} />
+              <Ionicons name="checkmark" size={22} color={colors.textInverse} />
             </View>
           </View>
           <Text style={[styles.columnHeaderText, styles.repsCol]}>Reps</Text>
@@ -317,7 +317,7 @@ function SetRow({
         style={[styles.setCol, styles.checkWrap]}
       >
         <View style={[styles.checkCircle, complete && styles.checkCircleDone]}>
-          {complete ? <Ionicons name="checkmark" size={14} color={colors.textInverse} /> : isWarmup ? (
+          {complete ? <Ionicons name="checkmark" size={22} color={colors.textInverse} /> : isWarmup ? (
             <Ionicons name="flame-outline" size={13} color={colors.textTertiary} />
           ) : (
             <Text style={styles.setIndexText}>{index}</Text>
@@ -569,7 +569,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: STEP_CIRCLE_FILL,
+    borderColor: colors.textSecondary,
     backgroundColor: STEP_CIRCLE_FILL,
     alignItems: 'center',
     justifyContent: 'center',
