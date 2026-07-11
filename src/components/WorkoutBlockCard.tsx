@@ -547,6 +547,7 @@ const styles = StyleSheet.create({
   addRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: spacing.xs,
     paddingVertical: spacing.xs,
     marginLeft: FULL_BLEED_OFFSET,
