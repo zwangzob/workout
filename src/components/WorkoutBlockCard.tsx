@@ -201,6 +201,7 @@ function ExerciseRow({
   const workingSets = exercise.sets.filter((s) => !s.isWarmup);
   const lastWarmup = warmupSets[warmupSets.length - 1];
   const lastWorking = workingSets[workingSets.length - 1];
+  const allSetsComplete = exercise.sets.length > 0 && exercise.sets.every((s) => s.completedAt);
 
   return (
     <View style={styles.exerciseRow}>
@@ -233,7 +234,12 @@ function ExerciseRow({
         </View>
 
         <View style={styles.columnHeaders}>
-          <Text style={[styles.columnHeaderText, styles.setCol]}>Sets</Text>
+          <View style={[styles.setCol, styles.setsHeaderCell]}>
+            <Text style={styles.columnHeaderText}>Sets</Text>
+            <View style={[styles.checkCircleSmall, allSetsComplete && styles.checkCircleDone]}>
+              <Ionicons name="checkmark" size={14} color={colors.textInverse} />
+            </View>
+          </View>
           <Text style={[styles.columnHeaderText, styles.repsCol]}>Reps</Text>
           <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
         </View>
@@ -499,12 +505,17 @@ const styles = StyleSheet.create({
   },
   columnHeaders: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     paddingTop: spacing.xs,
     marginLeft: FULL_BLEED_OFFSET,
   },
   columnHeaderText: {
     ...typography.micro,
     color: colors.textPrimary,
+  },
+  setsHeaderCell: {
+    alignItems: 'center',
+    gap: spacing.xs,
   },
   setCol: { width: 44, alignItems: 'center' },
   repsCol: { flex: 1, textAlign: 'center' },

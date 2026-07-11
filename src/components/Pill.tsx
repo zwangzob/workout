@@ -40,7 +40,7 @@ const toneStyles = StyleSheet.create({
 });
 
 const toneLabelStyles = StyleSheet.create({
-  neutral: { color: colors.textSecondary },
+  neutral: { color: colors.textPrimary },
   accent: { color: colors.textInverse },
   success: { color: colors.textInverse },
 });
