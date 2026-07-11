@@ -257,7 +257,7 @@ function ExerciseRow({
           </Pressable>
           <Text style={styles.addLabel}>Add Warm Up</Text>
           <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
-            <Ionicons name="add" size={14} color={colors.textInverse} />
+            <Ionicons name="add" size={14} color={colors.textPrimary} />
           </Pressable>
         </View>
 
@@ -274,7 +274,7 @@ function ExerciseRow({
           </Pressable>
           <Text style={styles.addLabel}>Add Set</Text>
           <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, false)} style={styles.stepCircleAccent}>
-            <Ionicons name="add" size={14} color={colors.textInverse} />
+            <Ionicons name="add" size={14} color={colors.textPrimary} />
           </Pressable>
         </View>
       </View>
@@ -348,6 +348,7 @@ function SetRow({
 // this much so they align with the badge instead of sitting under the title.
 const LETTER_COLUMN_WIDTH = 30;
 const FULL_BLEED_OFFSET = -(LETTER_COLUMN_WIDTH + spacing.sm);
+const STEP_CIRCLE_FILL = '#BCC2CB';
 
 const styles = StyleSheet.create({
   blockCard: {
@@ -482,7 +483,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   titleGroup: {
-    gap: spacing.xs,
+    gap: 0,
   },
   exerciseTitle: {
     ...typography.body,
@@ -568,8 +569,8 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: '#BCC2CB',
-    backgroundColor: '#BCC2CB',
+    borderColor: STEP_CIRCLE_FILL,
+    backgroundColor: STEP_CIRCLE_FILL,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -581,8 +582,8 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: colors.textPrimary,
-    backgroundColor: colors.textPrimary,
+    borderColor: colors.accent,
+    backgroundColor: STEP_CIRCLE_FILL,
     alignItems: 'center',
     justifyContent: 'center',
   },
