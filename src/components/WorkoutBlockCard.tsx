@@ -139,7 +139,7 @@ function CompactExerciseRow({
         {showConnector ? <View style={styles.connector} /> : null}
       </View>
       <View style={styles.compactContent}>
-        <View style={styles.compactTitleRow}>
+        <View style={styles.titleRow}>
           <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
           <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
         </View>
@@ -213,7 +213,10 @@ function ExerciseRow({
 
       <View style={styles.exerciseContent}>
         <View style={styles.titleGroup}>
-          <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
+          <View style={styles.titleRow}>
+            <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
+            <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
+          </View>
           {lastEntry ? (
             <Text style={styles.lastPerformance}>
               Last: {lastEntry.reps} x {lastEntry.weight} lb
@@ -221,14 +224,12 @@ function ExerciseRow({
           ) : null}
         </View>
 
-        <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
-
         <View style={styles.actionRow}>
           {hasAmrap(exercise.setGroups) ? (
-            <Pill label="AMRAP" icon={<Ionicons name="information-circle-outline" size={14} color={colors.textSecondary} />} />
+            <Pill label="AMRAP" icon={<Ionicons name="information-circle-outline" size={14} color={colors.textPrimary} />} />
           ) : null}
-          <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textSecondary} />} onPress={() => setSubstituteOpen(true)} />
-          <Pill label="Reps + Weight" icon={<Ionicons name="options-outline" size={13} color={colors.textSecondary} />} />
+          <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textPrimary} />} onPress={() => setSubstituteOpen(true)} />
+          <Pill label="Reps + Weight" icon={<Ionicons name="options-outline" size={13} color={colors.textPrimary} />} />
         </View>
 
         <View style={styles.columnHeaders}>
@@ -420,7 +421,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: spacing.sm,
   },
-  compactTitleRow: {
+  titleRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: spacing.sm,
@@ -485,7 +486,7 @@ const styles = StyleSheet.create({
   target: {
     ...typography.caption,
     color: colors.textSecondary,
-    textAlign: 'left',
+    textAlign: 'right',
   },
   lastPerformance: {
     ...typography.caption,
@@ -503,7 +504,7 @@ const styles = StyleSheet.create({
   },
   columnHeaderText: {
     ...typography.micro,
-    color: colors.textTertiary,
+    color: colors.textPrimary,
   },
   setCol: { width: 44, alignItems: 'center' },
   repsCol: { flex: 1, textAlign: 'center' },
@@ -523,6 +524,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     borderWidth: 1.5,
     borderColor: colors.borderCool,
+    backgroundColor: colors.borderCool,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -532,12 +534,12 @@ const styles = StyleSheet.create({
   },
   setIndexText: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: colors.textInverse,
   },
   input: {
     ...typography.body,
     color: colors.textPrimary,
-    backgroundColor: colors.surfaceSunken,
+    backgroundColor: colors.borderCool,
     borderRadius: radii.sm,
     paddingVertical: spacing.sm,
     textAlign: 'center',
@@ -545,7 +547,7 @@ const styles = StyleSheet.create({
   addRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
+    gap: spacing.xs,
     paddingVertical: spacing.xs,
     marginLeft: FULL_BLEED_OFFSET,
   },
@@ -573,8 +575,6 @@ const styles = StyleSheet.create({
   addLabel: {
     ...typography.caption,
     color: colors.textSecondary,
-    flex: 1,
-    textAlign: 'center',
   },
   restRow: {
     flexDirection: 'row',
