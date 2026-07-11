@@ -251,7 +251,7 @@ function ExerciseRow({
           </Pressable>
           <Text style={styles.addLabel}>Add Warm Up</Text>
           <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
-            <Ionicons name="add" size={14} color={colors.accent} />
+            <Ionicons name="add" size={14} color={colors.textInverse} />
           </Pressable>
         </View>
 
@@ -268,7 +268,7 @@ function ExerciseRow({
           </Pressable>
           <Text style={styles.addLabel}>Add Set</Text>
           <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, false)} style={styles.stepCircleAccent}>
-            <Ionicons name="add" size={14} color={colors.accent} />
+            <Ionicons name="add" size={14} color={colors.textInverse} />
           </Pressable>
         </View>
       </View>
@@ -553,11 +553,12 @@ const styles = StyleSheet.create({
     marginLeft: FULL_BLEED_OFFSET,
   },
   stepCircle: {
-    width: 22,
-    height: 22,
+    width: 28,
+    height: 28,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: colors.borderCool,
+    borderColor: '#BCC2CB',
+    backgroundColor: '#BCC2CB',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -565,11 +566,12 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   stepCircleAccent: {
-    width: 22,
-    height: 22,
+    width: 28,
+    height: 28,
     borderRadius: radii.full,
     borderWidth: 1.5,
-    borderColor: colors.accent,
+    borderColor: colors.textPrimary,
+    backgroundColor: colors.textPrimary,
     alignItems: 'center',
     justifyContent: 'center',
   },
