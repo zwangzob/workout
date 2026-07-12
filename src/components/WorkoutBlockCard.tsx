@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
@@ -84,17 +84,23 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
 
         <View style={styles.headerDivider} />
 
-        {block.exercises.map((ex, idx) =>
-          expanded ? (
-            <ExerciseRow
-              key={ex.id}
-              sessionId={sessionId}
-              blockId={block.id}
-              exercise={ex}
-              badge={blockExerciseBadge(blockNumber, block, idx)}
-              showConnector={isGroup && idx < block.exercises.length - 1}
-              restSeconds={block.restSeconds}
-            />
+        {block.exercises.map((ex, idx) => {
+          const showConnector = isGroup && idx < block.exercises.length - 1;
+          return expanded ? (
+            <Fragment key={ex.id}>
+              <ExerciseRow
+                sessionId={sessionId}
+                blockId={block.id}
+                exercise={ex}
+                badge={blockExerciseBadge(blockNumber, block, idx)}
+                restSeconds={block.restSeconds}
+              />
+              {showConnector ? (
+                <View style={styles.exerciseDividerRow}>
+                  <View style={styles.exerciseDivider} />
+                </View>
+              ) : null}
+            </Fragment>
           ) : (
             <CompactExerciseRow
               key={ex.id}
@@ -102,11 +108,11 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
               blockId={block.id}
               exercise={ex}
               badge={blockExerciseBadge(blockNumber, block, idx)}
-              showConnector={isGroup && idx < block.exercises.length - 1}
+              showConnector={showConnector}
               toggleSetComplete={toggleSetComplete}
             />
-          ),
-        )}
+          );
+        })}
 
         {!expanded ? (
           <View style={styles.restRow}>
@@ -170,14 +176,12 @@ function ExerciseRow({
   blockId,
   exercise,
   badge,
-  showConnector,
   restSeconds,
 }: {
   sessionId: string;
   blockId: string;
   exercise: SessionBlock['exercises'][number];
   badge: string;
-  showConnector: boolean;
   restSeconds: number;
 }) {
   const [substituteOpen, setSubstituteOpen] = useState(false);
@@ -219,7 +223,6 @@ function ExerciseRow({
         <View style={[styles.letterBadge, badge.length > 1 && styles.letterBadgeOval]}>
           <Text style={styles.letterBadgeText}>{badge}</Text>
         </View>
-        {showConnector ? <View style={styles.connector} /> : null}
       </View>
 
       <View style={styles.exerciseContent}>
@@ -525,6 +528,14 @@ const styles = StyleSheet.create({
     width: 1.5,
     backgroundColor: colors.accent,
     marginTop: 2,
+  },
+  exerciseDividerRow: {
+    alignItems: 'center',
+  },
+  exerciseDivider: {
+    width: '90%',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.borderStrong,
   },
   exerciseContent: {
     flex: 1,
