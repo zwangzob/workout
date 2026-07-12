@@ -102,10 +102,12 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
           ),
         )}
 
-        <View style={styles.restRow}>
-          <Ionicons name="timer-outline" size={16} color={colors.textTertiary} />
-          <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
-        </View>
+        {!expanded ? (
+          <View style={styles.restRow}>
+            <Ionicons name="timer-outline" size={16} color={colors.textTertiary} />
+            <Text style={styles.restText}>Rest: {formatRest(block.restSeconds)}</Text>
+          </View>
+        ) : null}
       </Pressable>
     </Card>
   );
@@ -221,6 +223,7 @@ function ExerciseRow({
                 Last: {lastEntry.reps} x {lastEntry.weight} lb
               </Text>
             ) : null}
+            <Text style={styles.restPerformance}>Rest: {formatRest(restSeconds)}</Text>
           </View>
           <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
         </View>
@@ -510,6 +513,11 @@ const styles = StyleSheet.create({
     ...typography.caption,
     fontSize: 15,
     color: colors.accent,
+  },
+  restPerformance: {
+    ...typography.caption,
+    fontSize: 15,
+    color: colors.textPrimary,
   },
   actionRow: {
     flexDirection: 'row',

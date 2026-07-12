@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     ...typography.caption,
     fontSize: 15,
     lineHeight: 15,
-    fontWeight: '500',
   },
 });
 
