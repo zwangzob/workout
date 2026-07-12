@@ -61,6 +61,7 @@ interface SessionStore {
   ) => void;
   toggleSetComplete: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
   setBlockComplete: (sessionId: string, blockId: string, complete: boolean) => void;
+  setExerciseComplete: (sessionId: string, blockId: string, sessionExerciseId: string, complete: boolean) => void;
   addSet: (sessionId: string, blockId: string, sessionExerciseId: string, isWarmup: boolean) => void;
   removeSet: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
   swapExercise: (sessionId: string, blockId: string, sessionExerciseId: string, newExerciseId: string) => void;
@@ -154,6 +155,21 @@ export const useSessionStore = create<SessionStore>()(
                     },
               ),
             };
+          }),
+        }));
+      },
+
+      setExerciseComplete: (sessionId, blockId, sessionExerciseId, complete) => {
+        set((state) => ({
+          sessions: state.sessions.map((s) => {
+            if (s.id !== sessionId) return s;
+            return updateSessionExercise(s, blockId, sessionExerciseId, (ex) => ({
+              ...ex,
+              sets: ex.sets.map((set) => ({
+                ...set,
+                completedAt: complete ? (set.completedAt ?? new Date().toISOString()) : null,
+              })),
+            }));
           }),
         }));
       },

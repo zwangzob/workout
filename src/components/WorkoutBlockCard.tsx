@@ -187,6 +187,7 @@ function ExerciseRow({
   const addSet = useSessionStore((s) => s.addSet);
   const removeSet = useSessionStore((s) => s.removeSet);
   const swapExercise = useSessionStore((s) => s.swapExercise);
+  const setExerciseComplete = useSessionStore((s) => s.setExerciseComplete);
   const getHistoryForExercise = useSessionStore((s) => s.getHistoryForExercise);
   const startRestTimer = useRestTimerStore((s) => s.start);
 
@@ -259,11 +260,14 @@ function ExerciseRow({
         <View style={styles.addRowWithCheck}>
           {/* Fixed to setCol (not part of the centered cluster below) so it stays
               vertically aligned with the Sets header and the set circles beneath it. */}
-          <View style={styles.setCol}>
+          <Pressable
+            style={styles.setCol}
+            onPress={() => setExerciseComplete(sessionId, blockId, exercise.id, !allSetsComplete)}
+          >
             <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
               <Ionicons name="checkmark" size={22} color={colors.textInverse} />
             </View>
-          </View>
+          </Pressable>
           <View style={styles.addControlsCluster}>
             <Pressable
               disabled={!lastWarmup}
@@ -361,9 +365,15 @@ function SetRow({
         style={[styles.input, styles.repsCol]}
         keyboardType="number-pad"
         placeholder={placeholderReps ?? '-'}
-        placeholderTextColor={SET_INPUT_PLACEHOLDER_COLOR}
+        placeholderTextColor={complete ? colors.textPrimary : SET_INPUT_PLACEHOLDER_COLOR}
         value={set.reps == null ? '' : String(set.reps)}
-        onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { reps: text === '' ? null : Number(text) })}
+        onChangeText={(text) => {
+          const reps = text === '' ? null : Number(text);
+          logSet(sessionId, blockId, sessionExerciseId, set.id, { reps });
+          if ((reps != null) !== complete) {
+            toggleSetComplete(sessionId, blockId, sessionExerciseId, set.id);
+          }
+        }}
       />
       <TextInput
         style={[styles.input, styles.weightCol]}
