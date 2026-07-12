@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 });
 
 const toneStyles = StyleSheet.create({
-  neutral: { backgroundColor: colors.surfaceSunken },
+  neutral: { backgroundColor: colors.borderCool },
   accent: { backgroundColor: colors.accent },
   success: { backgroundColor: colors.success },
 });

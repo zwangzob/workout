@@ -213,21 +213,28 @@ function ExerciseRow({
       </View>
 
       <View style={styles.exerciseContent}>
-        <View style={styles.titleGroup}>
-          <View style={styles.titleRow}>
-            <Text style={styles.exerciseTitle}>{exerciseInfo.name}</Text>
-            <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
+        <View style={styles.titleRow}>
+          <View style={styles.titleTextColumn}>
+            <Text style={[styles.exerciseTitle, styles.exerciseTitleBold]}>{exerciseInfo.name}</Text>
+            {lastEntry ? (
+              <Text style={styles.lastPerformance}>
+                Last: {lastEntry.reps} x {lastEntry.weight} lb
+              </Text>
+            ) : null}
           </View>
-          {lastEntry ? (
-            <Text style={styles.lastPerformance}>
-              Last: {lastEntry.reps} x {lastEntry.weight} lb
-            </Text>
-          ) : null}
+          <Text style={styles.target}>{formatSetGroups(exercise.setGroups)}</Text>
         </View>
 
         <View style={styles.actionRow}>
           {hasAmrap(exercise.setGroups) ? (
-            <Pill label="AMRAP" icon={<Ionicons name="information-circle-outline" size={14} color={colors.textPrimary} />} />
+            <Pill
+              label="AMRAP"
+              icon={
+                <View style={styles.amrapIconCircle}>
+                  <Text style={styles.amrapIconLetter}>i</Text>
+                </View>
+              }
+            />
           ) : null}
           <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textPrimary} />} onPress={() => setSubstituteOpen(true)} />
           <Pill label="Reps + Weight" icon={<Ionicons name="options-outline" size={13} color={colors.textPrimary} />} />
@@ -239,15 +246,18 @@ function ExerciseRow({
           <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
         </View>
 
-        {warmupSets.map((set) => (
-          <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
-        ))}
-        <View style={styles.addRow}>
+        <View style={styles.setsSummaryRow}>
           <View style={styles.setCol}>
             <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
               <Ionicons name="checkmark" size={22} color={colors.textInverse} />
             </View>
           </View>
+        </View>
+
+        {warmupSets.map((set) => (
+          <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
+        ))}
+        <View style={styles.addRow}>
           <Pressable
             disabled={!lastWarmup}
             onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
@@ -348,7 +358,6 @@ function SetRow({
 // this much so they align with the badge instead of sitting under the title.
 const LETTER_COLUMN_WIDTH = 30;
 const FULL_BLEED_OFFSET = -(LETTER_COLUMN_WIDTH + spacing.sm);
-const STEP_CIRCLE_FILL = '#BCC2CB';
 
 const styles = StyleSheet.create({
   blockCard: {
@@ -482,13 +491,16 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: spacing.sm,
   },
-  titleGroup: {
-    gap: 0,
+  titleTextColumn: {
+    flex: 1,
   },
   exerciseTitle: {
     ...typography.body,
     color: colors.textPrimary,
     flex: 1,
+  },
+  exerciseTitleBold: {
+    fontWeight: '600',
   },
   target: {
     ...typography.caption,
@@ -504,9 +516,25 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     marginLeft: FULL_BLEED_OFFSET,
   },
+  amrapIconCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: radii.full,
+    backgroundColor: colors.textPrimary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  amrapIconLetter: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: colors.textInverse,
+  },
   columnHeaders: {
     flexDirection: 'row',
     paddingTop: spacing.xs,
+    marginLeft: FULL_BLEED_OFFSET,
+  },
+  setsSummaryRow: {
     marginLeft: FULL_BLEED_OFFSET,
   },
   columnHeaderText: {
@@ -546,7 +574,7 @@ const styles = StyleSheet.create({
   input: {
     ...typography.body,
     color: colors.textPrimary,
-    backgroundColor: colors.borderCool,
+    backgroundColor: '#EFF2F6',
     borderRadius: radii.sm,
     paddingVertical: spacing.sm,
     textAlign: 'center',
@@ -565,7 +593,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     borderWidth: 1.5,
     borderColor: colors.textSecondary,
-    backgroundColor: STEP_CIRCLE_FILL,
+    backgroundColor: colors.borderCool,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -578,7 +606,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     borderWidth: 1.5,
     borderColor: colors.accent,
-    backgroundColor: STEP_CIRCLE_FILL,
+    backgroundColor: colors.borderCool,
     alignItems: 'center',
     justifyContent: 'center',
   },
