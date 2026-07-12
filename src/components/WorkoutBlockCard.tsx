@@ -250,6 +250,11 @@ function ExerciseRow({
         </View>
 
         <View style={styles.addRow}>
+          <View style={styles.setCol}>
+            <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
+              <Ionicons name="checkmark" size={22} color={colors.textInverse} />
+            </View>
+          </View>
           <Pressable
             disabled={!lastWarmup}
             onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
@@ -261,13 +266,6 @@ function ExerciseRow({
           <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
             <Ionicons name="add" size={14} color={colors.textPrimary} />
           </Pressable>
-        </View>
-        <View style={styles.setsSummaryRow}>
-          <View style={styles.setCol}>
-            <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
-              <Ionicons name="checkmark" size={22} color={colors.textInverse} />
-            </View>
-          </View>
         </View>
         {warmupSets.map((set) => (
           <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
@@ -540,9 +538,6 @@ const styles = StyleSheet.create({
   columnHeaders: {
     flexDirection: 'row',
     paddingTop: spacing.xs,
-    marginLeft: FULL_BLEED_OFFSET,
-  },
-  setsSummaryRow: {
     marginLeft: FULL_BLEED_OFFSET,
   },
   setsHeaderText: {
