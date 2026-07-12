@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { LayoutAnimation, Platform, Pressable, StyleSheet, Text, UIManager, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import * as Haptics from 'expo-haptics';
 import { SetTimerSheet } from '@/components/SetTimerSheet';
 import { colors, radii, shadow, spacing, typography } from '@/theme/theme';
 import { useRestTimerStore } from '@/store/restTimerStore';
 import { useActiveBlockStore } from '@/store/activeBlockStore';
+import { tap } from '@/lib/haptics';
 import type { SessionBlock } from '@/types';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -18,10 +18,6 @@ const BOUNCE_ANIMATION = {
   update: { type: LayoutAnimation.Types.spring, springDamping: 0.55 },
   delete: { type: LayoutAnimation.Types.spring, property: LayoutAnimation.Properties.scaleXY, springDamping: 0.55 },
 };
-
-function tap() {
-  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
-}
 
 function formatClock(seconds: number): string {
   const m = Math.floor(seconds / 60);

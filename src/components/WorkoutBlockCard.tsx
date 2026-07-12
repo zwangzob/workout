@@ -9,6 +9,7 @@ import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
 import { useActiveBlockStore } from '@/store/activeBlockStore';
+import { tap, tapLight } from '@/lib/haptics';
 import { BLOCK_TYPE_LABELS, blockExerciseBadge, formatSetGroups } from '@/types';
 import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
 
@@ -47,6 +48,7 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
   const notes = getExercise(block.exercises[0]?.exerciseId)?.notes;
 
   function toggleExpanded() {
+    tap();
     setExpanded((e) => {
       if (!e) setActiveBlockId(block.id);
       return !e;
@@ -63,7 +65,7 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
           </View>
           <Pressable
             style={[styles.doneWidget, allComplete && styles.doneWidgetSuccess]}
-            onPress={() => setBlockComplete(sessionId, block.id, !allComplete)}
+            onPress={() => { tap(); setBlockComplete(sessionId, block.id, !allComplete); }}
           >
             <Text style={[styles.doneLabel, allComplete && styles.doneLabelSuccess]}>Done</Text>
             <View style={styles.doneCircle}>
@@ -73,7 +75,7 @@ export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlock
         </View>
 
         {notes ? (
-          <Pressable onPress={() => setNotesOpen((o) => !o)} hitSlop={8}>
+          <Pressable onPress={() => { tapLight(); setNotesOpen((o) => !o); }} hitSlop={8}>
             <View style={styles.readMoreRow}>
               <Text style={styles.readMoreText}>Read more</Text>
               <Ionicons name={notesOpen ? 'chevron-up' : 'chevron-down'} size={14} color={colors.accent} />
@@ -159,7 +161,7 @@ function CompactExerciseRow({
         </View>
         <View style={styles.compactCheckRow}>
           {exercise.sets.map((set) => (
-            <Pressable key={set.id} onPress={() => toggleSetComplete(sessionId, blockId, exercise.id, set.id)}>
+            <Pressable key={set.id} onPress={() => { tapLight(); toggleSetComplete(sessionId, blockId, exercise.id, set.id); }}>
               <View style={[styles.checkCircleSmall, set.completedAt && styles.checkCircleDone]}>
                 <Ionicons name="checkmark" size={18} color={colors.textInverse} />
               </View>
@@ -250,7 +252,7 @@ function ExerciseRow({
               }
             />
           ) : null}
-          <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textPrimary} />} onPress={() => setSubstituteOpen(true)} />
+          <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textPrimary} />} onPress={() => { tap(); setSubstituteOpen(true); }} />
           <Pill label="Reps + Weight" icon={<Ionicons name="options-outline" size={13} color={colors.textPrimary} />} />
         </View>
 
@@ -265,7 +267,7 @@ function ExerciseRow({
               vertically aligned with the Sets header and the set circles beneath it. */}
           <Pressable
             style={styles.setCol}
-            onPress={() => setExerciseComplete(sessionId, blockId, exercise.id, !allSetsComplete)}
+            onPress={() => { tap(); setExerciseComplete(sessionId, blockId, exercise.id, !allSetsComplete); }}
           >
             <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
               <Ionicons name="checkmark" size={22} color={colors.textInverse} />
@@ -274,13 +276,17 @@ function ExerciseRow({
           <View style={styles.addControlsCluster}>
             <Pressable
               disabled={!lastWarmup}
-              onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
+              onPress={() => {
+                if (!lastWarmup) return;
+                tapLight();
+                removeSet(sessionId, blockId, exercise.id, lastWarmup.id);
+              }}
               style={[styles.stepCircle, !lastWarmup && styles.stepCircleDisabled]}
             >
               <Ionicons name="remove" size={14} color={lastWarmup ? colors.textSecondary : colors.textTertiary} />
             </Pressable>
             <Text style={styles.addLabel}>Add Warm Up</Text>
-            <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
+            <Pressable onPress={() => { tapLight(); addSet(sessionId, blockId, exercise.id, true); }} style={styles.stepCircleAccent}>
               <Ionicons name="add" size={14} color={colors.textPrimary} />
             </Pressable>
           </View>
@@ -305,13 +311,17 @@ function ExerciseRow({
         <View style={styles.addRow}>
           <Pressable
             disabled={!lastWorking}
-            onPress={() => lastWorking && removeSet(sessionId, blockId, exercise.id, lastWorking.id)}
+            onPress={() => {
+              if (!lastWorking) return;
+              tapLight();
+              removeSet(sessionId, blockId, exercise.id, lastWorking.id);
+            }}
             style={[styles.stepCircle, !lastWorking && styles.stepCircleDisabled]}
           >
             <Ionicons name="remove" size={14} color={lastWorking ? colors.textSecondary : colors.textTertiary} />
           </Pressable>
           <Text style={styles.addLabel}>Add Set</Text>
-          <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, false)} style={styles.stepCircleAccent}>
+          <Pressable onPress={() => { tapLight(); addSet(sessionId, blockId, exercise.id, false); }} style={styles.stepCircleAccent}>
             <Ionicons name="add" size={14} color={colors.textPrimary} />
           </Pressable>
         </View>
@@ -354,6 +364,7 @@ function SetRow({
     <View style={styles.setRow}>
       <Pressable
         onPress={() => {
+          tapLight();
           if (complete) {
             logSet(sessionId, blockId, sessionExerciseId, set.id, { reps: null, weight: null });
           }

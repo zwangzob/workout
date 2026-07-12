@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheet } from '@/components/BottomSheet';
 import { colors, radii, spacing, typography } from '@/theme/theme';
+import { tap } from '@/lib/haptics';
 
 const MINUTE_OPTIONS = Array.from({ length: 11 }, (_, i) => i);
 const SECOND_OPTIONS = [0, 15, 30, 45];
@@ -42,6 +43,7 @@ export function SetTimerSheet({
   }, [visible, suggestedSeconds]);
 
   function startSuggested(seconds: number) {
+    tap();
     onStart(seconds);
     onClose();
   }
@@ -49,6 +51,7 @@ export function SetTimerSheet({
   function handleStart() {
     const totalSeconds = minVal * 60 + secVal;
     if (totalSeconds <= 0) return;
+    tap();
     onStart(totalSeconds);
     onClose();
   }
@@ -88,7 +91,7 @@ export function SetTimerSheet({
       </View>
 
       <View style={styles.actionRow}>
-        <Pressable style={styles.cancelButton} onPress={onClose}>
+        <Pressable style={styles.cancelButton} onPress={() => { tap(); onClose(); }}>
           <Text style={styles.cancelLabel}>Cancel</Text>
         </Pressable>
         <Pressable style={styles.startButton} onPress={handleStart}>

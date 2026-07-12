@@ -6,6 +6,7 @@ import * as Notifications from 'expo-notifications';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { colors, radii, shadow, spacing, typography } from '@/theme/theme';
 import { useRestTimerStore } from '@/store/restTimerStore';
+import { tap } from '@/lib/haptics';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -99,15 +100,15 @@ export function RestTimerBar() {
         <View style={styles.controls}>
           {!done ? (
             <>
-              <Pressable style={styles.iconButton} onPress={() => addSeconds(15)}>
+              <Pressable style={styles.iconButton} onPress={() => { tap(); addSeconds(15); }}>
                 <Text style={styles.iconButtonText}>+15s</Text>
               </Pressable>
-              <Pressable style={styles.iconButton} onPress={() => (isRunning ? pause() : resume())}>
+              <Pressable style={styles.iconButton} onPress={() => { tap(); if (isRunning) pause(); else resume(); }}>
                 <Ionicons name={isRunning ? 'pause' : 'play'} size={18} color={colors.textPrimary} />
               </Pressable>
             </>
           ) : null}
-          <Pressable style={styles.iconButton} onPress={dismiss}>
+          <Pressable style={styles.iconButton} onPress={() => { tap(); dismiss(); }}>
             <Ionicons name="close" size={18} color={colors.textPrimary} />
           </Pressable>
         </View>
