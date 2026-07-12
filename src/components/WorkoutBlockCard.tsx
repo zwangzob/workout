@@ -29,6 +29,12 @@ function hasAmrap(setGroups: SetGroup[]): boolean {
   return setGroups.some((g) => /\+|amrap/i.test(g.reps));
 }
 
+/** Expands set groups into one prescribed reps string per working set, e.g.
+ * [{sets:4, reps:'3'}, {sets:1, reps:'3+'}] -> ['3','3','3','3','3+']. */
+function expandedRepsScheme(setGroups: SetGroup[]): string[] {
+  return setGroups.flatMap((g) => Array(g.sets).fill(g.reps));
+}
+
 export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlockCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
@@ -204,6 +210,7 @@ function ExerciseRow({
   const lastWarmup = warmupSets[warmupSets.length - 1];
   const lastWorking = workingSets[workingSets.length - 1];
   const allSetsComplete = exercise.sets.length > 0 && exercise.sets.every((s) => s.completedAt);
+  const repsScheme = expandedRepsScheme(exercise.setGroups);
 
   return (
     <View style={styles.exerciseRow}>
@@ -276,7 +283,17 @@ function ExerciseRow({
         ))}
 
         {workingSets.map((set, i) => (
-          <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} index={i + 1} logSet={logSet} toggleSetComplete={toggleSetComplete} />
+          <SetRow
+            key={set.id}
+            sessionId={sessionId}
+            blockId={blockId}
+            sessionExerciseId={exercise.id}
+            set={set}
+            index={i + 1}
+            placeholderReps={repsScheme[i]}
+            logSet={logSet}
+            toggleSetComplete={toggleSetComplete}
+          />
         ))}
         <View style={styles.addRow}>
           <Pressable
@@ -311,6 +328,7 @@ function SetRow({
   set,
   index,
   isWarmup,
+  placeholderReps,
   logSet,
   toggleSetComplete,
 }: {
@@ -320,6 +338,7 @@ function SetRow({
   set: LoggedSet;
   index?: number;
   isWarmup?: boolean;
+  placeholderReps?: string;
   logSet: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string, patch: Partial<Pick<LoggedSet, 'weight' | 'reps' | 'rpe'>>) => void;
   toggleSetComplete: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
 }) {
@@ -341,8 +360,8 @@ function SetRow({
       <TextInput
         style={[styles.input, styles.repsCol]}
         keyboardType="number-pad"
-        placeholder="-"
-        placeholderTextColor={colors.textTertiary}
+        placeholder={placeholderReps ?? '-'}
+        placeholderTextColor={colors.borderCool}
         value={set.reps == null ? '' : String(set.reps)}
         onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { reps: text === '' ? null : Number(text) })}
       />
