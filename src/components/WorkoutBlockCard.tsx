@@ -249,23 +249,27 @@ function ExerciseRow({
           <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
         </View>
 
-        <View style={styles.addRow}>
+        <View style={styles.addRowWithCheck}>
+          {/* Fixed to setCol (not part of the centered cluster below) so it stays
+              vertically aligned with the Sets header and the set circles beneath it. */}
           <View style={styles.setCol}>
             <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
               <Ionicons name="checkmark" size={22} color={colors.textInverse} />
             </View>
           </View>
-          <Pressable
-            disabled={!lastWarmup}
-            onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
-            style={[styles.stepCircle, !lastWarmup && styles.stepCircleDisabled]}
-          >
-            <Ionicons name="remove" size={14} color={lastWarmup ? colors.textSecondary : colors.textTertiary} />
-          </Pressable>
-          <Text style={styles.addLabel}>Add Warm Up</Text>
-          <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
-            <Ionicons name="add" size={14} color={colors.textPrimary} />
-          </Pressable>
+          <View style={styles.addControlsCluster}>
+            <Pressable
+              disabled={!lastWarmup}
+              onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
+              style={[styles.stepCircle, !lastWarmup && styles.stepCircleDisabled]}
+            >
+              <Ionicons name="remove" size={14} color={lastWarmup ? colors.textSecondary : colors.textTertiary} />
+            </Pressable>
+            <Text style={styles.addLabel}>Add Warm Up</Text>
+            <Pressable onPress={() => addSet(sessionId, blockId, exercise.id, true)} style={styles.stepCircleAccent}>
+              <Ionicons name="add" size={14} color={colors.textPrimary} />
+            </Pressable>
+          </View>
         </View>
         {warmupSets.map((set) => (
           <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
@@ -509,12 +513,12 @@ const styles = StyleSheet.create({
   },
   lastPerformance: {
     ...typography.caption,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.accent,
   },
   restPerformance: {
     ...typography.caption,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.textPrimary,
   },
   actionRow: {
@@ -593,6 +597,20 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     paddingVertical: spacing.xs,
     marginLeft: FULL_BLEED_OFFSET,
+  },
+  addRowWithCheck: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.xs,
+    marginLeft: FULL_BLEED_OFFSET,
+  },
+  addControlsCluster: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
   },
   stepCircle: {
     width: 28,

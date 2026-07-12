@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   },
   label: {
     ...typography.caption,
-    fontSize: 15,
-    lineHeight: 15,
+    fontSize: 14,
+    lineHeight: 14,
   },
 });
 
