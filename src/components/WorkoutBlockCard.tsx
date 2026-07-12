@@ -241,20 +241,17 @@ function ExerciseRow({
         </View>
 
         <View style={styles.columnHeaders}>
-          <Text style={[styles.columnHeaderText, styles.setCol]}>Sets</Text>
+          <Text style={[styles.columnHeaderText, styles.setCol, styles.setsHeaderText]}>Sets</Text>
           <Text style={[styles.columnHeaderText, styles.repsCol]}>Reps</Text>
           <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
         </View>
 
-        <View style={styles.setsSummaryRow}>
+        <View style={styles.addRow}>
           <View style={styles.setCol}>
             <View style={[styles.checkCircle, allSetsComplete && styles.checkCircleDone]}>
               <Ionicons name="checkmark" size={22} color={colors.textInverse} />
             </View>
           </View>
-        </View>
-
-        <View style={styles.addRow}>
           <Pressable
             disabled={!lastWarmup}
             onPress={() => lastWarmup && removeSet(sessionId, blockId, exercise.id, lastWarmup.id)}
@@ -534,8 +531,8 @@ const styles = StyleSheet.create({
     paddingTop: spacing.xs,
     marginLeft: FULL_BLEED_OFFSET,
   },
-  setsSummaryRow: {
-    marginLeft: FULL_BLEED_OFFSET,
+  setsHeaderText: {
+    paddingLeft: spacing.sm,
   },
   columnHeaderText: {
     ...typography.micro,
