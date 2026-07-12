@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   amrapIconLetter: {
-    fontSize: 8,
+    fontSize: 10,
     fontFamily: Platform.select({ ios: 'Georgia', default: 'serif' }),
     fontWeight: '800',
     color: colors.textInverse,
