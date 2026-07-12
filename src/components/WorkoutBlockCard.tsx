@@ -506,6 +506,7 @@ const styles = StyleSheet.create({
   },
   lastPerformance: {
     ...typography.caption,
+    fontSize: 15,
     color: colors.accent,
   },
   actionRow: {
