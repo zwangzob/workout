@@ -168,6 +168,7 @@ export const useSessionStore = create<SessionStore>()(
               sets: ex.sets.map((set) => ({
                 ...set,
                 completedAt: complete ? (set.completedAt ?? new Date().toISOString()) : null,
+                ...(complete ? null : { reps: null, weight: null }),
               })),
             }));
           }),

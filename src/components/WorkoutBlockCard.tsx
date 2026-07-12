@@ -350,7 +350,12 @@ function SetRow({
   return (
     <View style={styles.setRow}>
       <Pressable
-        onPress={() => toggleSetComplete(sessionId, blockId, sessionExerciseId, set.id)}
+        onPress={() => {
+          if (complete) {
+            logSet(sessionId, blockId, sessionExerciseId, set.id, { reps: null, weight: null });
+          }
+          toggleSetComplete(sessionId, blockId, sessionExerciseId, set.id);
+        }}
         style={[styles.setCol, styles.checkWrap]}
       >
         <View style={[styles.checkCircle, complete && styles.checkCircleDone]}>
