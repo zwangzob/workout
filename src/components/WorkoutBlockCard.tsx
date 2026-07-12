@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
@@ -523,15 +523,16 @@ const styles = StyleSheet.create({
     marginLeft: FULL_BLEED_OFFSET,
   },
   amrapIconCircle: {
-    width: 22,
-    height: 22,
+    width: 11,
+    height: 11,
     borderRadius: radii.full,
     backgroundColor: colors.textPrimary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   amrapIconLetter: {
-    fontSize: 14,
+    fontSize: 8,
+    fontFamily: Platform.select({ ios: 'Georgia', default: 'serif' }),
     fontWeight: '800',
     color: colors.textInverse,
   },
