@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { LayoutAnimation, Platform, Pressable, StyleSheet, Text, UIManager, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import { SetTimerSheet } from '@/components/SetTimerSheet';
 import { colors, radii, shadow, spacing, typography } from '@/theme/theme';
 import { useRestTimerStore } from '@/store/restTimerStore';
@@ -17,6 +18,10 @@ const BOUNCE_ANIMATION = {
   update: { type: LayoutAnimation.Types.spring, springDamping: 0.55 },
   delete: { type: LayoutAnimation.Types.spring, property: LayoutAnimation.Properties.scaleXY, springDamping: 0.55 },
 };
+
+function tap() {
+  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
+}
 
 function formatClock(seconds: number): string {
   const m = Math.floor(seconds / 60);
@@ -95,19 +100,19 @@ export function WorkoutFloatingToolbar({ blocks }: { blocks: SessionBlock[] }) {
   return (
     <View style={[styles.wrapper, restTimerActive && styles.wrapperLifted]} pointerEvents="box-none">
       <View style={styles.bar}>
-        <Pressable style={styles.button} onPress={() => {}}>
+        <Pressable style={styles.button} onPress={tap}>
           <Ionicons name="book-outline" size={18} color={colors.accent} />
         </Pressable>
-        <Pressable style={styles.button} onPress={() => {}}>
+        <Pressable style={styles.button} onPress={tap}>
           <Ionicons name="pencil-outline" size={18} color={colors.accent} />
         </Pressable>
 
         {tailMode === 'icons' ? (
           <>
-            <Pressable style={styles.button} onPress={() => setTimerSheetOpen(true)}>
+            <Pressable style={styles.button} onPress={() => { tap(); setTimerSheetOpen(true); }}>
               <Ionicons name="time-outline" size={18} color={colors.accent} />
             </Pressable>
-            <Pressable style={styles.button} onPress={openStopwatch}>
+            <Pressable style={styles.button} onPress={() => { tap(); openStopwatch(); }}>
               <Ionicons name="timer-outline" size={18} color={colors.accent} />
             </Pressable>
           </>
@@ -115,11 +120,11 @@ export function WorkoutFloatingToolbar({ blocks }: { blocks: SessionBlock[] }) {
 
         {tailMode === 'stopwatch' ? (
           <View style={[styles.stopwatchPill, running && styles.pillRunning]}>
-            <Pressable style={styles.stopwatchButton} onPress={() => setRunning((r) => !r)}>
+            <Pressable style={styles.stopwatchButton} onPress={() => { tap(); setRunning((r) => !r); }}>
               <Ionicons name={running ? 'pause' : 'play'} size={16} color={colors.textPrimary} />
             </Pressable>
             <Text style={styles.pillTime}>{formatClock(elapsed)}</Text>
-            <Pressable style={styles.stopwatchButton} onPress={resetTail}>
+            <Pressable style={styles.stopwatchButton} onPress={() => { tap(); resetTail(); }}>
               <Ionicons name="close" size={16} color={colors.textPrimary} />
             </Pressable>
           </View>
@@ -127,7 +132,7 @@ export function WorkoutFloatingToolbar({ blocks }: { blocks: SessionBlock[] }) {
 
         {tailMode === 'precountdown' ? (
           <View style={styles.stopwatchPill}>
-            <Pressable style={styles.stopwatchButton} onPress={resetTail}>
+            <Pressable style={styles.stopwatchButton} onPress={() => { tap(); resetTail(); }}>
               <Ionicons name="stop" size={16} color={colors.textPrimary} />
             </Pressable>
             <Text style={styles.pillTime}>{precountdown}</Text>
@@ -137,7 +142,7 @@ export function WorkoutFloatingToolbar({ blocks }: { blocks: SessionBlock[] }) {
 
         {tailMode === 'countdown' ? (
           <View style={[styles.stopwatchPill, styles.pillRunning]}>
-            <Pressable style={styles.stopwatchButton} onPress={resetTail}>
+            <Pressable style={styles.stopwatchButton} onPress={() => { tap(); resetTail(); }}>
               <Ionicons name="stop" size={16} color={colors.textPrimary} />
             </Pressable>
             <Text style={styles.pillTime}>{formatClock(remaining)}</Text>
