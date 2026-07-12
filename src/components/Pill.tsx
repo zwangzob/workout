@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   base: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 0,
+    paddingVertical: spacing.xs,
     paddingHorizontal: spacing.sm,
     borderRadius: radii.full,
   },
