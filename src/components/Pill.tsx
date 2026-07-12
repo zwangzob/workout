@@ -23,12 +23,14 @@ const styles = StyleSheet.create({
   base: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: spacing.xs + 2,
-    paddingHorizontal: spacing.md,
+    paddingVertical: 7.5,
+    paddingHorizontal: spacing.sm,
     borderRadius: radii.full,
   },
   label: {
     ...typography.caption,
+    fontSize: 15,
+    lineHeight: 15,
     fontWeight: '500',
   },
 });
