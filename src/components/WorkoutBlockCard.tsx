@@ -379,7 +379,7 @@ function SetRow({
         style={[styles.input, styles.weightCol]}
         keyboardType="decimal-pad"
         placeholder="-"
-        placeholderTextColor={SET_INPUT_PLACEHOLDER_COLOR}
+        placeholderTextColor={complete ? colors.textPrimary : SET_INPUT_PLACEHOLDER_COLOR}
         value={set.weight == null ? '' : String(set.weight)}
         onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { weight: text === '' ? null : Number(text) })}
       />
