@@ -8,6 +8,7 @@ import { GymProfileSheet } from '@/components/GymProfileSheet';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useGymStore } from '@/store/gymStore';
 import { useProgramStore } from '@/store/programStore';
+import { tap } from '@/lib/haptics';
 import { GymProfile } from '@/types';
 
 export default function ProfileScreen() {
@@ -103,6 +104,16 @@ export default function ProfileScreen() {
               );
             })
           )}
+        </Section>
+
+        <Section title="Training">
+          <Pressable style={styles.row} onPress={() => { tap(); router.push('/training-max'); }}>
+            <View style={styles.rowText}>
+              <Text style={styles.rowTitle}>Training Max</Text>
+              <Text style={styles.rowMeta}>Squat, Deadlift, Bench, Overhead Press, Hip Thrust</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.textTertiary} />
+          </Pressable>
         </Section>
       </ScrollView>
 
