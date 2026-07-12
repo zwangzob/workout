@@ -254,9 +254,6 @@ function ExerciseRow({
           </View>
         </View>
 
-        {warmupSets.map((set) => (
-          <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
-        ))}
         <View style={styles.addRow}>
           <Pressable
             disabled={!lastWarmup}
@@ -270,6 +267,9 @@ function ExerciseRow({
             <Ionicons name="add" size={14} color={colors.textPrimary} />
           </Pressable>
         </View>
+        {warmupSets.map((set) => (
+          <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
+        ))}
 
         {workingSets.map((set, i) => (
           <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} index={i + 1} logSet={logSet} toggleSetComplete={toggleSetComplete} />
