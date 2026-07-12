@@ -361,7 +361,7 @@ function SetRow({
         style={[styles.input, styles.repsCol]}
         keyboardType="number-pad"
         placeholder={placeholderReps ?? '-'}
-        placeholderTextColor={colors.borderCool}
+        placeholderTextColor={SET_INPUT_PLACEHOLDER_COLOR}
         value={set.reps == null ? '' : String(set.reps)}
         onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { reps: text === '' ? null : Number(text) })}
       />
@@ -369,7 +369,7 @@ function SetRow({
         style={[styles.input, styles.weightCol]}
         keyboardType="decimal-pad"
         placeholder="-"
-        placeholderTextColor={colors.textTertiary}
+        placeholderTextColor={SET_INPUT_PLACEHOLDER_COLOR}
         value={set.weight == null ? '' : String(set.weight)}
         onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { weight: text === '' ? null : Number(text) })}
       />
@@ -381,6 +381,7 @@ function SetRow({
 // this much so they align with the badge instead of sitting under the title.
 const LETTER_COLUMN_WIDTH = 30;
 const FULL_BLEED_OFFSET = -(LETTER_COLUMN_WIDTH + spacing.sm);
+const SET_INPUT_PLACEHOLDER_COLOR = '#B8C0C9';
 
 const styles = StyleSheet.create({
   blockCard: {
