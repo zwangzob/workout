@@ -1,10 +1,14 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@/theme/theme';
+import { tap } from '@/lib/haptics';
 
 export default function TabsLayout() {
   return (
     <Tabs
+      screenListeners={{
+        tabPress: () => tap(),
+      }}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.accent,

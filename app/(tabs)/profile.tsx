@@ -8,7 +8,7 @@ import { GymProfileSheet } from '@/components/GymProfileSheet';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useGymStore } from '@/store/gymStore';
 import { useProgramStore } from '@/store/programStore';
-import { tap } from '@/lib/haptics';
+import { tap, tapLight } from '@/lib/haptics';
 import { GymProfile } from '@/types';
 
 export default function ProfileScreen() {
@@ -36,6 +36,7 @@ export default function ProfileScreen() {
           action={
             <Pressable
               onPress={() => {
+                tap();
                 setEditingProfile(undefined);
                 setSheetVisible(true);
               }}
@@ -52,11 +53,12 @@ export default function ProfileScreen() {
                 key={profile.id}
                 style={styles.row}
                 onPress={() => {
+                  tapLight();
                   setEditingProfile(profile);
                   setSheetVisible(true);
                 }}
               >
-                <Pressable onPress={() => setActiveProfile(profile.id)} hitSlop={8}>
+                <Pressable onPress={() => { tapLight(); setActiveProfile(profile.id); }} hitSlop={8}>
                   <Ionicons
                     name={active ? 'radio-button-on' : 'radio-button-off'}
                     size={20}
@@ -76,7 +78,7 @@ export default function ProfileScreen() {
         <Section
           title="Programs"
           action={
-            <Pressable onPress={() => router.push('/program/new')} hitSlop={8}>
+            <Pressable onPress={() => { tap(); router.push('/program/new'); }} hitSlop={8}>
               <Ionicons name="add-circle" size={22} color={colors.accent} />
             </Pressable>
           }
@@ -87,8 +89,8 @@ export default function ProfileScreen() {
             programs.map((program) => {
               const active = program.id === activeProgramId;
               return (
-                <Pressable key={program.id} style={styles.row} onPress={() => router.push(`/program/${program.id}`)}>
-                  <Pressable onPress={() => setActiveProgram(program.id)} hitSlop={8}>
+                <Pressable key={program.id} style={styles.row} onPress={() => { tapLight(); router.push(`/program/${program.id}`); }}>
+                  <Pressable onPress={() => { tapLight(); setActiveProgram(program.id); }} hitSlop={8}>
                     <Ionicons
                       name={active ? 'radio-button-on' : 'radio-button-off'}
                       size={20}
@@ -107,10 +109,9 @@ export default function ProfileScreen() {
         </Section>
 
         <Section title="Training">
-          <Pressable style={styles.row} onPress={() => { tap(); router.push('/training-max'); }}>
+          <Pressable style={styles.row} onPress={() => { tapLight(); router.push('/training-max'); }}>
             <View style={styles.rowText}>
               <Text style={styles.rowTitle}>Training Max</Text>
-              <Text style={styles.rowMeta}>Squat, Deadlift, Bench, Overhead Press, Hip Thrust</Text>
             </View>
             <Ionicons name="chevron-forward" size={18} color={colors.textTertiary} />
           </Pressable>

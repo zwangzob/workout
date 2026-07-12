@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { Card } from '@/components/Card';
 import { colors, spacing, typography } from '@/theme/theme';
 import { TRAINING_MAX_LIFTS, useTrainingMaxStore } from '@/store/trainingMaxStore';
 import { tap } from '@/lib/haptics';
@@ -13,26 +14,29 @@ export default function TrainingMaxScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.title}>Edit Training Max</Text>
         <Pressable onPress={() => { tap(); router.back(); }} hitSlop={12}>
-          <Ionicons name="close" size={24} color={colors.textPrimary} />
+          <Ionicons name="chevron-back" size={24} color={colors.textPrimary} />
         </Pressable>
+        <Text style={styles.title}>Training Max</Text>
+        <View style={{ width: 24 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-        {TRAINING_MAX_LIFTS.map(({ key, label }) => (
-          <View key={key} style={styles.field}>
-            <Text style={styles.label}>{label}</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="decimal-pad"
-              value={String(trainingMaxes[key])}
-              onChangeText={(text) => setTrainingMax(key, text === '' ? 0 : Number(text))}
-              placeholder="0"
-              placeholderTextColor={colors.textTertiary}
-            />
-          </View>
-        ))}
+        <Card elevated style={styles.card}>
+          {TRAINING_MAX_LIFTS.map(({ key, label }) => (
+            <View key={key} style={styles.field}>
+              <Text style={styles.label}>{label}</Text>
+              <TextInput
+                style={styles.input}
+                keyboardType="decimal-pad"
+                value={String(trainingMaxes[key])}
+                onChangeText={(text) => setTrainingMax(key, text === '' ? 0 : Number(text))}
+                placeholder="0"
+                placeholderTextColor={colors.textTertiary}
+              />
+            </View>
+          ))}
+        </Card>
       </ScrollView>
     </SafeAreaView>
   );
@@ -51,13 +55,15 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
   },
   title: {
-    ...typography.title,
+    ...typography.headline,
     color: colors.textPrimary,
   },
   content: {
     padding: spacing.lg,
-    gap: spacing.lg,
     paddingBottom: spacing.xxxl,
+  },
+  card: {
+    gap: spacing.lg,
   },
   field: {
     gap: spacing.sm,
