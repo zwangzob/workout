@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomSheet } from '@/components/BottomSheet';
 import { Card } from '@/components/Card';
 import { colors, radii, spacing, typography } from '@/theme/theme';
+import { tap, tapLight } from '@/lib/haptics';
 
 const FREQUENCY_OPTIONS = [3, 4, 5];
 
@@ -29,6 +30,7 @@ export function ConfigurationSheet({ visible, onClose, currentDays, onSave }: Co
       rightLabel="Save"
       rightIcon={<Ionicons name="save-outline" size={16} color={colors.accent} />}
       onRightPress={() => {
+        tap();
         onSave(selected);
         onClose();
       }}
@@ -38,7 +40,7 @@ export function ConfigurationSheet({ visible, onClose, currentDays, onSave }: Co
         {FREQUENCY_OPTIONS.map((n) => {
           const active = n === selected;
           return (
-            <Pressable key={n} onPress={() => setSelected(n)} style={[styles.row, active && styles.rowActive]}>
+            <Pressable key={n} onPress={() => { tapLight(); setSelected(n); }} style={[styles.row, active && styles.rowActive]}>
               <Text style={styles.rowLabel}>{n} Days</Text>
               {active ? (
                 <View style={styles.check}>

@@ -13,6 +13,7 @@ import { OptionalSessionToggle } from '@/components/OptionalSessionToggle';
 import { Toast } from '@/components/Toast';
 import { getDayEmoji } from '@/lib/dayEmoji';
 import { formatWeekRange } from '@/lib/dateRange';
+import { tap, tapLight } from '@/lib/haptics';
 import { colors, radii, shadow, spacing, typography } from '@/theme/theme';
 import { useProgramStore } from '@/store/programStore';
 import { useGymStore } from '@/store/gymStore';
@@ -64,7 +65,7 @@ export default function TodayScreen() {
           <Ionicons name="barbell-outline" size={40} color={colors.textTertiary} />
           <Text style={styles.emptyTitle}>No active program</Text>
           <Text style={styles.emptyBody}>Build a program from your exercise library to see today's workout here.</Text>
-          <Button label="Create a Program" onPress={() => router.push('/program/new')} style={{ marginTop: spacing.lg }} />
+          <Button label="Create a Program" onPress={() => { tap(); router.push('/program/new'); }} style={{ marginTop: spacing.lg }} />
         </View>
       </SafeAreaView>
     );
@@ -72,6 +73,7 @@ export default function TodayScreen() {
 
   function handleStart() {
     if (!program || !day) return;
+    tap();
     const session = inProgressSession ?? startSession(program, day);
     router.push(`/workout/${session.id}`);
   }
@@ -90,7 +92,7 @@ export default function TodayScreen() {
         <View style={styles.topSection}>
           <View style={styles.header}>
             <Text style={styles.programName}>Week {week.weekNumber}</Text>
-            <Pressable onPress={() => setConfigOpen(true)} hitSlop={8}>
+            <Pressable onPress={() => { tap(); setConfigOpen(true); }} hitSlop={8}>
               <View style={styles.calendarIcon}>
                 <Ionicons name="calendar-outline" size={20} color={colors.textPrimary} />
                 <View style={styles.calendarIconBadge}>
@@ -104,7 +106,7 @@ export default function TodayScreen() {
             days={week.days}
             currentIndex={cursor.dayIndex}
             completedDayIds={completedDayIds}
-            onSelect={(index) => setCursor(cursor.weekIndex, index)}
+            onSelect={(index) => { tapLight(); setCursor(cursor.weekIndex, index); }}
           />
         </View>
 
@@ -114,7 +116,7 @@ export default function TodayScreen() {
           <SegmentedControl
             segments={profiles.map((p) => ({ key: p.id, label: p.name }))}
             value={activeProfileId}
-            onChange={setActiveProfile}
+            onChange={(key) => { tapLight(); setActiveProfile(key); }}
           />
 
           <Text style={styles.dayTitle}>
@@ -126,7 +128,7 @@ export default function TodayScreen() {
               <Ionicons name="moon-outline" size={28} color={colors.textTertiary} />
               <Text style={styles.restTitle}>Rest Day</Text>
               <Text style={styles.restBody}>Recovery is part of the program. See you next session.</Text>
-              <Button label="Mark Complete & Continue" variant="secondary" onPress={advanceCursor} style={{ marginTop: spacing.md }} />
+              <Button label="Mark Complete & Continue" variant="secondary" onPress={() => { tap(); advanceCursor(); }} style={{ marginTop: spacing.md }} />
             </Card>
           ) : (
             <>
