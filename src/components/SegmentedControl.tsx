@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   segment: {
     flex: 1,
-    paddingVertical: spacing.xs - 1,
+    paddingVertical: (spacing.xs - 1) / 2,
     paddingHorizontal: spacing.md,
     borderRadius: radii.full,
     borderWidth: 1.5,
@@ -58,6 +58,5 @@ const styles = StyleSheet.create({
   },
   labelActive: {
     color: colors.accent,
-    fontWeight: '600',
   },
 });
