@@ -1,17 +1,47 @@
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
 import { StatTile } from '@/components/StatTile';
-import { ChipGroup } from '@/components/ChipGroup';
-import { LineChart } from '@/components/LineChart';
+import { AreaChart, AreaChartPoint } from '@/components/AreaChart';
 import { MonthCalendar, dateKey } from '@/components/MonthCalendar';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useSessionStore } from '@/store/sessionStore';
 import { useExerciseStore } from '@/store/exerciseStore';
-import { tapLight } from '@/lib/haptics';
+import { TRAINING_MAX_LIFTS, TRAINING_MAX_LIFT_EXERCISE_ID, useTrainingMaxStore } from '@/store/trainingMaxStore';
+import { tap, tapLight } from '@/lib/haptics';
 import type { WorkoutSession } from '@/types';
+
+type StatsMetric = 'training_max' | 'heaviest_lift' | 'tonnage';
+
+const METRIC_LABELS: Record<StatsMetric, string> = {
+  training_max: 'Training Max',
+  heaviest_lift: 'Heaviest Lift',
+  tonnage: 'Tonnage',
+};
+
+const METRIC_INFO: Record<StatsMetric, string> = {
+  training_max: "Training Max is the number you've set for each lift under Settings → Training Max. Your program uses it to calculate the prescribed weight for percentage-based sets.",
+  heaviest_lift: 'Heaviest Lift is the highest weight you’ve actually logged for this exercise in a single session.',
+  tonnage: 'Tonnage is the total weight moved for this exercise in a session — sets × reps × weight, added together.',
+};
+
+function heaviestLiftByDate(history: { date: string; weight: number; reps: number }[]): AreaChartPoint[] {
+  const byDate = new Map<string, number>();
+  history.forEach((h) => byDate.set(h.date, Math.max(byDate.get(h.date) ?? 0, h.weight)));
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, value]) => ({ date, value }));
+}
+
+function tonnageByDate(history: { date: string; weight: number; reps: number }[]): AreaChartPoint[] {
+  const byDate = new Map<string, number>();
+  history.forEach((h) => byDate.set(h.date, (byDate.get(h.date) ?? 0) + h.weight * h.reps));
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, value]) => ({ date, value: Math.round(value) }));
+}
 
 type JournalTab = 'journal' | 'stats' | 'achievements';
 
@@ -59,7 +89,6 @@ export default function ProgressScreen() {
   const [activeTab, setActiveTab] = useState<JournalTab>('journal');
   const sessions = useSessionStore((s) => s.sessions);
   const getHistoryForExercise = useSessionStore((s) => s.getHistoryForExercise);
-  const exercises = useExerciseStore((s) => s.exercises);
 
   const completedSessions = useMemo(() => sessions.filter((s) => s.status === 'completed'), [sessions]);
 
@@ -81,7 +110,7 @@ export default function ProgressScreen() {
       ) : (
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           {activeTab === 'stats' ? (
-            <StatsView completedSessions={completedSessions} exercises={exercises} getHistoryForExercise={getHistoryForExercise} />
+            <StatsView getHistoryForExercise={getHistoryForExercise} />
           ) : (
             <AchievementsView completedSessions={completedSessions} />
           )}
@@ -164,78 +193,68 @@ function JournalView({ completedSessions }: { completedSessions: WorkoutSession[
 }
 
 function StatsView({
-  completedSessions,
-  exercises,
   getHistoryForExercise,
 }: {
-  completedSessions: WorkoutSession[];
-  exercises: ReturnType<typeof useExerciseStore.getState>['exercises'];
   getHistoryForExercise: ReturnType<typeof useSessionStore.getState>['getHistoryForExercise'];
 }) {
-  const trackedExerciseIds = useMemo(() => {
-    const ids = new Set<string>();
-    completedSessions.forEach((s) => s.blocks.forEach((b) => b.exercises.forEach((e) => ids.add(e.exerciseId))));
-    return Array.from(ids);
-  }, [completedSessions]);
-
-  const [selectedExerciseId, setSelectedExerciseId] = useState<string | null>(trackedExerciseIds[0] ?? null);
-  const activeExerciseId = selectedExerciseId && trackedExerciseIds.includes(selectedExerciseId) ? selectedExerciseId : trackedExerciseIds[0] ?? null;
-
-  const weightChartData = useMemo(() => {
-    if (!activeExerciseId) return [];
-    const history = getHistoryForExercise(activeExerciseId);
-    const byDate = new Map<string, number>();
-    history.forEach((h) => byDate.set(h.date, Math.max(byDate.get(h.date) ?? 0, h.weight)));
-    return Array.from(byDate.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([date, weight]) => ({ label: date.slice(5), value: weight }));
-  }, [activeExerciseId, getHistoryForExercise]);
-
-  const volumeChartData = useMemo(() => {
-    const byWeek = new Map<string, number>();
-    completedSessions.forEach((session) => {
-      const week = startOfWeek(session.date);
-      let volume = 0;
-      session.blocks.forEach((b) =>
-        b.exercises.forEach((e) =>
-          e.sets.forEach((set) => {
-            if (!set.isWarmup && set.completedAt && set.weight != null && set.reps != null) {
-              volume += set.weight * set.reps;
-            }
-          }),
-        ),
-      );
-      byWeek.set(week, (byWeek.get(week) ?? 0) + volume);
-    });
-    return Array.from(byWeek.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([week, volume]) => ({ label: week.slice(5), value: Math.round(volume) }));
-  }, [completedSessions]);
+  const trainingMaxes = useTrainingMaxStore((s) => s.trainingMaxes);
+  const getTrainingMaxHistory = useTrainingMaxStore((s) => s.getTrainingMaxHistory);
+  const [metric, setMetric] = useState<StatsMetric>('training_max');
+  const [infoOpen, setInfoOpen] = useState(false);
 
   return (
     <>
-      <Card elevated style={styles.chartCard}>
-        <Text style={styles.chartTitle}>Weekly Volume (lb)</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <LineChart data={volumeChartData} />
-        </ScrollView>
-      </Card>
+      <View style={styles.filterRow}>
+        <View style={styles.allChip}>
+          <Text style={styles.allChipText}>All</Text>
+          <Ionicons name="chevron-down" size={14} color={colors.textPrimary} />
+        </View>
+        {(Object.keys(METRIC_LABELS) as StatsMetric[]).map((m) => (
+          <Pressable
+            key={m}
+            style={[styles.metricPill, metric === m && styles.metricPillActive]}
+            onPress={() => { tapLight(); setMetric(m); setInfoOpen(false); }}
+          >
+            <Text style={[styles.metricPillText, metric === m && styles.metricPillTextActive]}>{METRIC_LABELS[m]}</Text>
+          </Pressable>
+        ))}
+      </View>
 
-      {trackedExerciseIds.length > 0 ? (
-        <Card elevated style={styles.chartCard}>
-          <Text style={styles.chartTitle}>Top Weight by Session</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: spacing.md }}>
-            <ChipGroup
-              options={trackedExerciseIds.map((id) => ({ key: id, label: exercises.find((e) => e.id === id)?.name ?? id }))}
-              selected={activeExerciseId ? [activeExerciseId] : []}
-              onToggle={setSelectedExerciseId}
-            />
-          </ScrollView>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <LineChart data={weightChartData} />
-          </ScrollView>
-        </Card>
-      ) : null}
+      <Pressable style={styles.infoRow} onPress={() => { tapLight(); setInfoOpen((o) => !o); }}>
+        <Text style={styles.infoRowText}>What is {METRIC_LABELS[metric]}?</Text>
+        <Ionicons name={infoOpen ? 'chevron-up' : 'chevron-down'} size={16} color={colors.textPrimary} />
+      </Pressable>
+      {infoOpen ? <Text style={styles.infoBody}>{METRIC_INFO[metric]}</Text> : null}
+
+      {TRAINING_MAX_LIFTS.map((lift) => {
+        const exerciseId = TRAINING_MAX_LIFT_EXERCISE_ID[lift.key];
+        const history = getHistoryForExercise(exerciseId);
+        const data: AreaChartPoint[] =
+          metric === 'training_max'
+            ? getTrainingMaxHistory(lift.key)
+            : metric === 'heaviest_lift'
+              ? heaviestLiftByDate(history)
+              : tonnageByDate(history);
+        const latest = data[data.length - 1]?.value;
+
+        return (
+          <Card key={lift.key} elevated style={styles.liftCard}>
+            <View style={styles.liftCardHeader}>
+              <Text style={styles.liftCardTitle}>{lift.label}</Text>
+              <Pressable
+                style={styles.shareButton}
+                onPress={() => {
+                  tap();
+                  Share.share({ message: `My ${lift.label} ${METRIC_LABELS[metric].toLowerCase()} is ${latest ?? trainingMaxes[lift.key]} lb.` });
+                }}
+              >
+                <Ionicons name="share-outline" size={16} color={colors.textPrimary} />
+              </Pressable>
+            </View>
+            <AreaChart data={data} unit="Lb" />
+          </Card>
+        );
+      })}
     </>
   );
 }
@@ -301,12 +320,78 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: spacing.md,
   },
-  chartCard: {
+  filterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: spacing.sm,
   },
-  chartTitle: {
+  allChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    backgroundColor: colors.borderCool,
+    borderRadius: radii.full,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  allChipText: {
     ...typography.bodyStrong,
     color: colors.textPrimary,
+  },
+  metricPill: {
+    backgroundColor: colors.borderCool,
+    borderRadius: radii.full,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  metricPillActive: {
+    backgroundColor: colors.accent,
+  },
+  metricPillText: {
+    ...typography.bodyStrong,
+    color: colors.textPrimary,
+  },
+  metricPillTextActive: {
+    color: colors.textInverse,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: colors.backgroundLavender,
+    borderRadius: radii.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.md,
+  },
+  infoRowText: {
+    ...typography.bodyStrong,
+    color: colors.textPrimary,
+  },
+  infoBody: {
+    ...typography.body,
+    color: colors.textSecondary,
+    paddingHorizontal: spacing.xs,
+  },
+  liftCard: {
+    gap: spacing.md,
+  },
+  liftCardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  liftCardTitle: {
+    ...typography.title,
+    fontWeight: '700',
+    color: colors.textPrimary,
+  },
+  shareButton: {
+    width: 34,
+    height: 34,
+    borderRadius: radii.full,
+    backgroundColor: colors.borderCool,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   historyBadge: {
     flexDirection: 'row',
