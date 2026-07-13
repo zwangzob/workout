@@ -33,6 +33,7 @@ export function WorkoutSubtypeSheet({ visible, onClose, value, onSelect }: Worko
       visible={visible}
       onClose={onClose}
       title="Workout Subtype"
+      titleWeight="500"
       onRightPress={() => {
         tap();
         onSelect(selected);
@@ -104,12 +105,12 @@ const styles = StyleSheet.create({
   },
   groupLabel: {
     ...typography.body,
-    fontWeight: '500',
+    fontWeight: '400',
     color: colors.textPrimary,
   },
   groupLabelSuffix: {
     textTransform: 'none',
-    fontWeight: '400',
+    fontWeight: '300',
   },
   option: {
     flexDirection: 'row',
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
   },
   optionLabel: {
     ...typography.body,
+    fontWeight: '300',
     color: colors.textPrimary,
   },
   checkCircle: {
