@@ -274,6 +274,7 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     ...typography.headline,
+    fontWeight: '400',
     color: colors.textTertiary,
   },
   tabLabelActive: {
