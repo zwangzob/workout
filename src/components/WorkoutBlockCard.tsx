@@ -13,7 +13,7 @@ import { useActiveBlockStore } from '@/store/activeBlockStore';
 import { TRAINING_MAX_EXERCISE_IDS, useTrainingMaxStore } from '@/store/trainingMaxStore';
 import { tap, tapLight } from '@/lib/haptics';
 import { BLOCK_TYPE_LABELS, blockExerciseBadge, DEFAULT_WORKOUT_SUBTYPE, formatSetGroups, workoutSubtypeGroupLabel } from '@/types';
-import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
+import type { LoggedSet, SessionBlock, SetGroup, WorkoutSubtype } from '@/types';
 
 type WorkoutBlockCardProps = {
   sessionId: string;
@@ -32,10 +32,37 @@ function hasAmrap(setGroups: SetGroup[]): boolean {
   return setGroups.some((g) => /\+|amrap/i.test(g.reps));
 }
 
-/** Expands set groups into one prescribed reps string per working set, e.g.
- * [{sets:4, reps:'3'}, {sets:1, reps:'3+'}] -> ['3','3','3','3','3+']. */
-function expandedRepsScheme(setGroups: SetGroup[]): string[] {
-  return setGroups.flatMap((g) => Array(g.sets).fill(g.reps));
+/** How each workout subtype lays out the set-row boxes: whether there's a second
+ * (weight) box, what the first column's header reads, and how its placeholder is
+ * built from the prescribed scheme. */
+type SubtypeLayout = {
+  hasWeightBox: boolean;
+  firstColumnLabel: string;
+  isTimeBased: boolean;
+  repsSuffix: string;
+};
+
+const SUBTYPE_LAYOUT: Record<WorkoutSubtype, SubtypeLayout> = {
+  reps: { hasWeightBox: false, firstColumnLabel: 'Reps', isTimeBased: false, repsSuffix: '' },
+  reps_side: { hasWeightBox: false, firstColumnLabel: 'Reps', isTimeBased: false, repsSuffix: '/side' },
+  reps_position: { hasWeightBox: false, firstColumnLabel: 'Reps', isTimeBased: false, repsSuffix: '/position' },
+  reps_weight: { hasWeightBox: true, firstColumnLabel: 'Reps', isTimeBased: false, repsSuffix: '' },
+  reps_weight_side: { hasWeightBox: true, firstColumnLabel: 'Reps', isTimeBased: false, repsSuffix: '/side' },
+  reps_weight_position: { hasWeightBox: true, firstColumnLabel: 'Reps', isTimeBased: false, repsSuffix: '/position' },
+  time: { hasWeightBox: false, firstColumnLabel: 'Time', isTimeBased: true, repsSuffix: '' },
+  time_side: { hasWeightBox: false, firstColumnLabel: 'Time', isTimeBased: true, repsSuffix: '' },
+  time_weight: { hasWeightBox: true, firstColumnLabel: 'Time', isTimeBased: true, repsSuffix: '' },
+  time_weight_side: { hasWeightBox: true, firstColumnLabel: 'Time', isTimeBased: true, repsSuffix: '' },
+};
+
+/** Expands set groups into one prescribed placeholder string per working set for the
+ * first (reps/time) box, e.g. reps_weight_side: [{sets:4, reps:'8'}] -> ['8/side',...];
+ * a time-based subtype always yields the literal word "sec" instead of a number. */
+function expandedFirstBoxScheme(setGroups: SetGroup[], layout: SubtypeLayout): string[] {
+  if (layout.isTimeBased) {
+    return setGroups.flatMap((g) => Array(g.sets).fill('sec'));
+  }
+  return setGroups.flatMap((g) => Array(g.sets).fill(`${g.reps}${layout.repsSuffix}`));
 }
 
 const PERCENT_LOAD_PATTERN = /^(\d+(?:\.\d+)?)\s*%$/;
@@ -236,10 +263,11 @@ function ExerciseRow({
   const lastWarmup = warmupSets[warmupSets.length - 1];
   const lastWorking = workingSets[workingSets.length - 1];
   const allSetsComplete = exercise.sets.length > 0 && exercise.sets.every((s) => s.completedAt);
-  const repsScheme = expandedRepsScheme(exercise.setGroups);
+  const workoutSubtype = exerciseInfo.workoutSubtype ?? DEFAULT_WORKOUT_SUBTYPE;
+  const subtypeLayout = SUBTYPE_LAYOUT[workoutSubtype];
+  const firstBoxScheme = expandedFirstBoxScheme(exercise.setGroups, subtypeLayout);
   const trainingMaxKey = TRAINING_MAX_EXERCISE_IDS[exercise.exerciseId];
   const weightScheme = trainingMaxKey ? expandedWeightScheme(exercise.setGroups, trainingMaxes[trainingMaxKey]) : [];
-  const workoutSubtype = exerciseInfo.workoutSubtype ?? DEFAULT_WORKOUT_SUBTYPE;
 
   return (
     <View style={styles.exerciseRow}>
@@ -284,8 +312,8 @@ function ExerciseRow({
 
         <View style={styles.columnHeaders}>
           <Text style={[styles.columnHeaderText, styles.setCol, styles.setsHeaderText]}>Sets</Text>
-          <Text style={[styles.columnHeaderText, styles.repsCol]}>Reps</Text>
-          <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text>
+          <Text style={[styles.columnHeaderText, styles.repsCol]}>{subtypeLayout.firstColumnLabel}</Text>
+          {subtypeLayout.hasWeightBox ? <Text style={[styles.columnHeaderText, styles.weightCol]}>Lb</Text> : null}
         </View>
 
         <View style={styles.addRowWithCheck}>
@@ -318,7 +346,18 @@ function ExerciseRow({
           </View>
         </View>
         {warmupSets.map((set) => (
-          <SetRow key={set.id} sessionId={sessionId} blockId={blockId} sessionExerciseId={exercise.id} set={set} isWarmup logSet={logSet} toggleSetComplete={toggleSetComplete} />
+          <SetRow
+            key={set.id}
+            sessionId={sessionId}
+            blockId={blockId}
+            sessionExerciseId={exercise.id}
+            set={set}
+            isWarmup
+            hasWeightBox={subtypeLayout.hasWeightBox}
+            placeholderFirstBox={subtypeLayout.isTimeBased ? 'sec' : undefined}
+            logSet={logSet}
+            toggleSetComplete={toggleSetComplete}
+          />
         ))}
 
         {workingSets.map((set, i) => (
@@ -329,7 +368,8 @@ function ExerciseRow({
             sessionExerciseId={exercise.id}
             set={set}
             index={i + 1}
-            placeholderReps={repsScheme[i]}
+            hasWeightBox={subtypeLayout.hasWeightBox}
+            placeholderFirstBox={firstBoxScheme[i]}
             placeholderWeight={weightScheme[i]}
             logSet={logSet}
             toggleSetComplete={toggleSetComplete}
@@ -378,7 +418,8 @@ function SetRow({
   set,
   index,
   isWarmup,
-  placeholderReps,
+  hasWeightBox,
+  placeholderFirstBox,
   placeholderWeight,
   logSet,
   toggleSetComplete,
@@ -389,7 +430,8 @@ function SetRow({
   set: LoggedSet;
   index?: number;
   isWarmup?: boolean;
-  placeholderReps?: string;
+  hasWeightBox: boolean;
+  placeholderFirstBox?: string;
   placeholderWeight?: string;
   logSet: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string, patch: Partial<Pick<LoggedSet, 'weight' | 'reps' | 'rpe'>>) => void;
   toggleSetComplete: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
@@ -418,7 +460,7 @@ function SetRow({
       <TextInput
         style={[styles.input, styles.repsCol]}
         keyboardType="number-pad"
-        placeholder={placeholderReps ?? '-'}
+        placeholder={placeholderFirstBox ?? '-'}
         placeholderTextColor={complete ? colors.textPrimary : SET_INPUT_PLACEHOLDER_COLOR}
         value={set.reps == null ? '' : String(set.reps)}
         onChangeText={(text) => {
@@ -429,14 +471,16 @@ function SetRow({
           }
         }}
       />
-      <TextInput
-        style={[styles.input, styles.weightCol]}
-        keyboardType="decimal-pad"
-        placeholder={placeholderWeight ?? '-'}
-        placeholderTextColor={complete ? colors.textPrimary : SET_INPUT_PLACEHOLDER_COLOR}
-        value={set.weight == null ? '' : String(set.weight)}
-        onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { weight: text === '' ? null : Number(text) })}
-      />
+      {hasWeightBox ? (
+        <TextInput
+          style={[styles.input, styles.weightCol]}
+          keyboardType="decimal-pad"
+          placeholder={placeholderWeight ?? '-'}
+          placeholderTextColor={complete ? colors.textPrimary : SET_INPUT_PLACEHOLDER_COLOR}
+          value={set.weight == null ? '' : String(set.weight)}
+          onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { weight: text === '' ? null : Number(text) })}
+        />
+      ) : null}
     </View>
   );
 }
