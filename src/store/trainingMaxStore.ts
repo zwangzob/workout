@@ -26,6 +26,15 @@ const DEFAULT_TRAINING_MAXES: TrainingMaxes = {
   hipThrust: 135,
 };
 
+/** Maps the seed library's exercise ids for the 5 tracked lifts to their training max key. */
+export const TRAINING_MAX_EXERCISE_IDS: Record<string, keyof TrainingMaxes> = {
+  ex_back_squat: 'squat',
+  ex_deadlift: 'deadlift',
+  ex_barbell_bench_press: 'benchPress',
+  ex_overhead_press: 'overheadPress',
+  ex_hip_thrust: 'hipThrust',
+};
+
 interface TrainingMaxStore {
   trainingMaxes: TrainingMaxes;
   setTrainingMax: (lift: keyof TrainingMaxes, value: number) => void;

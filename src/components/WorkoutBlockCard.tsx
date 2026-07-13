@@ -9,6 +9,7 @@ import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useRestTimerStore } from '@/store/restTimerStore';
 import { useActiveBlockStore } from '@/store/activeBlockStore';
+import { TRAINING_MAX_EXERCISE_IDS, useTrainingMaxStore } from '@/store/trainingMaxStore';
 import { tap, tapLight } from '@/lib/haptics';
 import { BLOCK_TYPE_LABELS, blockExerciseBadge, formatSetGroups } from '@/types';
 import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
@@ -34,6 +35,20 @@ function hasAmrap(setGroups: SetGroup[]): boolean {
  * [{sets:4, reps:'3'}, {sets:1, reps:'3+'}] -> ['3','3','3','3','3+']. */
 function expandedRepsScheme(setGroups: SetGroup[]): string[] {
   return setGroups.flatMap((g) => Array(g.sets).fill(g.reps));
+}
+
+const PERCENT_LOAD_PATTERN = /^(\d+(?:\.\d+)?)\s*%$/;
+
+/** Expands set groups into one prescribed weight string per working set, computed as
+ * a percentage of the given training max and rounded to the nearest 5, e.g. a "87.5%"
+ * load against a 190 max -> "165". Groups without a percentage load (RPE, AMRAP, etc.)
+ * yield undefined for that set, leaving the default "-" placeholder in place. */
+function expandedWeightScheme(setGroups: SetGroup[], trainingMax: number): (string | undefined)[] {
+  return setGroups.flatMap((g) => {
+    const match = g.load?.match(PERCENT_LOAD_PATTERN);
+    const placeholder = match ? String(Math.round((trainingMax * Number(match[1])) / 100 / 5) * 5) : undefined;
+    return Array(g.sets).fill(placeholder);
+  });
 }
 
 export function WorkoutBlockCard({ sessionId, block, blockNumber }: WorkoutBlockCardProps) {
@@ -196,6 +211,7 @@ function ExerciseRow({
   const setExerciseComplete = useSessionStore((s) => s.setExerciseComplete);
   const getHistoryForExercise = useSessionStore((s) => s.getHistoryForExercise);
   const startRestTimer = useRestTimerStore((s) => s.start);
+  const trainingMaxes = useTrainingMaxStore((s) => s.trainingMaxes);
 
   const exerciseInfo = getExercise(exercise.exerciseId);
   if (!exerciseInfo) return null;
@@ -218,6 +234,8 @@ function ExerciseRow({
   const lastWorking = workingSets[workingSets.length - 1];
   const allSetsComplete = exercise.sets.length > 0 && exercise.sets.every((s) => s.completedAt);
   const repsScheme = expandedRepsScheme(exercise.setGroups);
+  const trainingMaxKey = TRAINING_MAX_EXERCISE_IDS[exercise.exerciseId];
+  const weightScheme = trainingMaxKey ? expandedWeightScheme(exercise.setGroups, trainingMaxes[trainingMaxKey]) : [];
 
   return (
     <View style={styles.exerciseRow}>
@@ -304,6 +322,7 @@ function ExerciseRow({
             set={set}
             index={i + 1}
             placeholderReps={repsScheme[i]}
+            placeholderWeight={weightScheme[i]}
             logSet={logSet}
             toggleSetComplete={toggleSetComplete}
           />
@@ -346,6 +365,7 @@ function SetRow({
   index,
   isWarmup,
   placeholderReps,
+  placeholderWeight,
   logSet,
   toggleSetComplete,
 }: {
@@ -356,6 +376,7 @@ function SetRow({
   index?: number;
   isWarmup?: boolean;
   placeholderReps?: string;
+  placeholderWeight?: string;
   logSet: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string, patch: Partial<Pick<LoggedSet, 'weight' | 'reps' | 'rpe'>>) => void;
   toggleSetComplete: (sessionId: string, blockId: string, sessionExerciseId: string, setId: string) => void;
 }) {
@@ -397,7 +418,7 @@ function SetRow({
       <TextInput
         style={[styles.input, styles.weightCol]}
         keyboardType="decimal-pad"
-        placeholder="-"
+        placeholder={placeholderWeight ?? '-'}
         placeholderTextColor={complete ? colors.textPrimary : SET_INPUT_PLACEHOLDER_COLOR}
         value={set.weight == null ? '' : String(set.weight)}
         onChangeText={(text) => logSet(sessionId, blockId, sessionExerciseId, set.id, { weight: text === '' ? null : Number(text) })}
