@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   },
   monthLabel: {
     ...typography.headline,
+    fontWeight: '500',
     color: colors.textPrimary,
   },
   weekdayRow: {
@@ -123,7 +124,9 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     ...typography.micro,
-    color: colors.textTertiary,
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#B8B6BE',
   },
   weekRow: {
     flexDirection: 'row',
