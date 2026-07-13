@@ -43,9 +43,7 @@ export type WorkoutSubtype =
   | 'time'
   | 'time_side'
   | 'time_weight'
-  | 'time_weight_side'
-  | 'cluster'
-  | 'cluster_weight';
+  | 'time_weight_side';
 
 export const DEFAULT_WORKOUT_SUBTYPE: WorkoutSubtype = 'reps_weight';
 
@@ -61,8 +59,6 @@ export const WORKOUT_SUBTYPE_LABELS: Record<WorkoutSubtype, string> = {
   time_side: 'Seconds/side',
   time_weight: 'Seconds + Weight',
   time_weight_side: 'Seconds/side + Weight',
-  cluster: 'Cluster',
-  cluster_weight: 'Cluster + Weight',
 };
 
 /** Short label for the pill on the workout card - no "(as prescribed)" qualifier. */
@@ -77,12 +73,9 @@ export const WORKOUT_SUBTYPE_SHORT_LABELS: Record<WorkoutSubtype, string> = {
   time_side: 'Seconds/side',
   time_weight: 'Seconds + Weight',
   time_weight_side: 'Seconds/side + Weight',
-  cluster: 'Cluster',
-  cluster_weight: 'Cluster + Weight',
 };
 
-/** The 6 top-level categories in the Workout Subtype sheet, in display order.
- * Cluster and Cluster + Weight have no selectable options yet. */
+/** The top-level categories in the Workout Subtype sheet, in display order. */
 export const WORKOUT_SUBTYPE_GROUPS: {
   key: string;
   label: string;
@@ -93,8 +86,6 @@ export const WORKOUT_SUBTYPE_GROUPS: {
   { key: 'reps_weight', label: 'Reps + Weight', options: ['reps_weight', 'reps_weight_side', 'reps_weight_position'], asPrescribedSuffix: 'as prescribed' },
   { key: 'time', label: 'Time Only', options: ['time', 'time_side'] },
   { key: 'time_weight', label: 'Time + Weight', options: ['time_weight', 'time_weight_side'] },
-  { key: 'cluster_weight', label: 'Cluster + Weight', options: [] },
-  { key: 'cluster', label: 'Cluster', options: [] },
 ];
 
 export interface Exercise {
