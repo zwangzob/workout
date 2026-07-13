@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/Card';
 import { Pill } from '@/components/Pill';
 import { SubstituteSheet } from '@/components/SubstituteSheet';
+import { WorkoutSubtypeSheet } from '@/components/WorkoutSubtypeSheet';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
 import { useSessionStore } from '@/store/sessionStore';
@@ -11,7 +12,7 @@ import { useRestTimerStore } from '@/store/restTimerStore';
 import { useActiveBlockStore } from '@/store/activeBlockStore';
 import { TRAINING_MAX_EXERCISE_IDS, useTrainingMaxStore } from '@/store/trainingMaxStore';
 import { tap, tapLight } from '@/lib/haptics';
-import { BLOCK_TYPE_LABELS, blockExerciseBadge, formatSetGroups } from '@/types';
+import { BLOCK_TYPE_LABELS, blockExerciseBadge, DEFAULT_WORKOUT_SUBTYPE, formatSetGroups, WORKOUT_SUBTYPE_SHORT_LABELS } from '@/types';
 import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
 
 type WorkoutBlockCardProps = {
@@ -202,7 +203,9 @@ function ExerciseRow({
   restSeconds: number;
 }) {
   const [substituteOpen, setSubstituteOpen] = useState(false);
+  const [subtypeSheetOpen, setSubtypeSheetOpen] = useState(false);
   const getExercise = useExerciseStore((s) => s.getExercise);
+  const updateExercise = useExerciseStore((s) => s.updateExercise);
   const logSet = useSessionStore((s) => s.logSet);
   const rawToggleSetComplete = useSessionStore((s) => s.toggleSetComplete);
   const addSet = useSessionStore((s) => s.addSet);
@@ -236,6 +239,7 @@ function ExerciseRow({
   const repsScheme = expandedRepsScheme(exercise.setGroups);
   const trainingMaxKey = TRAINING_MAX_EXERCISE_IDS[exercise.exerciseId];
   const weightScheme = trainingMaxKey ? expandedWeightScheme(exercise.setGroups, trainingMaxes[trainingMaxKey]) : [];
+  const workoutSubtype = exerciseInfo.workoutSubtype ?? DEFAULT_WORKOUT_SUBTYPE;
 
   return (
     <View style={styles.exerciseRow}>
@@ -271,7 +275,11 @@ function ExerciseRow({
             />
           ) : null}
           <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textPrimary} />} onPress={() => { tap(); setSubstituteOpen(true); }} />
-          <Pill label="Reps + Weight" icon={<Ionicons name="options-outline" size={13} color={colors.textPrimary} />} />
+          <Pill
+            label={WORKOUT_SUBTYPE_SHORT_LABELS[workoutSubtype]}
+            icon={<Ionicons name="options-outline" size={13} color={colors.textPrimary} />}
+            onPress={() => { tap(); setSubtypeSheetOpen(true); }}
+          />
         </View>
 
         <View style={styles.columnHeaders}>
@@ -352,6 +360,12 @@ function ExerciseRow({
         currentExerciseId={exercise.exerciseId}
         originalExerciseId={exercise.originalExerciseId}
         onSelect={(newId) => swapExercise(sessionId, blockId, exercise.id, newId)}
+      />
+      <WorkoutSubtypeSheet
+        visible={subtypeSheetOpen}
+        onClose={() => setSubtypeSheetOpen(false)}
+        value={workoutSubtype}
+        onSelect={(subtype) => updateExercise(exercise.exerciseId, { workoutSubtype: subtype })}
       />
     </View>
   );

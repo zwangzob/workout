@@ -39,6 +39,19 @@ export const useExerciseStore = create<ExerciseStore>()(
     {
       name: 'forge/exercises',
       storage: createJSONStorage(() => AsyncStorage),
+      merge: (persistedState, currentState) => {
+        const persisted = (persistedState ?? {}) as Partial<ExerciseStore>;
+        if (!persisted.exercises) return { ...currentState, ...persisted } as ExerciseStore;
+        // One-time backfill: fill in workoutSubtype for exercises persisted before that
+        // field existed, without touching one a user has since set explicitly.
+        const seedById = new Map(SEED_EXERCISES.map((e) => [e.id, e]));
+        const exercises = persisted.exercises.map((ex) => {
+          if (ex.workoutSubtype) return ex;
+          const seedSubtype = seedById.get(ex.id)?.workoutSubtype;
+          return seedSubtype ? { ...ex, workoutSubtype: seedSubtype } : ex;
+        });
+        return { ...currentState, ...persisted, exercises } as ExerciseStore;
+      },
     },
   ),
 );
