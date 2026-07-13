@@ -65,29 +65,31 @@ export function MonthCalendar({ year, month, selectedDate, loggedDates, onSelect
         ))}
       </View>
 
-      {weeks.map((week, i) => (
-        <View key={i} style={styles.weekRow}>
-          {week.map((cell) => {
-            const key = dateKey(cell.date);
-            const selected = key === selectedDate;
-            const logged = loggedDates.has(key);
-            return (
-              <Pressable
-                key={key}
-                style={styles.dayCell}
-                onPress={() => { tap(); onSelectDate(key); }}
-              >
-                <View style={[styles.dayCircle, selected && styles.dayCircleSelected]}>
-                  <Text style={[styles.dayText, !cell.inMonth && styles.dayTextMuted, selected && styles.dayTextSelected]}>
-                    {cell.date.getDate()}
-                  </Text>
-                </View>
-                <View style={[styles.dot, logged && styles.dotVisible]} />
-              </Pressable>
-            );
-          })}
-        </View>
-      ))}
+      <View style={styles.weeksContainer}>
+        {weeks.map((week, i) => (
+          <View key={i} style={styles.weekRow}>
+            {week.map((cell) => {
+              const key = dateKey(cell.date);
+              const selected = key === selectedDate;
+              const logged = loggedDates.has(key);
+              return (
+                <Pressable
+                  key={key}
+                  style={styles.dayCell}
+                  onPress={() => { tap(); onSelectDate(key); }}
+                >
+                  <View style={[styles.dayCircle, selected && styles.dayCircleSelected]}>
+                    <Text style={[styles.dayText, !cell.inMonth && styles.dayTextMuted, selected && styles.dayTextSelected]}>
+                      {cell.date.getDate()}
+                    </Text>
+                  </View>
+                  <View style={[styles.dot, logged && styles.dotVisible]} />
+                </Pressable>
+              );
+            })}
+          </View>
+        ))}
+      </View>
     </View>
   );
 }
@@ -127,6 +129,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     color: '#B8B6BE',
+  },
+  weeksContainer: {
+    gap: spacing.md * 0.75,
   },
   weekRow: {
     flexDirection: 'row',
