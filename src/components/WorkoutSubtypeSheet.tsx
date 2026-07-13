@@ -36,7 +36,7 @@ export function WorkoutSubtypeSheet({ visible, onClose, value, onSelect }: Worko
       titleWeight="500"
       centerTitleWithAction
       handleSpacing={spacing.md * 2}
-      handleWidth={20}
+      handleWidth={30}
       handleColor={colors.textSecondary}
       onRightPress={() => {
         tap();

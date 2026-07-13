@@ -12,7 +12,7 @@ import { useRestTimerStore } from '@/store/restTimerStore';
 import { useActiveBlockStore } from '@/store/activeBlockStore';
 import { TRAINING_MAX_EXERCISE_IDS, useTrainingMaxStore } from '@/store/trainingMaxStore';
 import { tap, tapLight } from '@/lib/haptics';
-import { BLOCK_TYPE_LABELS, blockExerciseBadge, DEFAULT_WORKOUT_SUBTYPE, formatSetGroups, WORKOUT_SUBTYPE_SHORT_LABELS } from '@/types';
+import { BLOCK_TYPE_LABELS, blockExerciseBadge, DEFAULT_WORKOUT_SUBTYPE, formatSetGroups, workoutSubtypeGroupLabel } from '@/types';
 import type { LoggedSet, SessionBlock, SetGroup } from '@/types';
 
 type WorkoutBlockCardProps = {
@@ -276,7 +276,7 @@ function ExerciseRow({
           ) : null}
           <Pill label="Substitute" icon={<Ionicons name="repeat" size={13} color={colors.textPrimary} />} onPress={() => { tap(); setSubstituteOpen(true); }} />
           <Pill
-            label={WORKOUT_SUBTYPE_SHORT_LABELS[workoutSubtype]}
+            label={workoutSubtypeGroupLabel(workoutSubtype)}
             icon={<Ionicons name="options-outline" size={13} color={colors.textPrimary} />}
             onPress={() => { tap(); setSubtypeSheetOpen(true); }}
           />

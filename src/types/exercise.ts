@@ -61,20 +61,6 @@ export const WORKOUT_SUBTYPE_LABELS: Record<WorkoutSubtype, string> = {
   time_weight_side: 'Seconds/side + Weight',
 };
 
-/** Short label for the pill on the workout card - no "(as prescribed)" qualifier. */
-export const WORKOUT_SUBTYPE_SHORT_LABELS: Record<WorkoutSubtype, string> = {
-  reps: 'Reps',
-  reps_side: 'Reps/side',
-  reps_position: 'Reps/position',
-  reps_weight: 'Reps + Weight',
-  reps_weight_side: 'Reps/side + Weight',
-  reps_weight_position: 'Reps/position + Weight',
-  time: 'Seconds',
-  time_side: 'Seconds/side',
-  time_weight: 'Seconds + Weight',
-  time_weight_side: 'Seconds/side + Weight',
-};
-
 /** The top-level categories in the Workout Subtype sheet, in display order. */
 export const WORKOUT_SUBTYPE_GROUPS: {
   key: string;
@@ -87,6 +73,12 @@ export const WORKOUT_SUBTYPE_GROUPS: {
   { key: 'time', label: 'Time Only', options: ['time', 'time_side'] },
   { key: 'time_weight', label: 'Time + Weight', options: ['time_weight', 'time_weight_side'] },
 ];
+
+/** The pill on the workout card shows just the top-level category name
+ * ("Reps Only", "Reps + Weight", etc.), not the specific side/position variant. */
+export function workoutSubtypeGroupLabel(value: WorkoutSubtype): string {
+  return WORKOUT_SUBTYPE_GROUPS.find((g) => g.options.includes(value))?.label ?? WORKOUT_SUBTYPE_GROUPS[1].label;
+}
 
 export interface Exercise {
   id: string;
