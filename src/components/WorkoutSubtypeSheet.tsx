@@ -34,74 +34,90 @@ export function WorkoutSubtypeSheet({ visible, onClose, value, onSelect }: Worko
       onClose={onClose}
       title="Workout Subtype"
       titleWeight="500"
+      centerTitleWithAction
+      handleSpacing={spacing.md * 2}
+      handleWidth={20}
+      handleColor={colors.textSecondary}
       onRightPress={() => {
         tap();
         onSelect(selected);
         onClose();
       }}
     >
-      {WORKOUT_SUBTYPE_GROUPS.map((group) => {
-        const expanded = group.key === expandedGroup;
-        const showAsPrescribed = expanded && group.asPrescribedSuffix && selected === group.options[0];
+      <View style={styles.groupList}>
+        {WORKOUT_SUBTYPE_GROUPS.map((group) => {
+          const expanded = group.key === expandedGroup;
+          const showAsPrescribed = expanded && group.asPrescribedSuffix && selected === group.options[0];
 
-        return (
-          <View key={group.key} style={styles.group}>
-            <Pressable
-              style={styles.groupHeader}
-              onPress={() => {
-                tapLight();
-                setExpandedGroup(group.key);
-              }}
-            >
-              <Text style={styles.groupLabel}>
-                {group.label.toUpperCase()}
-                {showAsPrescribed ? <Text style={styles.groupLabelSuffix}> ({group.asPrescribedSuffix})</Text> : null}
-              </Text>
-              <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={colors.textPrimary} />
-            </Pressable>
+          return (
+            <View key={group.key} style={styles.group}>
+              <Pressable
+                style={[styles.groupHeader, expanded && styles.groupHeaderExpanded]}
+                onPress={() => {
+                  tapLight();
+                  setExpandedGroup(group.key);
+                }}
+              >
+                <Text style={styles.groupLabel}>
+                  {group.label.toUpperCase()}
+                  {showAsPrescribed ? <Text style={styles.groupLabelSuffix}> ({group.asPrescribedSuffix})</Text> : null}
+                </Text>
+                <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={colors.textPrimary} />
+              </Pressable>
 
-            {expanded
-              ? group.options.map((option) => {
-                  const active = option === selected;
-                  return (
-                    <Pressable
-                      key={option}
-                      style={styles.option}
-                      onPress={() => {
-                        tapLight();
-                        setSelected(option);
-                      }}
-                    >
-                      <Text style={styles.optionLabel}>{WORKOUT_SUBTYPE_LABELS[option]}</Text>
-                      {active ? (
-                        <View style={styles.checkCircle}>
-                          <Ionicons name="checkmark" size={14} color={colors.textInverse} />
-                        </View>
-                      ) : null}
-                    </Pressable>
-                  );
-                })
-              : null}
-          </View>
-        );
-      })}
+              {expanded ? (
+                <View style={styles.optionList}>
+                  {group.options.map((option) => {
+                    const active = option === selected;
+                    return (
+                      <Pressable
+                        key={option}
+                        style={styles.option}
+                        onPress={() => {
+                          tapLight();
+                          setSelected(option);
+                        }}
+                      >
+                        <Text style={styles.optionLabel}>{WORKOUT_SUBTYPE_LABELS[option]}</Text>
+                        {active ? (
+                          <View style={styles.checkCircle}>
+                            <Ionicons name="checkmark" size={14} color={colors.textInverse} />
+                          </View>
+                        ) : null}
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              ) : null}
+            </View>
+          );
+        })}
+      </View>
     </BottomSheet>
   );
 }
 
 const styles = StyleSheet.create({
+  groupList: {
+    marginTop: spacing.md,
+  },
   group: {
-    borderWidth: 1.5,
-    borderColor: colors.textPrimary,
+    borderWidth: 1,
+    borderColor: colors.borderStrong,
     borderRadius: radii.md,
     marginBottom: spacing.md,
     padding: spacing.md,
-    gap: spacing.sm,
   },
   groupHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  groupHeaderExpanded: {
+    marginBottom: spacing.sm * 2,
+  },
+  optionList: {
+    gap: spacing.sm,
   },
   groupLabel: {
     ...typography.body,

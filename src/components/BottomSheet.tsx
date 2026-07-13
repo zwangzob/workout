@@ -13,8 +13,12 @@ type BottomSheetProps = {
   onRightPress?: () => void;
   handleColor?: string;
   handleSpacing?: number;
+  handleWidth?: number;
   titleColor?: string;
   titleWeight?: TextStyle['fontWeight'];
+  /** Centers the title even when a right action is present, by mirroring the
+   * action's width with an invisible spacer on the left. */
+  centerTitleWithAction?: boolean;
 };
 
 export function BottomSheet({
@@ -28,8 +32,10 @@ export function BottomSheet({
   onRightPress,
   handleColor,
   handleSpacing,
+  handleWidth,
   titleColor,
   titleWeight,
+  centerTitleWithAction,
 }: BottomSheetProps) {
   const insets = useSafeAreaInsets();
 
@@ -37,12 +43,25 @@ export function BottomSheet({
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <Pressable style={styles.overlay} onPress={onClose} />
       <View style={[styles.sheet, { maxHeight: `${maxHeightRatio * 100}%`, paddingBottom: insets.bottom + spacing.lg }]}>
-        <View style={[styles.handle, handleColor ? { backgroundColor: handleColor } : null, handleSpacing != null ? { marginBottom: handleSpacing } : null]} />
+        <View
+          style={[
+            styles.handle,
+            handleColor ? { backgroundColor: handleColor } : null,
+            handleSpacing != null ? { marginBottom: handleSpacing } : null,
+            handleWidth != null ? { width: handleWidth } : null,
+          ]}
+        />
         <View style={styles.header}>
+          {centerTitleWithAction && rightLabel ? (
+            <View style={styles.rightAction} pointerEvents="none">
+              {rightIcon}
+              <Text style={[styles.done, styles.hidden]}>{rightLabel}</Text>
+            </View>
+          ) : null}
           <Text
             style={[
               styles.title,
-              !rightLabel && styles.titleCentered,
+              (!rightLabel || centerTitleWithAction) && styles.titleCentered,
               titleColor ? { color: titleColor } : null,
               titleWeight ? { fontWeight: titleWeight } : null,
             ]}
@@ -110,6 +129,9 @@ const styles = StyleSheet.create({
   done: {
     ...typography.bodyStrong,
     color: colors.accent,
+  },
+  hidden: {
+    opacity: 0,
   },
   content: {
     paddingHorizontal: spacing.lg,
