@@ -420,13 +420,13 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     ...typography.headline,
-    fontWeight: '700',
+    fontWeight: '600',
     color: colors.textPrimary,
     textAlign: 'center',
   },
   emptyBody: {
     ...typography.body,
-    color: colors.textSecondary,
+    color: colors.textPrimary,
     textAlign: 'center',
   },
   dayCard: {
