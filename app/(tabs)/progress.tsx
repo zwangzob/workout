@@ -6,6 +6,7 @@ import { Card } from '@/components/Card';
 import { StatTile } from '@/components/StatTile';
 import { AreaChart, AreaChartPoint } from '@/components/AreaChart';
 import { MonthCalendar, dateKey } from '@/components/MonthCalendar';
+import { JournalIcon } from '@/components/JournalIcon';
 import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useSessionStore } from '@/store/sessionStore';
 import { useExerciseStore } from '@/store/exerciseStore';
@@ -150,7 +151,7 @@ function JournalView({ completedSessions }: { completedSessions: WorkoutSession[
         {sessionsForDay.length === 0 ? (
           <View style={styles.emptyState}>
             <View style={styles.emptyIconCircle}>
-              <Ionicons name="book-outline" size={40} color={colors.accent} />
+              <JournalIcon size={40} color={colors.accent} />
             </View>
             <Text style={styles.emptyTitle}>No logs for {formatJournalDate(selectedDate)}</Text>
             <Text style={styles.emptyBody}>Complete a workout to log your sets here, or browse another day on the calendar.</Text>
