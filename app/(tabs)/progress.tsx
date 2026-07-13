@@ -22,9 +22,9 @@ const METRIC_LABELS: Record<StatsMetric, string> = {
 };
 
 const METRIC_INFO: Record<StatsMetric, string> = {
-  training_max: "Training Max is the number you've set for each lift under Settings → Training Max. Your program uses it to calculate the prescribed weight for percentage-based sets.",
-  heaviest_lift: 'Heaviest Lift is the highest weight you’ve actually logged for this exercise in a single session.',
-  tonnage: 'Tonnage is the total weight moved for this exercise in a session — sets × reps × weight, added together.',
+  training_max: 'Your training max is a weight you can confidently lift any day — even when you are tired — so you stay consistent and never miss reps. It helps you avoid burnout, reduce injury risk, and build strength steadily over time. To set it, use about 85-90% of your true 1RM.',
+  heaviest_lift: 'The most weight you have successfully lifted for a specific exercise, for a single rep. This reflects your current top performance.',
+  tonnage: 'The total amount of weight lifted in a workout or exercise, calculated as: sets x reps x weight. It is a way to measure overall training volume and workload.',
 };
 
 function heaviestLiftByDate(history: { date: string; weight: number; reps: number }[]): AreaChartPoint[] {
