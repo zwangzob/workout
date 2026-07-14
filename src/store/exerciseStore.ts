@@ -45,11 +45,16 @@ export const useExerciseStore = create<ExerciseStore>()(
         // One-time backfill: fill in workoutSubtype for exercises persisted before that
         // field existed, without touching one a user has since set explicitly.
         const seedById = new Map(SEED_EXERCISES.map((e) => [e.id, e]));
-        const exercises = persisted.exercises.map((ex) => {
+        const backfilled = persisted.exercises.map((ex) => {
           if (ex.workoutSubtype) return ex;
           const seedSubtype = seedById.get(ex.id)?.workoutSubtype;
           return seedSubtype ? { ...ex, workoutSubtype: seedSubtype } : ex;
         });
+        // Append any seed exercises added to the library since this device last persisted -
+        // otherwise new seed exercises would silently never show up for existing installs.
+        const persistedIds = new Set(persisted.exercises.map((ex) => ex.id));
+        const newSeedExercises = SEED_EXERCISES.filter((ex) => !persistedIds.has(ex.id));
+        const exercises = [...backfilled, ...newSeedExercises];
         return { ...currentState, ...persisted, exercises } as ExerciseStore;
       },
     },
