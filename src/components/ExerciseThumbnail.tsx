@@ -17,6 +17,7 @@ const MUSCLE_ICON: Record<MuscleGroup, keyof typeof Ionicons.glyphMap> = {
   forearms: 'hand-left',
   full_body: 'fitness',
   cardio: 'heart',
+  abductor: 'walk',
 };
 
 type ExerciseThumbnailProps = {

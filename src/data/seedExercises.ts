@@ -133,7 +133,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_cable_kickback', name: 'Cable Glute Kickback', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_banded_glute_bridge', name: 'Banded Glute Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_single_leg_glute_bridge', name: 'Single-Leg Glute Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_hip_abduction_machine', name: 'Hip Abduction Machine', primaryMuscle: 'glutes', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hip_abduction_machine', name: 'Hip Abduction Machine', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
 
   // Calves
   { id: 'ex_seated_calf_raise', name: 'Seated Calf Raise', primaryMuscle: 'calves', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
@@ -181,4 +181,18 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_side_plank', name: 'Side Plank', primaryMuscle: 'core', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
   { id: 'ex_dead_bug', name: 'Dead Bug', primaryMuscle: 'core', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_cable_woodchopper', name: 'Cable Woodchopper', primaryMuscle: 'core', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_side' },
+
+  // Abductor
+  { id: 'ex_band_abducted_goblet_squat', name: 'Band Abducted Goblet Squat', primaryMuscle: 'abductor', secondaryMuscles: ['quads', 'glutes'], equipment: ['resistance_band', 'dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_band_abducted_squat', name: 'Band Abducted Squat', primaryMuscle: 'abductor', secondaryMuscles: ['quads', 'glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_band_abducted_glute_bridge', name: 'Band Abducted Glute Bridge', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_lateral_walk', name: 'Banded Lateral Walk', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_banded_shuffle', name: 'Banded Shuffle (Band on Toes)', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_banded_supine_transverse_hip_abduction', name: 'Banded Supine Transverse Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_frog_pump', name: 'Frog Pump', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_glute_bridge_with_abduction', name: 'Glute Bridge with Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_plank_alt_single_leg_hip_abduction', name: 'Plank with Alt. Single Leg Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['core'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_seated_banded_abduction', name: 'Seated Banded Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_side_lying_abduction', name: 'Side Lying Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_standing_abductor_machine', name: 'Standing Abductor Machine', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
 ];
