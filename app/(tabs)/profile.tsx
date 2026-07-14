@@ -116,6 +116,15 @@ export default function ProfileScreen() {
             <Ionicons name="chevron-forward" size={18} color={colors.textTertiary} />
           </Pressable>
         </Section>
+
+        <Section title="Export">
+          <Pressable style={styles.row} onPress={() => { tapLight(); router.push('/export-workout'); }}>
+            <View style={styles.rowText}>
+              <Text style={styles.rowTitle}>Export Workout</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.textTertiary} />
+          </Pressable>
+        </Section>
       </ScrollView>
 
       <GymProfileSheet

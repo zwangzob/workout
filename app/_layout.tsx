@@ -17,6 +17,7 @@ export default function RootLayout() {
           <Stack.Screen name="exercise/new" options={{ presentation: 'modal' }} />
           <Stack.Screen name="exercise/[id]" />
           <Stack.Screen name="training-max" />
+          <Stack.Screen name="export-workout" />
         </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>
