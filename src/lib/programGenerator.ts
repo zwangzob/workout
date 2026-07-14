@@ -8,7 +8,7 @@ const DAY_ARCHETYPES: Record<string, MuscleGroup[]> = {
   Legs: ['quads', 'hamstrings', 'glutes', 'calves'],
   Upper: ['chest', 'back', 'shoulders', 'biceps', 'triceps'],
   Lower: ['quads', 'hamstrings', 'glutes', 'calves'],
-  'Full Body': ['quads', 'chest', 'back', 'shoulders', 'core'],
+  'Full Body': ['quads', 'chest', 'back', 'shoulders', 'abs'],
   Chest: ['chest', 'triceps'],
   Back: ['back', 'biceps'],
   Shoulders: ['shoulders'],

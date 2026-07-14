@@ -51,12 +51,20 @@ export const useExerciseStore = create<ExerciseStore>()(
         const RECLASSIFIED_PRIMARY_MUSCLE: Record<string, { from: string; to: Exercise['primaryMuscle'] }> = {
           ex_hip_abduction_machine: { from: 'glutes', to: 'abductor' },
         };
+        // Core was renamed to Abs outright - every 'core' tag (primary or secondary)
+        // means the same thing it always did, so this rename applies unconditionally.
+        const renameCoreToAbs = (m: string) => (m === 'core' ? 'abs' : m);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
           if (reclass && next.primaryMuscle === reclass.from) {
             next = { ...next, primaryMuscle: reclass.to };
           }
+          next = {
+            ...next,
+            primaryMuscle: renameCoreToAbs(next.primaryMuscle) as Exercise['primaryMuscle'],
+            secondaryMuscles: next.secondaryMuscles.map(renameCoreToAbs) as Exercise['secondaryMuscles'],
+          };
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;
             if (seedSubtype) next = { ...next, workoutSubtype: seedSubtype };

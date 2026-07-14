@@ -8,11 +8,12 @@ export type MuscleGroup =
   | 'hamstrings'
   | 'glutes'
   | 'calves'
-  | 'core'
+  | 'abs'
   | 'forearms'
   | 'full_body'
   | 'cardio'
-  | 'abductor';
+  | 'abductor'
+  | 'adductor';
 
 export type Equipment =
   | 'barbell'
@@ -103,11 +104,12 @@ export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
   hamstrings: 'Hamstrings',
   glutes: 'Glutes',
   calves: 'Calves',
-  core: 'Core',
+  abs: 'Abs',
   forearms: 'Forearms',
   full_body: 'Full Body',
   cardio: 'Cardio',
   abductor: 'Abductor',
+  adductor: 'Adductor',
 };
 
 export const EQUIPMENT_LABELS: Record<Equipment, string> = {

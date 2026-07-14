@@ -13,11 +13,12 @@ const MUSCLE_ICON: Record<MuscleGroup, keyof typeof Ionicons.glyphMap> = {
   hamstrings: 'walk',
   glutes: 'walk',
   calves: 'walk',
-  core: 'ellipse',
+  abs: 'ellipse',
   forearms: 'hand-left',
   full_body: 'fitness',
   cardio: 'heart',
   abductor: 'walk',
+  adductor: 'walk',
 };
 
 type ExerciseThumbnailProps = {
