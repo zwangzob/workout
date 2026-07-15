@@ -8,7 +8,7 @@ import { colors, radii, spacing, typography } from '@/theme/theme';
 import { useExerciseStore } from '@/store/exerciseStore';
 import { MUSCLE_GROUP_LABELS, MuscleGroup } from '@/types';
 
-const MUSCLE_FILTERS: (MuscleGroup | 'all')[] = ['all', 'chest', 'back', 'shoulders', 'biceps', 'triceps', 'forearms', 'quads', 'hamstrings', 'glutes', 'abductor', 'adductor', 'calves', 'abs', 'core_trunk', 'full_body', 'cardio'];
+const MUSCLE_FILTERS: (MuscleGroup | 'all')[] = ['all', 'chest', 'back', 'shoulders', 'traps', 'biceps', 'triceps', 'forearms', 'quads', 'hamstrings', 'glutes', 'abductor', 'adductor', 'calves', 'abs', 'core_trunk', 'full_body', 'cardio'];
 
 export default function LibraryScreen() {
   const exercises = useExerciseStore((s) => s.exercises);

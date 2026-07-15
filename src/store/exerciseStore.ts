@@ -81,6 +81,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           'ex_wall_sit', 'ex_glute_bridge_with_abduction', 'ex_glute_bridge_with_adduction',
           'ex_box_jump', 'ex_leg_press', 'ex_hack_squat',
         ]);
+        // One-time addition: these exercises gained 'traps' as a secondary muscle when
+        // the Traps category was introduced. Purely additive.
+        const ADD_TRAPS_IDS = new Set(['ex_cable_front_raise', 'ex_db_upright_row', 'ex_front_plate_raise']);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -103,6 +106,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           }
           if (ADD_HAMSTRINGS_IDS.has(next.id) && !next.secondaryMuscles.includes('hamstrings')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'hamstrings'] };
+          }
+          if (ADD_TRAPS_IDS.has(next.id) && !next.secondaryMuscles.includes('traps')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'traps'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;

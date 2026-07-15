@@ -297,16 +297,16 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_banded_lateral_raise', name: 'Banded Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_banded_overhead_press', name: 'Banded Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_banded_upright_row', name: 'Banded Upright Row', primaryMuscle: 'shoulders', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
-  { id: 'ex_cable_front_raise', name: 'Cable Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_cable_front_raise', name: 'Cable Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: ['traps'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_db_front_raise', name: 'DB Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_db_iso_hold_lateral_raise', name: 'DB Iso-Hold Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'time_weight' },
   { id: 'ex_db_iso_lateral_raise', name: 'DB Iso Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'time_weight' },
   { id: 'ex_db_lateral_to_front_raise', name: 'DB Lateral-to-Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_db_upright_row', name: 'DB Upright Row', primaryMuscle: 'shoulders', secondaryMuscles: ['biceps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_db_upright_row', name: 'DB Upright Row', primaryMuscle: 'shoulders', secondaryMuscles: ['biceps', 'traps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_devils_press', name: "Devil's Press", primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'triceps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_elevated_pike_handstand_pushup', name: 'Elevated Pike Hand Stand Push-Up', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['bodyweight', 'box'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_face_pull_rotator_cuff', name: 'Face Pull (Rotator Cuff Focus)', primaryMuscle: 'back', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_front_plate_raise', name: 'Front Plate Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['plate'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_front_plate_raise', name: 'Front Plate Raise', primaryMuscle: 'shoulders', secondaryMuscles: ['traps'], equipment: ['plate'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_front_plate_raise_hold', name: 'Front Plate Raise Hold', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['plate'], category: 'isolation', workoutSubtype: 'time_weight' },
   { id: 'ex_half_kneeling_landmine_press', name: 'Half-Kneeling Landmine Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_high_incline_cable_overhead_press', name: 'High Incline Cable Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['cable', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
@@ -426,4 +426,11 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_seated_banded_single_leg_hamstring_curl', name: 'Seated Banded Single-Leg Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['resistance_band', 'bench'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_slider_hamstring_curl', name: 'Slider Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_swiss_ball_hamstring_curl', name: 'Swiss Ball Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+
+  // Traps (Cable Front Raise, DB Upright Row, and Front Plate Raise already exist above
+  // and gained 'traps' as a secondary muscle in place instead of a duplicate entry here)
+  { id: 'ex_clean_pull', name: 'Clean Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_db_shrug', name: 'Seated DB Shrug', primaryMuscle: 'traps', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_ez_bar_shrug', name: 'Seated EZ Bar Shrug', primaryMuscle: 'traps', secondaryMuscles: [], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_snatch_pull', name: 'Snatch Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
 ];
