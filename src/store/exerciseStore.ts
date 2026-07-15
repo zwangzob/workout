@@ -70,6 +70,17 @@ export const useExerciseStore = create<ExerciseStore>()(
         // One-time addition: these exercises gained 'shoulders' as a secondary muscle
         // when the Shoulders category was expanded. Purely additive.
         const ADD_SHOULDERS_IDS = new Set(['ex_burpee', 'ex_farmers_carry', 'ex_pushup']);
+        // One-time addition: these exercises gained 'glutes' and/or 'hamstrings' as a
+        // secondary muscle when the Glutes and Hamstrings categories were expanded together.
+        // Purely additive.
+        const ADD_GLUTES_IDS = new Set([
+          'ex_wall_sit', 'ex_sissy_squat', 'ex_tke_split_squat', 'ex_banded_supine_transverse_hip_abduction',
+          'ex_glute_bridge_with_abduction', 'ex_glute_bridge_with_adduction', 'ex_box_jump', 'ex_leg_press', 'ex_hack_squat',
+        ]);
+        const ADD_HAMSTRINGS_IDS = new Set([
+          'ex_wall_sit', 'ex_glute_bridge_with_abduction', 'ex_glute_bridge_with_adduction',
+          'ex_box_jump', 'ex_leg_press', 'ex_hack_squat',
+        ]);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -86,6 +97,12 @@ export const useExerciseStore = create<ExerciseStore>()(
           }
           if (ADD_SHOULDERS_IDS.has(next.id) && !next.secondaryMuscles.includes('shoulders')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'shoulders'] };
+          }
+          if (ADD_GLUTES_IDS.has(next.id) && !next.secondaryMuscles.includes('glutes')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'glutes'] };
+          }
+          if (ADD_HAMSTRINGS_IDS.has(next.id) && !next.secondaryMuscles.includes('hamstrings')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'hamstrings'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;

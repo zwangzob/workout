@@ -57,7 +57,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_back_squat', name: 'Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_front_squat', name: 'Barbell Front Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'abs'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_goblet_squat', name: 'Goblet Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['kettlebell', 'dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
-  { id: 'ex_leg_press', name: 'Leg Press', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_leg_press', name: 'Leg Press', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_leg_extension', name: 'Leg Extension', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_bulgarian_split_squat', name: 'Bulgarian Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_walking_lunge', name: 'Walking Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
@@ -94,7 +94,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_stationary_bike', name: 'Stationary Bike', primaryMuscle: 'cardio', secondaryMuscles: [], equipment: ['bike'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
   { id: 'ex_rowing_machine', name: 'Rowing Machine', primaryMuscle: 'cardio', secondaryMuscles: ['back'], equipment: ['rower'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
   { id: 'ex_jump_rope', name: 'Jump Rope', primaryMuscle: 'cardio', secondaryMuscles: ['calves'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
-  { id: 'ex_box_jump', name: 'Box Jump', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'cardio'], equipment: ['box'], category: 'cardio', workoutSubtype: 'reps' }, // best guess - no usage data
+  { id: 'ex_box_jump', name: 'Box Jump', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'cardio', 'hamstrings'], equipment: ['box'], category: 'cardio', workoutSubtype: 'reps' }, // best guess - no usage data
 
   // Pulled in from the user's actual training history
   { id: 'ex_deficit_deadlift', name: 'Deficit Deadlift', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes', 'forearms'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
@@ -102,7 +102,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_banded_face_pull_ext_rot', name: 'Banded Face Pull w/ Ext Rotation', primaryMuscle: 'back', secondaryMuscles: ['shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_single_leg_banded_ham_curl', name: 'Standing Single-Leg Banded Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'time_side' },
   { id: 'ex_ffe_split_squat', name: 'Front Foot Elevated Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'box'], category: 'compound', workoutSubtype: 'reps_weight_side' },
-  { id: 'ex_wall_sit', name: 'Wall Sit', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_wall_sit', name: 'Wall Sit', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
   { id: 'ex_db_box_step_up', name: 'DB Box Step Up', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'box'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_ab_walkout', name: 'Ab Walkout', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
   { id: 'ex_2up1down_hip_thrust', name: '2-Up, 1-Down Hip Thrust', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight', 'bench'], category: 'isolation', workoutSubtype: 'reps_side' },
@@ -113,7 +113,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_seated_incline_db_curl', name: 'Seated Incline DB Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
 
   // Pulled in from the user's May 2026 training block
-  { id: 'ex_tke_split_squat', name: 'Terminal Knee Extension Split Squat', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_tke_split_squat', name: 'Terminal Knee Extension Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_zottman_curl', name: 'Zottman Curl (2s Negative)', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_b_stance_db_rdl', name: 'B-Stance DB Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_kb_windmill', name: 'KB Windmill', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['kettlebell'], category: 'mobility', workoutSubtype: 'reps_weight_side' },
@@ -175,8 +175,8 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_nordic_curl', name: 'Nordic Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
 
   // Quads
-  { id: 'ex_hack_squat', name: 'Hack Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
-  { id: 'ex_sissy_squat', name: 'Sissy Squat', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_hack_squat', name: 'Hack Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_sissy_squat', name: 'Sissy Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
 
   // Abs
   { id: 'ex_side_plank', name: 'Side Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
@@ -189,9 +189,9 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_band_abducted_glute_bridge', name: 'Band Abducted Glute Bridge', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_banded_lateral_walk', name: 'Banded Lateral Walk', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_banded_shuffle', name: 'Banded Shuffle (Band on Toes)', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_banded_supine_transverse_hip_abduction', name: 'Banded Supine Transverse Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_banded_supine_transverse_hip_abduction', name: 'Banded Supine Transverse Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_frog_pump', name: 'Frog Pump', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_glute_bridge_with_abduction', name: 'Glute Bridge with Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_glute_bridge_with_abduction', name: 'Glute Bridge with Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_plank_alt_single_leg_hip_abduction', name: 'Plank with Alt. Single Leg Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['core_trunk', 'abs'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_seated_banded_abduction', name: 'Seated Banded Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_side_lying_abduction', name: 'Side Lying Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
@@ -235,7 +235,7 @@ export const SEED_EXERCISES: Exercise[] = [
   // Adductor
   { id: 'ex_copenhagen_plank', name: 'Copenhagen Plank', primaryMuscle: 'adductor', secondaryMuscles: ['abs', 'shoulders'], equipment: ['bench'], category: 'isolation', workoutSubtype: 'time_side' },
   { id: 'ex_copenhagen_plank_raise', name: 'Copenhagen Plank Raise', primaryMuscle: 'adductor', secondaryMuscles: ['abs', 'shoulders'], equipment: ['bench'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_glute_bridge_with_adduction', name: 'Glute Bridge with Adduction', primaryMuscle: 'adductor', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_glute_bridge_with_adduction', name: 'Glute Bridge with Adduction', primaryMuscle: 'adductor', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_goblet_squat_with_adduction', name: 'Goblet Squat with Adduction', primaryMuscle: 'adductor', secondaryMuscles: ['quads', 'glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_hip_adduction_machine', name: 'Hip Adduction Machine', primaryMuscle: 'adductor', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_side_lying_adduction', name: 'Side Lying Adduction', primaryMuscle: 'adductor', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
@@ -329,4 +329,101 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_seated_barbell_overhead_press', name: 'Seated Barbell Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_seated_cable_front_raise', name: 'Seated Cable Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['cable', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_seated_cable_overhead_press', name: 'Seated Cable Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['cable', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+
+  // Glutes + Hamstrings (processed together since the two lists overlapped heavily -
+  // nearly every deadlift/RDL/squat variant appeared on both. 2-Up 1-Down Hip Thrust,
+  // Air Squat -> Bodyweight Squat, B-Stance DB Romanian Deadlift, Band Abducted Goblet
+  // Squat/Squat, Banded Lateral Walk, Banded Shuffle, Banded Supine Transverse Hip
+  // Abduction, Bulgarian Split Squat, Cable Pull-Through, Deadlift, Deficit Deadlift,
+  // DB Romanian Deadlift, Fire Hydrant, Front Foot Elevated Split Squat, Barbell Front
+  // Squat, Glute Bridge (+ Banded/with Abduction/with Adduction), Cable Glute Kickback,
+  // Goblet Squat (+ with Adduction), Good Morning, Barbell Hip Thrust, KB Romanian
+  // Deadlift, KB Swing, Leg Curl variants (Lying/Seated/Standing Single-Leg Banded),
+  // Nordic Curl, Plank w/ Alt Single Leg Hip Extension, Romanian Deadlift, Single-Leg
+  // Glute Bridge, Squat, Squat with Adduction, Terminal Knee Extension Split Squat,
+  // Walking Lunge, and Wall Sit already exist above; each got 'glutes' and/or
+  // 'hamstrings' added as a secondary muscle in place where it was missing instead of a
+  // duplicate entry here. "Hack Squat Good Morning" reads like two list items run
+  // together with no such combo exercise existing, so it's mapped to the existing Hack
+  // Squat. "Glute Bridge Against Band" and "Banded Abduction in Glute Bridge" both map to
+  // existing banded/abduction glute bridge entries rather than new ones.)
+
+  { id: 'ex_back_extension_glute_focus', name: 'Back Extension (Glute Focus)', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_alt_lunges', name: 'Alternating Lunges', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_alternating_jump_lunges', name: 'Alternating Jump Lunges', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_b_stance_banded_rdl', name: 'B-Stance Banded Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_b_stance_glute_bridge', name: 'B-Stance Glute Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_b_stance_hip_thrust', name: 'B-Stance Hip Thrust', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_b_stance_squat', name: 'B-Stance Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_banded_deadlift', name: 'Banded Deadlift', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_glute_kickback', name: 'Banded Glute Kickback', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_banded_good_morning', name: 'Banded Good Morning', primaryMuscle: 'hamstrings', secondaryMuscles: ['back', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_pull_through', name: 'Banded Pull-Through', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_stiff_leg_sumo_deadlift', name: 'Banded Stiff Leg Sumo Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_sumo_good_morning', name: 'Banded Sumo Good Morning', primaryMuscle: 'hamstrings', secondaryMuscles: ['back', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_barbell_reverse_lunge', name: 'Barbell Reverse Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_barbell_split_squat', name: 'Barbell Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_barbell_stiff_leg_sumo_deadlift', name: 'Barbell Stiff Leg Sumo Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_battle_rope_jumping_lunge_slam', name: 'Battle Rope Jumping Lunge Slam', primaryMuscle: 'full_body', secondaryMuscles: ['glutes', 'quads'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_belt_squat', name: 'Belt Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_bodyweight_glute_kickback', name: 'Bodyweight Glute Kickback', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_bodyweight_reverse_hyper', name: 'Bodyweight Reverse Hyper', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings', 'back'], equipment: ['bodyweight', 'bench'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_broad_jump', name: 'Broad Jump', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'cardio', 'hamstrings'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_clamshell', name: 'Clamshell', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_clamshell_hip_extension', name: 'Clamshell with Hip Extension', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_cossack_squat', name: 'Cossack Squat', primaryMuscle: 'adductor', secondaryMuscles: ['quads', 'glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_curtsy_lunge', name: 'Curtsy Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'adductor'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_db_stiff_leg_deadlift', name: 'DB Stiff Leg Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_db_stiff_leg_sumo_deadlift', name: 'DB Stiff Leg Sumo Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_deadlift_from_blocks', name: 'Deadlift from Blocks', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes', 'forearms'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_deficit_kb_stiff_leg_deadlift', name: 'Deficit Kettlebell Stiff Leg Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['kettlebell', 'box'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_deficit_reverse_lunge', name: 'Deficit Reverse Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'box'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_eccentric_step_down', name: 'Eccentric Step Down', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['box', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_elevated_single_leg_glute_bridge', name: 'Elevated Single-Leg Glute Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight', 'bench'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_forward_to_backward_lunge', name: 'Forward-to-Backward Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_glute_ham_raise', name: 'Glute Ham Raise', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_heel_elevated_goblet_squat', name: 'Heel Elevated Goblet Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_high_bar_squat', name: 'High-Bar Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_kang_squat', name: 'Kang Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_kettlebell_stiff_leg_deadlift', name: 'Kettlebell Stiff Leg Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_kettlebell_stiff_leg_sumo_deadlift', name: 'Kettlebell Stiff Leg Sumo Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_kneel_to_squat', name: 'Kneel-to-Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'mobility', workoutSubtype: 'reps' },
+  { id: 'ex_landmine_curtsy_lunge', name: 'Landmine Curtsy Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'adductor'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_landmine_goblet_squat', name: 'Landmine Goblet Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_landmine_romanian_deadlift', name: 'Landmine Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_landmine_split_squat', name: 'Landmine Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_lateral_box_step_up', name: 'Lateral Box Step-Up', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['dumbbell', 'box'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_low_ceiling_lunge', name: 'Low Ceiling Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_low_ceiling_pulse_lunge', name: 'Low Ceiling Pulse Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_overhead_walking_lunge', name: 'Overhead Walking Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_reverse_hack_squat', name: 'Reverse Hack Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_reverse_hyperextension', name: 'Reverse Hyperextension', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings', 'back'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_reverse_lunge', name: 'Reverse Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_runners_lunge', name: "Runner's Lunge", primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'mobility', workoutSubtype: 'time_side' },
+  { id: 'ex_side_lunge', name: 'Side Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'adductor'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_leg_deadlift', name: 'Single-Leg Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_leg_leg_press', name: 'Single-Leg Leg Press', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_spanish_squat', name: 'Spanish Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_split_squat', name: 'Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_split_stance_rdl', name: 'Split Stance Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_squat_jump', name: 'Squat Jump', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_safety_bar_squat', name: 'Safety Bar Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_stiff_leg_deadlift', name: 'Stiff Leg Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_straight_leg_bridge', name: 'Straight Leg Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_sumo_deadlift', name: 'Sumo Deadlift', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes', 'forearms'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_toes_elevated_db_rdl', name: 'Toes-Elevated DB Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_toes_elevated_kb_rdl', name: 'Toes-Elevated Kettlebell Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_trap_bar_deadlift', name: 'Trap Bar Deadlift', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes', 'forearms'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_weighted_back_extension_glute_focus', name: 'Weighted Back Extension (Glute Focus)', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['machine', 'plate'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_zercher_squat', name: 'Zercher Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'back'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_2down_1up_hamstring_curl', name: '2-Down, 1-Up Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_cable_stiff_leg_deadlift', name: 'Cable Stiff-Leg Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hamstring_curl_21s', name: "Hamstring Curl 21's", primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_jefferson_curl', name: 'Jefferson Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['back'], equipment: ['barbell'], category: 'mobility', workoutSubtype: 'reps_weight' },
+  { id: 'ex_modified_slider_hamstring_curl', name: 'Modified Slider Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_prone_banded_hamstring_curl', name: 'Prone Banded Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_prone_single_leg_banded_hamstring_curl', name: 'Prone Single-Leg Banded Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_seated_banded_single_leg_hamstring_curl', name: 'Seated Banded Single-Leg Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: [], equipment: ['resistance_band', 'bench'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_slider_hamstring_curl', name: 'Slider Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_swiss_ball_hamstring_curl', name: 'Swiss Ball Hamstring Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
 ];
