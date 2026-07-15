@@ -14,7 +14,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_dumbbell_bench_press', name: 'DB Bench Press', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['dumbbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_incline_barbell_press', name: 'Incline Barbell Press', primaryMuscle: 'chest', secondaryMuscles: ['shoulders', 'triceps'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_incline_dumbbell_press', name: 'Incline DB Press', primaryMuscle: 'chest', secondaryMuscles: ['shoulders', 'triceps'], equipment: ['dumbbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
-  { id: 'ex_pushup', name: 'Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'abs'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_pushup', name: 'Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'abs', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_cable_fly', name: 'Cable Fly', primaryMuscle: 'chest', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_dumbbell_fly', name: 'DB Fly', primaryMuscle: 'chest', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_chest_press_machine', name: 'Chest Press Machine', primaryMuscle: 'chest', secondaryMuscles: ['triceps'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
@@ -86,7 +86,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_mountain_climber', name: 'Mountain Climber', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'cardio'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
 
   // Full body / conditioning
-  { id: 'ex_burpee', name: 'Burpee', primaryMuscle: 'full_body', secondaryMuscles: ['cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' }, // best guess - no usage data
+  { id: 'ex_burpee', name: 'Burpee', primaryMuscle: 'full_body', secondaryMuscles: ['cardio', 'shoulders'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' }, // best guess - no usage data
   { id: 'ex_kb_clean_and_press', name: 'KB Clean & Press', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_thruster', name: 'Barbell Thruster', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
 
@@ -126,7 +126,7 @@ export const SEED_EXERCISES: Exercise[] = [
   // Forearms (previously had zero dedicated exercises)
   { id: 'ex_wrist_curl', name: 'Wrist Curl', primaryMuscle: 'forearms', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_reverse_wrist_curl', name: 'Reverse Wrist Curl', primaryMuscle: 'forearms', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_farmers_carry', name: "Farmer's Carry", primaryMuscle: 'forearms', secondaryMuscles: ['abs', 'full_body'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'time_weight' },
+  { id: 'ex_farmers_carry', name: "Farmer's Carry", primaryMuscle: 'forearms', secondaryMuscles: ['abs', 'full_body', 'shoulders'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'time_weight' },
   { id: 'ex_dead_hang', name: 'Dead Hang', primaryMuscle: 'forearms', secondaryMuscles: ['core_trunk', 'back'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'time' },
 
   // Glutes
@@ -283,4 +283,50 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_stir_the_pot', name: 'Stir-the-Pot', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_suitcase_deadlift', name: 'Suitcase Deadlift', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes', 'forearms'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_suitcase_walk', name: 'Suitcase Walk', primaryMuscle: 'core_trunk', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'time_weight_side' },
+
+  // Shoulders (Arch Body Rock, Around the World, Band Pull-Aparts, Banded Face Pull,
+  // Banded Face Pull w/ Ext Rotation, Barbell Thruster, Cable Lateral Raise, DB Lateral
+  // Raise, DB Thruster, DB Z-Press, Incline Bench Press -> Incline Barbell Press, Overhead
+  // Press, Rear Delt Flyes, and Seated DB Overhead Press -> DB Shoulder Press already exist
+  // above and already carry 'shoulders'; Burpee, Farmer's Carry, and Push-Up gained
+  // 'shoulders' as a new secondary muscle in place above instead of a duplicate entry here.
+  // Meadows Row and Face Pull (Rotator Cuff Focus) are classed under Back to match their
+  // existing row/face-pull siblings, and Low-to-High Banded Wood Chop under Core/Trunk to
+  // match its five wood-chop siblings, each with 'shoulders' as a secondary muscle.)
+  { id: 'ex_banded_front_raise', name: 'Banded Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_lateral_raise', name: 'Banded Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_overhead_press', name: 'Banded Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_upright_row', name: 'Banded Upright Row', primaryMuscle: 'shoulders', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_cable_front_raise', name: 'Cable Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_db_front_raise', name: 'DB Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_db_iso_hold_lateral_raise', name: 'DB Iso-Hold Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'time_weight' },
+  { id: 'ex_db_iso_lateral_raise', name: 'DB Iso Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'time_weight' },
+  { id: 'ex_db_lateral_to_front_raise', name: 'DB Lateral-to-Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_db_upright_row', name: 'DB Upright Row', primaryMuscle: 'shoulders', secondaryMuscles: ['biceps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_devils_press', name: "Devil's Press", primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'triceps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_elevated_pike_handstand_pushup', name: 'Elevated Pike Hand Stand Push-Up', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['bodyweight', 'box'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_face_pull_rotator_cuff', name: 'Face Pull (Rotator Cuff Focus)', primaryMuscle: 'back', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_front_plate_raise', name: 'Front Plate Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['plate'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_front_plate_raise_hold', name: 'Front Plate Raise Hold', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['plate'], category: 'isolation', workoutSubtype: 'time_weight' },
+  { id: 'ex_half_kneeling_landmine_press', name: 'Half-Kneeling Landmine Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_high_incline_cable_overhead_press', name: 'High Incline Cable Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['cable', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_low_to_high_banded_woodchop', name: 'Low-to-High Banded Wood Chop', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_meadows_row', name: 'Meadows Row', primaryMuscle: 'back', secondaryMuscles: ['biceps', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_modified_hands_elevated_pushup', name: 'Modified (Hands Elevated) Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight', 'bench'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_modified_knees_down_pushup', name: 'Modified (Knees Down) Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_modified_clapping_pushup', name: 'Modified Clapping Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_modified_handstand_pushup', name: 'Modified Hand Stand Push-Up', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_modified_plyo_pushup', name: 'Modified Plyo Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_plyo_pushup', name: 'Plyo Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_prone_ityw', name: 'Prone I-T-Y-W', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_prone_incline_db_lateral_raise', name: 'Prone Incline DB Lateral Raise', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_prone_incline_ityw', name: 'Prone Incline I-T-Y-W', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_prone_incline_rear_delt_flyes', name: 'Prone Incline Rear Delt Flyes', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_prone_incline_y_raises', name: 'Prone Incline Y-Raises', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_pushup_mechanical_dropset', name: 'Push-Up Mechanical Dropset', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_pushup_single_arm_deficit', name: 'Push-Up with Single Arm Deficit', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight', 'box'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_quadruped_banded_shoulder_abduction', name: 'Quadruped Banded Shoulder Abduction', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_seated_barbell_overhead_press', name: 'Seated Barbell Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_cable_front_raise', name: 'Seated Cable Front Raise', primaryMuscle: 'shoulders', secondaryMuscles: [], equipment: ['cable', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_cable_overhead_press', name: 'Seated Cable Overhead Press', primaryMuscle: 'shoulders', secondaryMuscles: ['triceps'], equipment: ['cable', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
 ];

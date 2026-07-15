@@ -31,7 +31,8 @@ export type Equipment =
   | 'trx'
   | 'bike'
   | 'rower'
-  | 'box';
+  | 'box'
+  | 'plate';
 
 export type ExerciseCategory = 'compound' | 'isolation' | 'cardio' | 'mobility';
 
@@ -130,4 +131,5 @@ export const EQUIPMENT_LABELS: Record<Equipment, string> = {
   bike: 'Bike',
   rower: 'Rower',
   box: 'Plyo Box',
+  plate: 'Weight Plate',
 };

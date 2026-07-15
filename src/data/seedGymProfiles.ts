@@ -18,6 +18,7 @@ export const SEED_GYM_PROFILES: GymProfile[] = [
       'bike',
       'rower',
       'box',
+      'plate',
     ],
   },
   {

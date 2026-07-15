@@ -67,6 +67,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           'ex_side_plank_raise', 'ex_single_leg_teaser', 'ex_situp', 'ex_slider_knee_tuck', 'ex_slider_mountain_climbers',
           'ex_slider_pike', 'ex_stability_ball_pass_through', 'ex_teaser', 'ex_v_sit_hold',
         ]);
+        // One-time addition: these exercises gained 'shoulders' as a secondary muscle
+        // when the Shoulders category was expanded. Purely additive.
+        const ADD_SHOULDERS_IDS = new Set(['ex_burpee', 'ex_farmers_carry', 'ex_pushup']);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -80,6 +83,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           };
           if (ADD_CORE_TRUNK_IDS.has(next.id) && !next.secondaryMuscles.includes('core_trunk')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'core_trunk'] };
+          }
+          if (ADD_SHOULDERS_IDS.has(next.id) && !next.secondaryMuscles.includes('shoulders')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'shoulders'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;
