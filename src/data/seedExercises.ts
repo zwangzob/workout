@@ -209,7 +209,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_ghd_situp', name: 'GHD Sit Ups', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'hamstrings'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_hanging_knee_tuck', name: 'Hanging Knee Tuck', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_high_plank', name: 'High Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_l_sit_pull_through', name: 'L Sit Pull Through', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_l_sit_pull_through', name: 'L Sit Pull Through', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders', 'triceps'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_landmine_oblique_twist', name: 'Landmine Oblique Twist', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['barbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_low_to_high_plank', name: 'Low to High Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_mcgill_big_3', name: 'McGill Big 3', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
@@ -433,4 +433,44 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_seated_db_shrug', name: 'Seated DB Shrug', primaryMuscle: 'traps', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_seated_ez_bar_shrug', name: 'Seated EZ Bar Shrug', primaryMuscle: 'traps', secondaryMuscles: [], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_snatch_pull', name: 'Snatch Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+
+  // Triceps (Bench Dip, Bench Press, Chest Dips -> Dips, Close-Grip Bench Press, Diamond
+  // Push-Up, DB OH Tricep Extensions -> Overhead DB Tricep Extension, EZ Bar Skullcrushers,
+  // Tricep Kickback, and Tricep Pushdowns already exist above and already carry 'triceps';
+  // L Sit Pull Through gained 'triceps' as a new secondary muscle in place above instead of
+  // a duplicate entry here. Board Press, Chest Dips (Weighted), Feet Elevated/Hand Release
+  // Push-Up, Feet Up Spoto Press, and Assisted Dips are classed under Chest to match their
+  // wide-grip bench/dip/push-up siblings, each with 'triceps' as a secondary muscle; Feet
+  // Up Close Grip Bench Press and Close Grip Push-Up instead match their close-grip/diamond
+  // siblings and stay triceps-primary. Renegade Row is classed under Core/Trunk to match
+  // the app's other plank-plus-row entries.)
+
+  { id: 'ex_3pos_banded_tricep_burnout', name: '3-Position Banded Tricep Burnout', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_3pos_bodyweight_tricep_burnout', name: '3-Position Bodyweight Tricep Burnout', primaryMuscle: 'triceps', secondaryMuscles: ['chest'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_3pos_tricep_burnout', name: '3-Position Tricep Burnout', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_assisted_dips', name: 'Assisted Dips', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_oh_tricep_extension', name: 'Banded OH Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_tricep_kickback', name: 'Banded Tricep Kickback', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_banded_tricep_pushdown', name: 'Banded Tricep Pushdown', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_bench_dip_mechanical_dropset', name: 'Bench Dip Mechanical Dropset', primaryMuscle: 'triceps', secondaryMuscles: ['chest'], equipment: ['bodyweight', 'bench'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_board_press', name: 'Board Press', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_bodyweight_tricep_extension', name: 'Bodyweight Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_cable_oh_tricep_extension', name: 'Cable OH Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_cable_single_arm_oh_tricep_extension', name: 'Cable Single Arm OH Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_chest_dips_weighted', name: 'Chest Dips (Weighted)', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight', 'plate'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_close_grip_pushup', name: 'Close Grip Push-Up', primaryMuscle: 'triceps', secondaryMuscles: ['chest'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_cross_body_cable_tricep_extension', name: 'Cross Body Cable Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_cross_body_single_arm_cable_tricep_extension', name: 'Cross Body Single Arm Cable Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_db_single_arm_oh_tricep_extension', name: 'DB Single Arm OH Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_db_skullcrusher', name: 'DB Skullcrusher', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_feet_elevated_pushup', name: 'Feet Elevated Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight', 'box'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_feet_up_close_grip_bench_press', name: 'Feet Up Close Grip Bench Press', primaryMuscle: 'triceps', secondaryMuscles: ['chest'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_feet_up_spoto_press', name: 'Feet Up Spoto Press', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hand_release_pushup', name: 'Hand Release Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_incline_skullcrusher', name: 'Incline Skullcrusher', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_renegade_row', name: 'Renegade Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'biceps', 'triceps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_banded_oh_tricep_extension', name: 'Single Arm Banded OH Tricep Extension', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_reverse_tricep_pushdown', name: 'Single Arm Reverse Tricep Pushdown', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_tricep_pushdown', name: 'Single Arm Tricep Pushdown', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_tricep_extension_machine', name: 'Tricep Extension Machine', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
 ];
