@@ -54,6 +54,19 @@ export const useExerciseStore = create<ExerciseStore>()(
         // Core was renamed to Abs outright - every 'core' tag (primary or secondary)
         // means the same thing it always did, so this rename applies unconditionally.
         const renameCoreToAbs = (m: string) => (m === 'core' ? 'abs' : m);
+        // One-time addition: these exercises gained 'core_trunk' as a secondary muscle
+        // when the Core/Trunk category was introduced (they were also in that list).
+        // Purely additive - nothing is removed or overwritten, so no "unedited" gate needed.
+        const ADD_CORE_TRUNK_IDS = new Set([
+          'ex_ab_fallout', 'ex_ab_wheel', 'ex_ab_walkout', 'ex_alternating_vups', 'ex_barbell_rollouts',
+          'ex_cable_crunch', 'ex_captains_chair_knee_tuck', 'ex_curl_up', 'ex_dead_hang', 'ex_dead_bug',
+          'ex_ghd_situp', 'ex_half_kneeling_pallof_press', 'ex_hanging_knee_tuck', 'ex_hanging_leg_raise', 'ex_high_plank',
+          'ex_l_sit_pull_through', 'ex_landmine_oblique_twist', 'ex_low_to_high_plank', 'ex_mcgill_big_3', 'ex_modified_hands_elevated_plank',
+          'ex_modified_knees_down_plank', 'ex_modified_high_plank', 'ex_modified_side_plank', 'ex_modified_side_plank_raise', 'ex_mountain_climber',
+          'ex_plank', 'ex_plank_alt_single_leg_hip_abduction', 'ex_rollup', 'ex_russian_twist', 'ex_side_plank',
+          'ex_side_plank_raise', 'ex_single_leg_teaser', 'ex_situp', 'ex_slider_knee_tuck', 'ex_slider_mountain_climbers',
+          'ex_slider_pike', 'ex_stability_ball_pass_through', 'ex_teaser', 'ex_v_sit_hold',
+        ]);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -65,6 +78,9 @@ export const useExerciseStore = create<ExerciseStore>()(
             primaryMuscle: renameCoreToAbs(next.primaryMuscle) as Exercise['primaryMuscle'],
             secondaryMuscles: next.secondaryMuscles.map(renameCoreToAbs) as Exercise['secondaryMuscles'],
           };
+          if (ADD_CORE_TRUNK_IDS.has(next.id) && !next.secondaryMuscles.includes('core_trunk')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'core_trunk'] };
+          }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;
             if (seedSubtype) next = { ...next, workoutSubtype: seedSubtype };

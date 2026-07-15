@@ -13,7 +13,8 @@ export type MuscleGroup =
   | 'full_body'
   | 'cardio'
   | 'abductor'
-  | 'adductor';
+  | 'adductor'
+  | 'core_trunk';
 
 export type Equipment =
   | 'barbell'
@@ -110,6 +111,7 @@ export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
   cardio: 'Cardio',
   abductor: 'Abductor',
   adductor: 'Adductor',
+  core_trunk: 'Core/Trunk',
 };
 
 export const EQUIPMENT_LABELS: Record<Equipment, string> = {

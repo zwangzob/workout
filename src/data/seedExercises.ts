@@ -78,12 +78,12 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_bodyweight_calf_raise', name: 'Bodyweight Calf Raise', primaryMuscle: 'calves', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
 
   // Abs
-  { id: 'ex_plank', name: 'Plank', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_hanging_leg_raise', name: 'Hanging Leg Raise', primaryMuscle: 'abs', secondaryMuscles: ['forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
-  { id: 'ex_cable_crunch', name: 'Cable Crunch', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_ab_wheel', name: 'Ab Wheel Rollout', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
-  { id: 'ex_russian_twist', name: 'Russian Twist', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
-  { id: 'ex_mountain_climber', name: 'Mountain Climber', primaryMuscle: 'abs', secondaryMuscles: ['cardio'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_plank', name: 'Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_hanging_leg_raise', name: 'Hanging Leg Raise', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
+  { id: 'ex_cable_crunch', name: 'Cable Crunch', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_ab_wheel', name: 'Ab Wheel Rollout', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
+  { id: 'ex_russian_twist', name: 'Russian Twist', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
+  { id: 'ex_mountain_climber', name: 'Mountain Climber', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'cardio'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
 
   // Full body / conditioning
   { id: 'ex_burpee', name: 'Burpee', primaryMuscle: 'full_body', secondaryMuscles: ['cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' }, // best guess - no usage data
@@ -104,9 +104,9 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_ffe_split_squat', name: 'Front Foot Elevated Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'box'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_wall_sit', name: 'Wall Sit', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
   { id: 'ex_db_box_step_up', name: 'DB Box Step Up', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell', 'box'], category: 'compound', workoutSubtype: 'reps_weight_side' },
-  { id: 'ex_ab_walkout', name: 'Ab Walkout', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
+  { id: 'ex_ab_walkout', name: 'Ab Walkout', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
   { id: 'ex_2up1down_hip_thrust', name: '2-Up, 1-Down Hip Thrust', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight', 'bench'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_half_kneeling_pallof_press', name: 'Half-Kneeling Pallof Press', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_half_kneeling_pallof_press', name: 'Half-Kneeling Pallof Press', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_supinated_lat_pulldown_band', name: 'Supinated Grip Lat Pulldown (Band)', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_kb_rdl', name: 'KB Romanian Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_db_skullcrusher_pause', name: 'DB Skullcrusher (1s Pause)', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
@@ -127,7 +127,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_wrist_curl', name: 'Wrist Curl', primaryMuscle: 'forearms', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_reverse_wrist_curl', name: 'Reverse Wrist Curl', primaryMuscle: 'forearms', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_farmers_carry', name: "Farmer's Carry", primaryMuscle: 'forearms', secondaryMuscles: ['abs', 'full_body'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'time_weight' },
-  { id: 'ex_dead_hang', name: 'Dead Hang', primaryMuscle: 'forearms', secondaryMuscles: ['back'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_dead_hang', name: 'Dead Hang', primaryMuscle: 'forearms', secondaryMuscles: ['core_trunk', 'back'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'time' },
 
   // Glutes
   { id: 'ex_cable_kickback', name: 'Cable Glute Kickback', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
@@ -179,8 +179,8 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_sissy_squat', name: 'Sissy Squat', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
 
   // Abs
-  { id: 'ex_side_plank', name: 'Side Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
-  { id: 'ex_dead_bug', name: 'Dead Bug', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_side_plank', name: 'Side Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
+  { id: 'ex_dead_bug', name: 'Dead Bug', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_cable_woodchopper', name: 'Cable Woodchopper', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_side' },
 
   // Abductor
@@ -192,7 +192,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_banded_supine_transverse_hip_abduction', name: 'Banded Supine Transverse Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_frog_pump', name: 'Frog Pump', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_glute_bridge_with_abduction', name: 'Glute Bridge with Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['glutes'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_plank_alt_single_leg_hip_abduction', name: 'Plank with Alt. Single Leg Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['abs'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_plank_alt_single_leg_hip_abduction', name: 'Plank with Alt. Single Leg Hip Abduction', primaryMuscle: 'abductor', secondaryMuscles: ['core_trunk', 'abs'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_seated_banded_abduction', name: 'Seated Banded Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_side_lying_abduction', name: 'Side Lying Abduction', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_standing_abductor_machine', name: 'Standing Abductor Machine', primaryMuscle: 'abductor', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
@@ -201,34 +201,34 @@ export const SEED_EXERCISES: Exercise[] = [
   // already exist above; "Ab Rollouts" maps to the existing Ab Wheel Rollout and
   // "Hanging Keg Raise" looks like a typo for the existing Hanging Leg Raise, so neither
   // got a new entry)
-  { id: 'ex_ab_fallout', name: 'Ab Fallout', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_alternating_vups', name: 'Alternating V-Ups', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_barbell_rollouts', name: 'Barbell Rollouts', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['barbell'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_captains_chair_knee_tuck', name: "Captain's Chair Knee Tuck", primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_curl_up', name: 'Curl Up', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_ghd_situp', name: 'GHD Sit Ups', primaryMuscle: 'abs', secondaryMuscles: ['hamstrings'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_hanging_knee_tuck', name: 'Hanging Knee Tuck', primaryMuscle: 'abs', secondaryMuscles: ['forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_high_plank', name: 'High Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_l_sit_pull_through', name: 'L Sit Pull Through', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_landmine_oblique_twist', name: 'Landmine Oblique Twist', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['barbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_low_to_high_plank', name: 'Low to High Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_mcgill_big_3', name: 'McGill Big 3', primaryMuscle: 'abs', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_modified_hands_elevated_plank', name: 'Modified (Hands Elevated) Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_modified_knees_down_plank', name: 'Modified (Knees Down) Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_modified_high_plank', name: 'Modified High Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_modified_side_plank', name: 'Modified Side Plank', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
-  { id: 'ex_modified_side_plank_raise', name: 'Modified Side Plank Raise', primaryMuscle: 'abs', secondaryMuscles: ['shoulders', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_rollup', name: 'Rollup', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_side_plank_raise', name: 'Side Plank Raise', primaryMuscle: 'abs', secondaryMuscles: ['shoulders', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_single_leg_teaser', name: 'Single Leg Teaser', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_situp', name: 'Sit Up', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_slider_knee_tuck', name: 'Slider Knee Tuck', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_slider_mountain_climbers', name: 'Slider Mountain Climbers', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
-  { id: 'ex_slider_pike', name: 'Slider Pike', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_stability_ball_pass_through', name: 'Stability Ball Pass Through', primaryMuscle: 'abs', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_teaser', name: 'Teaser', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_ab_fallout', name: 'Ab Fallout', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_alternating_vups', name: 'Alternating V-Ups', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_barbell_rollouts', name: 'Barbell Rollouts', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['barbell'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_captains_chair_knee_tuck', name: "Captain's Chair Knee Tuck", primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_curl_up', name: 'Curl Up', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_ghd_situp', name: 'GHD Sit Ups', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'hamstrings'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_hanging_knee_tuck', name: 'Hanging Knee Tuck', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_high_plank', name: 'High Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_l_sit_pull_through', name: 'L Sit Pull Through', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_landmine_oblique_twist', name: 'Landmine Oblique Twist', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['barbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_low_to_high_plank', name: 'Low to High Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_mcgill_big_3', name: 'McGill Big 3', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_modified_hands_elevated_plank', name: 'Modified (Hands Elevated) Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_modified_knees_down_plank', name: 'Modified (Knees Down) Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_modified_high_plank', name: 'Modified High Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_modified_side_plank', name: 'Modified Side Plank', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
+  { id: 'ex_modified_side_plank_raise', name: 'Modified Side Plank Raise', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_rollup', name: 'Rollup', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_side_plank_raise', name: 'Side Plank Raise', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_leg_teaser', name: 'Single Leg Teaser', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_situp', name: 'Sit Up', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_slider_knee_tuck', name: 'Slider Knee Tuck', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_slider_mountain_climbers', name: 'Slider Mountain Climbers', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_slider_pike', name: 'Slider Pike', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_stability_ball_pass_through', name: 'Stability Ball Pass Through', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_teaser', name: 'Teaser', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_teaser_with_support', name: 'Teaser with Support', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_v_sit_hold', name: 'V Sit Hold', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_v_sit_hold', name: 'V Sit Hold', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
   { id: 'ex_v_sit_hold_modified', name: 'V Sit Hold Modified', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
   { id: 'ex_v_sit_in_and_out', name: 'V Sit In-and-Out', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
 
@@ -240,4 +240,47 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_hip_adduction_machine', name: 'Hip Adduction Machine', primaryMuscle: 'adductor', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_side_lying_adduction', name: 'Side Lying Adduction', primaryMuscle: 'adductor', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_squat_with_adduction', name: 'Squat with Adduction', primaryMuscle: 'adductor', secondaryMuscles: ['quads', 'glutes'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+
+  // Core/Trunk (many list items already existed under Abs etc. and got 'core_trunk'
+  // added as a secondary muscle above instead of a duplicate entry; "half kneeling
+  // paloff press" maps to the existing "Half-Kneeling Pallof Press" typo-for-typo)
+  { id: 'ex_arch_body_rock', name: 'Arch Body Rock', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_around_the_world', name: 'Around the World', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_back_extension_lower_back', name: 'Back Extension (Lower Back Focus)', primaryMuscle: 'core_trunk', secondaryMuscles: ['back'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_bird_dog', name: 'Banded Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_banded_deadbugs', name: 'Banded Deadbugs', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_bear_crawl', name: 'Bear Crawl', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'quads'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'time' },
+  { id: 'ex_bird_dog', name: 'Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_bodysaw', name: 'Bodysaw', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_cable_bird_dog_row', name: 'Cable Bird Dog Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_db_bird_dog_row', name: 'DB Bird Dog Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_db_z_press', name: 'DB Z Press', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_fire_hydrant', name: 'Fire Hydrant', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_half_kneeling_cable_low_to_high_woodchop', name: 'Half Kneeling Cable Low-to-High Wood Chop', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_half_kneeling_cable_high_to_low_woodchop', name: 'Half Kneeling Cable High-to-Low Wood Chop', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_half_kneeling_windmill', name: 'Half Kneeling Windmill', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['kettlebell'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_half_turkish_getup', name: 'Half Turkish Get-Up', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_high_to_low_banded_woodchop', name: 'High-to-Low Banded Wood Chop', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_high_to_low_cable_woodchop', name: 'High-to-Low Cable Wood Chop', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_hollow_body_hold', name: 'Hollow Body Hold', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_hollow_body_rock', name: 'Hollow Body Rock', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_inchworms', name: 'Inchworms', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_lateral_walking_plank', name: 'Lateral Walking Plank', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_low_to_high_cable_woodchop', name: 'Low-to-High Cable Wood Chop', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_modified_intermediate_hollow_body_hold', name: 'Modified (Intermediate) Hollow Body Hold', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_modified_novice_hollow_body_hold', name: 'Modified (Novice) Hollow Body Hold', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_modified_hollow_body_rock', name: 'Modified Hollow Body Rock', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_modified_plank_shoulder_taps', name: 'Modified Plank Shoulder Taps', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_one_arm_plank_to_side_plank', name: 'One Arm Plank to Side Plank', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_plank_pull_across', name: 'Plank Pull Across', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_plank_shoulder_taps', name: 'Plank Shoulder Taps', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_plank_alt_single_leg_hip_extension', name: 'Plank with Alt. Single Leg Hip Extension', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_quadruped_shoulder_taps', name: 'Quadruped Shoulder Taps', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_seated_l_sit_walk', name: 'Seated L-Sit Walk', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_single_arm_plank', name: 'Single Arm Plank', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time_side' },
+  { id: 'ex_standing_banded_pallof_press', name: 'Standing Banded Pallof Press', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_standing_pallof_cable_press', name: 'Standing Pallof Cable Press', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_stir_the_pot', name: 'Stir-the-Pot', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_suitcase_deadlift', name: 'Suitcase Deadlift', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes', 'forearms'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_suitcase_walk', name: 'Suitcase Walk', primaryMuscle: 'core_trunk', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'time_weight_side' },
 ];
