@@ -65,6 +65,24 @@ export const useExerciseStore = create<ExerciseStore>()(
         // Raise" (same equipment/technique, just phrased differently). Drop any persisted
         // copy so it doesn't linger as an orphaned entry no longer in SEED_EXERCISES.
         const REMOVED_DUPLICATE_IDS = new Set(['ex_db_iso_lateral_raise']);
+        // One-time correction: these exercises use a loaded implement (machine/dumbbell/
+        // kettlebell) but were seeded without a weight box, unlike their sibling exercises
+        // in the same family. Only apply if the persisted value still matches the old
+        // (buggy) default, so a user's own choice of workoutSubtype is never overwritten.
+        const CORRECTED_WORKOUT_SUBTYPE: Record<string, { from: string; to: Exercise['workoutSubtype'] }> = {
+          ex_2down_1up_hamstring_curl: { from: 'reps_side', to: 'reps_weight_side' },
+          ex_hamstring_curl_21s: { from: 'reps', to: 'reps_weight' },
+          ex_renegade_row: { from: 'reps_side', to: 'reps_weight_side' },
+          ex_2up_1down_leg_extension: { from: 'reps_side', to: 'reps_weight_side' },
+          ex_leg_extension_21s: { from: 'reps', to: 'reps_weight' },
+          ex_heavy_carry: { from: 'time', to: 'time_weight' },
+          ex_turkish_getup_position_repeats: { from: 'reps_side', to: 'reps_weight_side' },
+          ex_3pos_curl: { from: 'reps', to: 'reps_weight' },
+          ex_bicep_curl_21s: { from: 'reps', to: 'reps_weight' },
+          ex_isometric_curl: { from: 'time', to: 'time_weight' },
+          ex_iso_hold_curl: { from: 'time', to: 'time_weight' },
+          ex_ez_bar_curl_21s: { from: 'reps', to: 'reps_weight' },
+        };
         // Core was renamed to Abs outright - every 'core' tag (primary or secondary)
         // means the same thing it always did, so this rename applies unconditionally.
         const renameCoreToAbs = (m: string) => (m === 'core' ? 'abs' : m);
@@ -135,6 +153,10 @@ export const useExerciseStore = create<ExerciseStore>()(
             const renamed = RENAMED_EXERCISE[next.id];
             if (renamed && next.name === renamed.from) {
               next = { ...next, name: renamed.to };
+            }
+            const corrected = CORRECTED_WORKOUT_SUBTYPE[next.id];
+            if (corrected && next.workoutSubtype === corrected.from) {
+              next = { ...next, workoutSubtype: corrected.to };
             }
             next = {
               ...next,
