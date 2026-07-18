@@ -70,7 +70,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_hip_thrust', name: 'Barbell Hip Thrust', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_glute_bridge', name: 'Glute Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' }, // best guess - no usage data
   { id: 'ex_kettlebell_swing', name: 'KB Swing', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings', 'abs'], equipment: ['kettlebell'], category: 'compound', workoutSubtype: 'reps_weight' },
-  { id: 'ex_cable_pull_through', name: 'Cable Pull-Through', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_cable_pull_through', name: 'Cable Pull-Through', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings', 'back'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
 
   // Calves
   { id: 'ex_standing_calf_raise', name: 'Standing Calf Raise', primaryMuscle: 'calves', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
@@ -244,13 +244,13 @@ export const SEED_EXERCISES: Exercise[] = [
   // Core/Trunk (many list items already existed under Abs etc. and got 'core_trunk'
   // added as a secondary muscle above instead of a duplicate entry; "half kneeling
   // paloff press" maps to the existing "Half-Kneeling Pallof Press" typo-for-typo)
-  { id: 'ex_arch_body_rock', name: 'Arch Body Rock', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_arch_body_rock', name: 'Arch Body Rock', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'back'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_around_the_world', name: 'Around the World', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'chest'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_back_extension_lower_back', name: 'Back Extension (Lower Back Focus)', primaryMuscle: 'core_trunk', secondaryMuscles: ['back'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_banded_bird_dog', name: 'Banded Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_banded_deadbugs', name: 'Banded Deadbugs', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_bear_crawl', name: 'Bear Crawl', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'quads'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'time' },
-  { id: 'ex_bird_dog', name: 'Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_bird_dog', name: 'Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders', 'back'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_bodysaw', name: 'Bodysaw', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_cable_bird_dog_row', name: 'Cable Bird Dog Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_db_bird_dog_row', name: 'DB Bird Dog Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
@@ -430,8 +430,8 @@ export const SEED_EXERCISES: Exercise[] = [
   // Traps (Cable Front Raise, DB Upright Row, and Front Plate Raise already exist above
   // and gained 'traps' as a secondary muscle in place instead of a duplicate entry here)
   { id: 'ex_clean_pull', name: 'Clean Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
-  { id: 'ex_seated_db_shrug', name: 'Seated DB Shrug', primaryMuscle: 'traps', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_seated_ez_bar_shrug', name: 'Seated EZ Bar Shrug', primaryMuscle: 'traps', secondaryMuscles: [], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_db_shrug', name: 'Seated DB Shrug', primaryMuscle: 'traps', secondaryMuscles: ['back'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_ez_bar_shrug', name: 'Seated EZ Bar Shrug', primaryMuscle: 'traps', secondaryMuscles: ['back'], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_snatch_pull', name: 'Snatch Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
 
   // Triceps (Bench Dip, Bench Press, Chest Dips -> Dips, Close-Grip Bench Press, Diamond
@@ -554,4 +554,75 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_smith_machine_squat', name: 'Smith Machine Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['smith_machine'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_standing_abductor_with_squat', name: 'Standing Abductor with Squat', primaryMuscle: 'quads', secondaryMuscles: ['abductor', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_terminal_knee_extension', name: 'Terminal Knee Extension', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+
+  // Back (Banded Deadlift, Bodyweight Reverse Hyper, Cable Bird Dog Row, Cable Stiff-Leg
+  // Deadlift, Chest-Supported Row, DB Bird Dog Row, DB/DB Sumo Stiff Leg Deadlift, Dead Hang,
+  // Deadlift (+ from Blocks), Deficit Deadlift, Deficit KB Stiff Leg Deadlift, Half-Kneeling
+  // Single-Arm Banded Lat Pulldown, Jefferson Curl, Meadows Row, Prone I-T-Y-W (+ Incline),
+  // Prone Incline Rear Delt Flyes/Y-Raises, Pull-Up, Renegade Row, Single-Arm Seated Banded
+  // Row, and T-Bar Row already exist above and already carry 'back'. 45 Degree/Back
+  // Extensions (Lower Back Focus) matched to the existing Back Extension (Lower Back Focus);
+  // Banded Face Pull w/ External Rotation and Single Arm Face Pull with Ext Rotation matched
+  // to the existing (Single-Arm) Banded Face Pull w/ Ext Rotation; Bentover Row and Landmine
+  // T-Bar Row matched to Barbell Row / T-Bar Row (same lift, different names); Inverted Rows
+  // and Pronated Grip Inverted Rows matched to the existing plain Inverted Row; Lat Pulldown
+  // Machine and Lat Pulldowns matched to Lat Pulldown; Rear Delt Fly Machine matched to
+  // Reverse Pec Deck and Rear Delt Flyes matched to Rear Delt Fly (both already carry
+  // 'back'). Arch Body Rock, Bird Dog (Birddogs), Cable Pull-Through, Seated DB Shrug, and
+  // Seated EZ Bar Shrug gained 'back' as a new secondary muscle in place above instead of
+  // duplicate entries here. Band Pullaparts, Blackburns, Deficit Blackburns, and Cable
+  // Upright Row are classed under Shoulders to match their pull-apart/upright-row/prone-raise
+  // siblings, each with 'back' as a secondary muscle. Cat-Cow, Supermans, and Weighted Back
+  // Extension (Lower Back Focus) are classed under Core/Trunk to match their bodyweight
+  // mobility/back-extension siblings, each with 'back' as a secondary muscle. Zercher
+  // Jefferson Curl is classed under Hamstrings to match its Jefferson Curl sibling, with
+  // 'back' as a secondary muscle. Supinated Grip Inverted Row and Supinated Inverted Rows are
+  // the same exercise, consolidated into one entry.)
+  { id: 'ex_3pos_inverted_row', name: '3-Position Inverted Rows', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_assisted_pullup_machine', name: 'Assisted Pull-Up Machine', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_band_pull_apart', name: 'Band Pull-Apart', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_bentover_row', name: 'Banded Bentover Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_face_pull', name: 'Banded Face Pull', primaryMuscle: 'back', secondaryMuscles: ['shoulders'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_banded_lat_pullover', name: 'Banded Lat Pullover', primaryMuscle: 'back', secondaryMuscles: ['triceps'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_blackburns', name: 'Blackburns', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_cable_lat_pullover', name: 'Cable Lat Pullover', primaryMuscle: 'back', secondaryMuscles: ['triceps'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_cable_upright_row', name: 'Cable Upright Row', primaryMuscle: 'shoulders', secondaryMuscles: ['biceps', 'traps', 'back'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_cat_cow', name: 'Cat-Cow', primaryMuscle: 'core_trunk', secondaryMuscles: ['back'], equipment: ['bodyweight'], category: 'mobility', workoutSubtype: 'reps' },
+  { id: 'ex_chinup', name: 'Chin-Up', primaryMuscle: 'back', secondaryMuscles: ['biceps', 'forearms'], equipment: ['pull_up_bar'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_db_lat_pullover', name: 'DB Lat Pullover', primaryMuscle: 'back', secondaryMuscles: ['chest', 'triceps'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_db_row', name: 'DB Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_deficit_blackburns', name: 'Deficit Blackburns', primaryMuscle: 'shoulders', secondaryMuscles: ['back'], equipment: ['bodyweight', 'box'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_half_kneeling_single_arm_banded_row', name: 'Half Kneeling Single Arm Banded Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_half_kneeling_single_arm_lat_pulldown_cable', name: 'Half-Kneeling Single-Arm Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_isometric_pullup', name: 'Isometric Pull-Up', primaryMuscle: 'back', secondaryMuscles: ['biceps', 'forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_lying_banded_lat_pullover', name: 'Lying Banded Lat Pullover', primaryMuscle: 'back', secondaryMuscles: ['triceps'], equipment: ['resistance_band', 'bench'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_machine_row_neutral_grip', name: 'Machine Row (Neutral Grip)', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_machine_row_single_arm', name: 'Machine Row (Single Arm)', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_machine_row_supinated_grip', name: 'Machine Row (Supinated Grip)', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_machine_row_wide_grip', name: 'Machine Row (Wide Grip)', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_negative_chinup', name: 'Negative Chin-Up', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_negative_pullup', name: 'Negative Pull-Up', primaryMuscle: 'back', secondaryMuscles: ['biceps', 'forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_neutral_grip_cable_row', name: 'Neutral Grip Cable Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_neutral_grip_lat_pulldown', name: 'Neutral Grip Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_pendlay_row', name: 'Pendlay Row', primaryMuscle: 'back', secondaryMuscles: ['biceps', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_quadruped_single_arm_banded_lat_pulldown', name: 'Quadruped Single Arm Banded Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_quadruped_single_arm_cable_lat_pulldown', name: 'Quadruped Single Arm Cable Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_ring_rows', name: 'Ring Rows', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['trx'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_scap_pullup', name: 'Scap Pull-Up', primaryMuscle: 'back', secondaryMuscles: ['forearms'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_scap_pushup', name: 'Scap Push-Up', primaryMuscle: 'back', secondaryMuscles: ['shoulders', 'chest'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_scap_wall_walk', name: 'Scap Wall Walk', primaryMuscle: 'back', secondaryMuscles: ['shoulders', 'core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_seal_row', name: 'Seal Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_seated_banded_row', name: 'Seated Banded Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_single_arm_cable_row', name: 'Single Arm Cable Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_single_arm_landmine_row', name: 'Single Arm Landmine Row', primaryMuscle: 'back', secondaryMuscles: ['biceps', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_single_arm_lat_pulldown', name: 'Single Arm Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_supermans', name: 'Supermans', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_supinated_grip_cable_row', name: 'Supinated Grip Cable Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_supinated_grip_inverted_row', name: 'Supinated Grip Inverted Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_supinated_grip_lat_pulldown', name: 'Supinated Grip Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_weighted_back_extension_lower_back', name: 'Weighted Back Extension (Lower Back Focus)', primaryMuscle: 'core_trunk', secondaryMuscles: ['back'], equipment: ['machine', 'plate'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_wide_grip_cable_row', name: 'Wide Grip Cable Row', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_wide_grip_inverted_row', name: 'Wide Grip Inverted Rows', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_wide_grip_lat_pulldown', name: 'Wide Grip Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_zercher_jefferson_curl', name: 'Zercher Jefferson Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['back'], equipment: ['barbell'], category: 'mobility', workoutSubtype: 'reps_weight' },
 ];

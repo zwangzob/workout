@@ -99,6 +99,11 @@ export const useExerciseStore = create<ExerciseStore>()(
         // One-time addition: these exercises gained 'quads' as a secondary muscle when
         // the Quads category was expanded. Purely additive.
         const ADD_QUADS_IDS = new Set(['ex_banded_deadlift', 'ex_banded_stiff_leg_sumo_deadlift']);
+        // One-time addition: these exercises gained 'back' as a secondary muscle when
+        // the Back category was expanded. Purely additive.
+        const ADD_BACK_IDS = new Set([
+          'ex_arch_body_rock', 'ex_bird_dog', 'ex_cable_pull_through', 'ex_seated_db_shrug', 'ex_seated_ez_bar_shrug',
+        ]);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -136,6 +141,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           }
           if (ADD_QUADS_IDS.has(next.id) && !next.secondaryMuscles.includes('quads')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'quads'] };
+          }
+          if (ADD_BACK_IDS.has(next.id) && !next.secondaryMuscles.includes('back')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'back'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;
