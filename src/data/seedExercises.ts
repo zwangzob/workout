@@ -91,9 +91,9 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_thruster', name: 'Barbell Thruster', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
 
   // Cardio
-  { id: 'ex_stationary_bike', name: 'Stationary Bike', primaryMuscle: 'cardio', secondaryMuscles: [], equipment: ['bike'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
+  { id: 'ex_stationary_bike', name: 'Stationary Bike', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bike'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
   { id: 'ex_rowing_machine', name: 'Rowing Machine', primaryMuscle: 'cardio', secondaryMuscles: ['back'], equipment: ['rower'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
-  { id: 'ex_jump_rope', name: 'Jump Rope', primaryMuscle: 'cardio', secondaryMuscles: ['calves'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
+  { id: 'ex_jump_rope', name: 'Jump Rope', primaryMuscle: 'cardio', secondaryMuscles: ['calves', 'full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' }, // best guess - no usage data
   { id: 'ex_box_jump', name: 'Box Jump', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'cardio', 'hamstrings'], equipment: ['box'], category: 'cardio', workoutSubtype: 'reps' }, // best guess - no usage data
 
   // Pulled in from the user's actual training history
@@ -142,8 +142,8 @@ export const SEED_EXERCISES: Exercise[] = [
 
   // Cardio
   { id: 'ex_assault_bike', name: 'Assault Bike', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bike'], category: 'cardio', workoutSubtype: 'time' },
-  { id: 'ex_stair_climber', name: 'Stair Climber', primaryMuscle: 'cardio', secondaryMuscles: ['quads', 'glutes'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
-  { id: 'ex_treadmill_run', name: 'Treadmill Run', primaryMuscle: 'cardio', secondaryMuscles: [], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_stair_climber', name: 'Stair Climber', primaryMuscle: 'cardio', secondaryMuscles: ['quads', 'glutes', 'full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_treadmill_run', name: 'Treadmill Run', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
 
   // Full body
   { id: 'ex_sled_push', name: 'Sled Push', primaryMuscle: 'full_body', secondaryMuscles: ['quads', 'glutes'], equipment: ['machine'], category: 'compound', workoutSubtype: 'time_weight' },
@@ -225,7 +225,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_slider_knee_tuck', name: 'Slider Knee Tuck', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_slider_mountain_climbers', name: 'Slider Mountain Climbers', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
   { id: 'ex_slider_pike', name: 'Slider Pike', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_stability_ball_pass_through', name: 'Stability Ball Pass Through', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_stability_ball_pass_through', name: 'Stability Ball Pass Through', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk', 'shoulders', 'full_body'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_teaser', name: 'Teaser', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_teaser_with_support', name: 'Teaser with Support', primaryMuscle: 'abs', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_v_sit_hold', name: 'V Sit Hold', primaryMuscle: 'abs', secondaryMuscles: ['core_trunk'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'time' },
@@ -249,9 +249,9 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_back_extension_lower_back', name: 'Back Extension (Lower Back Focus)', primaryMuscle: 'core_trunk', secondaryMuscles: ['back'], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_banded_bird_dog', name: 'Banded Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders'], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_banded_deadbugs', name: 'Banded Deadbugs', primaryMuscle: 'core_trunk', secondaryMuscles: [], equipment: ['resistance_band', 'bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_bear_crawl', name: 'Bear Crawl', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'quads'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'time' },
+  { id: 'ex_bear_crawl', name: 'Bear Crawl', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'quads', 'full_body'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'time' },
   { id: 'ex_bird_dog', name: 'Bird Dog', primaryMuscle: 'core_trunk', secondaryMuscles: ['glutes', 'shoulders', 'back'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps_side' },
-  { id: 'ex_bodysaw', name: 'Bodysaw', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_bodysaw', name: 'Bodysaw', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders', 'full_body'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_cable_bird_dog_row', name: 'Cable Bird Dog Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_db_bird_dog_row', name: 'DB Bird Dog Row', primaryMuscle: 'core_trunk', secondaryMuscles: ['back', 'glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_db_z_press', name: 'DB Z Press', primaryMuscle: 'core_trunk', secondaryMuscles: ['shoulders'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
@@ -429,10 +429,10 @@ export const SEED_EXERCISES: Exercise[] = [
 
   // Traps (Cable Front Raise, DB Upright Row, and Front Plate Raise already exist above
   // and gained 'traps' as a secondary muscle in place instead of a duplicate entry here)
-  { id: 'ex_clean_pull', name: 'Clean Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_clean_pull', name: 'Clean Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings', 'full_body'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_seated_db_shrug', name: 'Seated DB Shrug', primaryMuscle: 'traps', secondaryMuscles: ['back'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_seated_ez_bar_shrug', name: 'Seated EZ Bar Shrug', primaryMuscle: 'traps', secondaryMuscles: ['back'], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
-  { id: 'ex_snatch_pull', name: 'Snatch Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_snatch_pull', name: 'Snatch Pull', primaryMuscle: 'traps', secondaryMuscles: ['back', 'hamstrings', 'full_body'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
 
   // Triceps (Bench Dip, Bench Press, Chest Dips -> Dips, Close-Grip Bench Press, Diamond
   // Push-Up, DB OH Tricep Extensions -> Overhead DB Tricep Extension, EZ Bar Skullcrushers,
@@ -625,4 +625,58 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_wide_grip_inverted_row', name: 'Wide Grip Inverted Rows', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_wide_grip_lat_pulldown', name: 'Wide Grip Lat Pulldown', primaryMuscle: 'back', secondaryMuscles: ['biceps'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_zercher_jefferson_curl', name: 'Zercher Jefferson Curl', primaryMuscle: 'hamstrings', secondaryMuscles: ['back'], equipment: ['barbell'], category: 'mobility', workoutSubtype: 'reps_weight' },
+
+  // Full Body (Battle Rope Jumping Lunge Slam and Turkish Get-Up already exist above and
+  // already carry 'full_body' as primary. Bear Crawl, Bodysaw, Clean Pull, Snatch Pull, and
+  // Stability Ball Pass Through gained 'full_body' as a new secondary muscle in place above
+  // instead of duplicate entries here. "Bike" matched to the existing Stationary Bike (also
+  // gained 'full_body' secondary in place above) and "Bike Sprint" matched to the existing
+  // Assault Bike, which already carries 'full_body'; the Assault Bike's fan-bike design is
+  // the one typically used for sprint intervals. "Run" matched to the existing Treadmill Run
+  // (gained 'full_body' secondary in place above); "Jumprope" matched to the existing Jump
+  // Rope (gained 'full_body' secondary in place above); "Stairmaster" matched to the existing
+  // Stair Climber (gained 'full_body' secondary in place above), since StairMaster is simply
+  // the common brand name for that machine. Jog, Walk, Sprint, and the Incline variants are
+  // kept as separate pace/equipment entries rather than merged into Treadmill Run, matching
+  // this library's existing convention of treating tempo/intensity variants as distinct
+  // entries (e.g. DB Skullcrusher vs. DB Skullcrusher (1s Pause)).)
+  { id: 'ex_battle_rope_duplex', name: 'Battle Rope Duplex', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_battle_rope_jumping_jacks', name: 'Battle Rope Jumping Jacks', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_battle_rope_slams', name: 'Battle Rope Slams', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_battle_rope_waves', name: 'Battle Rope Waves', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'cardio'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_bow_and_bend', name: 'Bow and Bend', primaryMuscle: 'full_body', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'mobility', workoutSubtype: 'reps' },
+  { id: 'ex_clean', name: 'Clean', primaryMuscle: 'full_body', secondaryMuscles: ['traps', 'quads', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_clean_and_jerk', name: 'Clean and Jerk', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads', 'traps'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hang_clean_above_knee', name: 'Hang Clean (Above the Knee)', primaryMuscle: 'full_body', secondaryMuscles: ['traps', 'quads', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hang_clean_below_knee', name: 'Hang Clean (Below the Knee)', primaryMuscle: 'full_body', secondaryMuscles: ['traps', 'quads', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hang_power_clean', name: 'Hang Power Clean', primaryMuscle: 'full_body', secondaryMuscles: ['traps', 'quads', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hang_snatch_above_knee', name: 'Hang Snatch (Above the Knee)', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'traps', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_hang_snatch_below_knee', name: 'Hang Snatch (Below the Knee)', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'traps', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_heavy_carry', name: 'Heavy Carry', primaryMuscle: 'full_body', secondaryMuscles: ['forearms', 'core_trunk'], equipment: ['dumbbell', 'kettlebell'], category: 'compound', workoutSubtype: 'time' },
+  { id: 'ex_high_knees_marching', name: 'High Knees Marching', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_high_knees_running', name: 'High Knees Running', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_incline_jog', name: 'Incline Jog', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_incline_run', name: 'Incline Run', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_incline_sprint', name: 'Incline Sprint', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_incline_walk', name: 'Incline Walk', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_jog', name: 'Jog', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_jumping_jacks', name: 'Jumping Jacks', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_medicine_ball_slam', name: 'Medicine Ball Slam', primaryMuscle: 'full_body', secondaryMuscles: ['abs', 'shoulders'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_medicine_ball_throw', name: 'Medicine Ball Throw', primaryMuscle: 'full_body', secondaryMuscles: ['abs', 'shoulders'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'reps' },
+  { id: 'ex_muscle_snatch', name: 'Muscle Snatch', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'traps'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_power_clean', name: 'Power Clean', primaryMuscle: 'full_body', secondaryMuscles: ['traps', 'quads', 'shoulders'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_power_jerk', name: 'Power Jerk', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_power_snatch', name: 'Power Snatch', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'traps', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_push_jerk', name: 'Push Jerk', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_push_press', name: 'Push Press', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'triceps'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_raise_your_heart_rate', name: 'Raise Your Heart Rate', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_snatch', name: 'Snatch', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'traps', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_snatch_balance', name: 'Snatch Balance', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_snatch_grip_btn_push_press', name: 'Snatch Grip BTN Push Press', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'triceps', 'traps'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_split_jerk', name: 'Split Jerk', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'quads'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_sprint', name: 'Sprint', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_stairmaster_sprint', name: 'Stairmaster Sprint', primaryMuscle: 'cardio', secondaryMuscles: ['quads', 'glutes', 'full_body'], equipment: ['machine'], category: 'cardio', workoutSubtype: 'time' },
+  { id: 'ex_sun_salutation', name: 'Sun Salutation', primaryMuscle: 'full_body', secondaryMuscles: ['core_trunk', 'shoulders'], equipment: ['bodyweight'], category: 'mobility', workoutSubtype: 'reps' },
+  { id: 'ex_turkish_getup_position_repeats', name: 'Turkish Get-Up Position Repeats', primaryMuscle: 'full_body', secondaryMuscles: ['shoulders', 'abs'], equipment: ['kettlebell'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_walk', name: 'Walk', primaryMuscle: 'cardio', secondaryMuscles: ['full_body'], equipment: ['bodyweight'], category: 'cardio', workoutSubtype: 'time' },
 ];

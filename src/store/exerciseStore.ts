@@ -104,6 +104,12 @@ export const useExerciseStore = create<ExerciseStore>()(
         const ADD_BACK_IDS = new Set([
           'ex_arch_body_rock', 'ex_bird_dog', 'ex_cable_pull_through', 'ex_seated_db_shrug', 'ex_seated_ez_bar_shrug',
         ]);
+        // One-time addition: these exercises gained 'full_body' as a secondary muscle
+        // when the Full Body category was expanded. Purely additive.
+        const ADD_FULL_BODY_IDS = new Set([
+          'ex_bear_crawl', 'ex_bodysaw', 'ex_clean_pull', 'ex_snatch_pull', 'ex_stability_ball_pass_through',
+          'ex_stationary_bike', 'ex_jump_rope', 'ex_treadmill_run', 'ex_stair_climber',
+        ]);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -144,6 +150,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           }
           if (ADD_BACK_IDS.has(next.id) && !next.secondaryMuscles.includes('back')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'back'] };
+          }
+          if (ADD_FULL_BODY_IDS.has(next.id) && !next.secondaryMuscles.includes('full_body')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'full_body'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;
