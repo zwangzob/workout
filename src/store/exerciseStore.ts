@@ -90,6 +90,12 @@ export const useExerciseStore = create<ExerciseStore>()(
         // One-time addition: Dead Hang gained 'biceps' as a secondary muscle when the
         // Biceps category was expanded. Purely additive.
         const ADD_BICEPS_IDS = new Set(['ex_dead_hang']);
+        // One-time addition: these exercises gained 'chest' as a secondary muscle when
+        // the Chest category was expanded. Purely additive.
+        const ADD_CHEST_IDS = new Set([
+          'ex_around_the_world', 'ex_elevated_pike_handstand_pushup', 'ex_modified_handstand_pushup', 'ex_renegade_row',
+          'ex_high_incline_cable_overhead_press',
+        ]);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -121,6 +127,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           }
           if (ADD_BICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('biceps')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'biceps'] };
+          }
+          if (ADD_CHEST_IDS.has(next.id) && !next.secondaryMuscles.includes('chest')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'chest'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;
