@@ -355,11 +355,11 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_b_stance_glute_bridge', name: 'B-Stance Glute Bridge', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_b_stance_hip_thrust', name: 'B-Stance Hip Thrust', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['barbell', 'bench'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_b_stance_squat', name: 'B-Stance Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
-  { id: 'ex_banded_deadlift', name: 'Banded Deadlift', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_deadlift', name: 'Banded Deadlift', primaryMuscle: 'back', secondaryMuscles: ['hamstrings', 'glutes', 'quads'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_banded_glute_kickback', name: 'Banded Glute Kickback', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_banded_good_morning', name: 'Banded Good Morning', primaryMuscle: 'hamstrings', secondaryMuscles: ['back', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_banded_pull_through', name: 'Banded Pull-Through', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
-  { id: 'ex_banded_stiff_leg_sumo_deadlift', name: 'Banded Stiff Leg Sumo Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_banded_stiff_leg_sumo_deadlift', name: 'Banded Stiff Leg Sumo Deadlift', primaryMuscle: 'hamstrings', secondaryMuscles: ['glutes', 'back', 'quads'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_banded_sumo_good_morning', name: 'Banded Sumo Good Morning', primaryMuscle: 'hamstrings', secondaryMuscles: ['back', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
   { id: 'ex_barbell_reverse_lunge', name: 'Barbell Reverse Lunge', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
   { id: 'ex_barbell_split_squat', name: 'Barbell Split Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight_side' },
@@ -523,4 +523,35 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_supinated_band_pull_apart', name: 'Supinated Band Pull Apart', primaryMuscle: 'shoulders', secondaryMuscles: ['back', 'chest'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
   { id: 'ex_tshirt_press', name: 'T-Shirt Press', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'reps_weight' },
   { id: 'ex_wide_grip_pushup', name: 'Wide Grip Push-Up', primaryMuscle: 'chest', secondaryMuscles: ['triceps', 'shoulders'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps' },
+
+  // Quads (B-Stance Squat, Band Abducted Goblet Squat, Barbell Reverse Lunge, Barbell Split
+  // Squat, Belt Squat, Cossack Squat, Curtsy Lunge, DB Thruster, Deficit Reverse Lunge, Front
+  // Foot Elevated Split Squat, Goblet Squat (+ with Adduction), Heel Elevated Goblet Squat,
+  // High-Bar Squat, Kang Squat, Kneel-to-Squat, Landmine Curtsy/Goblet/Split Squat, Leg
+  // Extension, Leg Press, Low Ceiling Pulse Lunge, Reverse Hack Squat, Reverse Lunge,
+  // Runner's Lunge, Side Lunge, Sissy Squat, Spanish Squat, Split Squat, Squat -> Back Squat,
+  // Squat with Adduction, Wall Sit, and Zercher Squat already exist above and already carry
+  // 'quads'; Alt Lunges -> Alternating Lunges, Alt Jump Lunges -> Alternating Jump Lunges,
+  // Air Squat -> Bodyweight Squat, Band Abducted Squats -> Band Abducted Squat, Box Jumps ->
+  // Box Jump, Broad Jumps -> Broad Jump, Bulgarian Split Squats -> Bulgarian Split Squat, DB
+  // Box Step Ups -> DB Box Step Up, Eccentric Step Downs -> Eccentric Step Down,
+  // Forward-to-Backward Lunges -> Forward-to-Backward Lunge, Front Squat -> Barbell Front
+  // Squat, Hack Squat or V Squat Machine -> Hack Squat, Lateral Box Step Ups -> Lateral Box
+  // Step-Up, Low Ceiling Lunges -> Low Ceiling Lunge, Overhead Walking Lunges -> Overhead
+  // Walking Lunge, Single Leg Leg Press -> Single-Leg Leg Press, Squat Jumps -> Squat Jump,
+  // Squat with Safety Bar -> Safety Bar Squat, Terminal Knee Extension Split Squats ->
+  // Terminal Knee Extension Split Squat, and Walking Lunges -> Walking Lunge are all the same
+  // real-world exercises as existing entries above (plural/abbreviated phrasing only), no new
+  // entries needed. Banded Deadlift and Banded Stiff Leg Sumo Deadlift gained 'quads' as a new
+  // secondary muscle in place above instead of duplicate entries here.)
+  { id: 'ex_1_25_squat', name: '1.25 Squats', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['barbell'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_2up_1down_leg_extension', name: '2-Up, 1-Down Leg Extension', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_bodyweight_leg_extension', name: 'Bodyweight Leg Extension', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['bodyweight'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_cable_belt_squat', name: 'Cable Belt Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['cable'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_curtsy_lunge_with_sliders', name: 'Curtsy Lunge with Sliders', primaryMuscle: 'quads', secondaryMuscles: ['glutes', 'adductor'], equipment: ['bodyweight'], category: 'compound', workoutSubtype: 'reps_side' },
+  { id: 'ex_leg_extension_21s', name: "Leg Extension 21's", primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_pendulum_squat', name: 'Pendulum Squat (Squat Machine)', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_smith_machine_squat', name: 'Smith Machine Squat', primaryMuscle: 'quads', secondaryMuscles: ['glutes'], equipment: ['smith_machine'], category: 'compound', workoutSubtype: 'reps_weight' },
+  { id: 'ex_standing_abductor_with_squat', name: 'Standing Abductor with Squat', primaryMuscle: 'quads', secondaryMuscles: ['abductor', 'glutes'], equipment: ['resistance_band'], category: 'compound', workoutSubtype: 'reps' },
+  { id: 'ex_terminal_knee_extension', name: 'Terminal Knee Extension', primaryMuscle: 'quads', secondaryMuscles: [], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps' },
 ];
