@@ -51,6 +51,20 @@ export const useExerciseStore = create<ExerciseStore>()(
         const RECLASSIFIED_PRIMARY_MUSCLE: Record<string, { from: string; to: Exercise['primaryMuscle'] }> = {
           ex_hip_abduction_machine: { from: 'glutes', to: 'abductor' },
         };
+        // One-time rename: "Kettlebell" spelled out in these names was normalized to "KB"
+        // to match the abbreviation used everywhere else in the library. Only apply if the
+        // persisted name still matches the old default, so a user's own rename is never
+        // overwritten.
+        const RENAMED_EXERCISE: Record<string, { from: string; to: string }> = {
+          ex_deficit_kb_stiff_leg_deadlift: { from: 'Deficit Kettlebell Stiff Leg Deadlift', to: 'Deficit KB Stiff Leg Deadlift' },
+          ex_kettlebell_stiff_leg_deadlift: { from: 'Kettlebell Stiff Leg Deadlift', to: 'KB Stiff Leg Deadlift' },
+          ex_kettlebell_stiff_leg_sumo_deadlift: { from: 'Kettlebell Stiff Leg Sumo Deadlift', to: 'KB Stiff Leg Sumo Deadlift' },
+          ex_toes_elevated_kb_rdl: { from: 'Toes-Elevated Kettlebell Romanian Deadlift', to: 'Toes-Elevated KB Romanian Deadlift' },
+        };
+        // One-time removal: "DB Iso Lateral Raise" was a duplicate of "DB Iso-Hold Lateral
+        // Raise" (same equipment/technique, just phrased differently). Drop any persisted
+        // copy so it doesn't linger as an orphaned entry no longer in SEED_EXERCISES.
+        const REMOVED_DUPLICATE_IDS = new Set(['ex_db_iso_lateral_raise']);
         // Core was renamed to Abs outright - every 'core' tag (primary or secondary)
         // means the same thing it always did, so this rename applies unconditionally.
         const renameCoreToAbs = (m: string) => (m === 'core' ? 'abs' : m);
@@ -110,56 +124,62 @@ export const useExerciseStore = create<ExerciseStore>()(
           'ex_bear_crawl', 'ex_bodysaw', 'ex_clean_pull', 'ex_snatch_pull', 'ex_stability_ball_pass_through',
           'ex_stationary_bike', 'ex_jump_rope', 'ex_treadmill_run', 'ex_stair_climber',
         ]);
-        const backfilled = persisted.exercises.map((ex) => {
-          let next = ex;
-          const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
-          if (reclass && next.primaryMuscle === reclass.from) {
-            next = { ...next, primaryMuscle: reclass.to };
-          }
-          next = {
-            ...next,
-            primaryMuscle: renameCoreToAbs(next.primaryMuscle) as Exercise['primaryMuscle'],
-            secondaryMuscles: next.secondaryMuscles.map(renameCoreToAbs) as Exercise['secondaryMuscles'],
-          };
-          if (ADD_CORE_TRUNK_IDS.has(next.id) && !next.secondaryMuscles.includes('core_trunk')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'core_trunk'] };
-          }
-          if (ADD_SHOULDERS_IDS.has(next.id) && !next.secondaryMuscles.includes('shoulders')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'shoulders'] };
-          }
-          if (ADD_GLUTES_IDS.has(next.id) && !next.secondaryMuscles.includes('glutes')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'glutes'] };
-          }
-          if (ADD_HAMSTRINGS_IDS.has(next.id) && !next.secondaryMuscles.includes('hamstrings')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'hamstrings'] };
-          }
-          if (ADD_TRAPS_IDS.has(next.id) && !next.secondaryMuscles.includes('traps')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'traps'] };
-          }
-          if (ADD_TRICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('triceps')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'triceps'] };
-          }
-          if (ADD_BICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('biceps')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'biceps'] };
-          }
-          if (ADD_CHEST_IDS.has(next.id) && !next.secondaryMuscles.includes('chest')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'chest'] };
-          }
-          if (ADD_QUADS_IDS.has(next.id) && !next.secondaryMuscles.includes('quads')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'quads'] };
-          }
-          if (ADD_BACK_IDS.has(next.id) && !next.secondaryMuscles.includes('back')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'back'] };
-          }
-          if (ADD_FULL_BODY_IDS.has(next.id) && !next.secondaryMuscles.includes('full_body')) {
-            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'full_body'] };
-          }
-          if (!next.workoutSubtype) {
-            const seedSubtype = seedById.get(next.id)?.workoutSubtype;
-            if (seedSubtype) next = { ...next, workoutSubtype: seedSubtype };
-          }
-          return next;
-        });
+        const backfilled = persisted.exercises
+          .filter((ex) => !REMOVED_DUPLICATE_IDS.has(ex.id))
+          .map((ex) => {
+            let next = ex;
+            const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
+            if (reclass && next.primaryMuscle === reclass.from) {
+              next = { ...next, primaryMuscle: reclass.to };
+            }
+            const renamed = RENAMED_EXERCISE[next.id];
+            if (renamed && next.name === renamed.from) {
+              next = { ...next, name: renamed.to };
+            }
+            next = {
+              ...next,
+              primaryMuscle: renameCoreToAbs(next.primaryMuscle) as Exercise['primaryMuscle'],
+              secondaryMuscles: next.secondaryMuscles.map(renameCoreToAbs) as Exercise['secondaryMuscles'],
+            };
+            if (ADD_CORE_TRUNK_IDS.has(next.id) && !next.secondaryMuscles.includes('core_trunk')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'core_trunk'] };
+            }
+            if (ADD_SHOULDERS_IDS.has(next.id) && !next.secondaryMuscles.includes('shoulders')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'shoulders'] };
+            }
+            if (ADD_GLUTES_IDS.has(next.id) && !next.secondaryMuscles.includes('glutes')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'glutes'] };
+            }
+            if (ADD_HAMSTRINGS_IDS.has(next.id) && !next.secondaryMuscles.includes('hamstrings')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'hamstrings'] };
+            }
+            if (ADD_TRAPS_IDS.has(next.id) && !next.secondaryMuscles.includes('traps')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'traps'] };
+            }
+            if (ADD_TRICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('triceps')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'triceps'] };
+            }
+            if (ADD_BICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('biceps')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'biceps'] };
+            }
+            if (ADD_CHEST_IDS.has(next.id) && !next.secondaryMuscles.includes('chest')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'chest'] };
+            }
+            if (ADD_QUADS_IDS.has(next.id) && !next.secondaryMuscles.includes('quads')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'quads'] };
+            }
+            if (ADD_BACK_IDS.has(next.id) && !next.secondaryMuscles.includes('back')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'back'] };
+            }
+            if (ADD_FULL_BODY_IDS.has(next.id) && !next.secondaryMuscles.includes('full_body')) {
+              next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'full_body'] };
+            }
+            if (!next.workoutSubtype) {
+              const seedSubtype = seedById.get(next.id)?.workoutSubtype;
+              if (seedSubtype) next = { ...next, workoutSubtype: seedSubtype };
+            }
+            return next;
+          });
         // Append any seed exercises added to the library since this device last persisted -
         // otherwise new seed exercises would silently never show up for existing installs.
         const persistedIds = new Set(persisted.exercises.map((ex) => ex.id));
