@@ -87,6 +87,9 @@ export const useExerciseStore = create<ExerciseStore>()(
         // One-time addition: L Sit Pull Through gained 'triceps' as a secondary muscle
         // when the Triceps category was expanded. Purely additive.
         const ADD_TRICEPS_IDS = new Set(['ex_l_sit_pull_through']);
+        // One-time addition: Dead Hang gained 'biceps' as a secondary muscle when the
+        // Biceps category was expanded. Purely additive.
+        const ADD_BICEPS_IDS = new Set(['ex_dead_hang']);
         const backfilled = persisted.exercises.map((ex) => {
           let next = ex;
           const reclass = RECLASSIFIED_PRIMARY_MUSCLE[next.id];
@@ -115,6 +118,9 @@ export const useExerciseStore = create<ExerciseStore>()(
           }
           if (ADD_TRICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('triceps')) {
             next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'triceps'] };
+          }
+          if (ADD_BICEPS_IDS.has(next.id) && !next.secondaryMuscles.includes('biceps')) {
+            next = { ...next, secondaryMuscles: [...next.secondaryMuscles, 'biceps'] };
           }
           if (!next.workoutSubtype) {
             const seedSubtype = seedById.get(next.id)?.workoutSubtype;

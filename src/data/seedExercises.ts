@@ -127,7 +127,7 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_wrist_curl', name: 'Wrist Curl', primaryMuscle: 'forearms', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_reverse_wrist_curl', name: 'Reverse Wrist Curl', primaryMuscle: 'forearms', secondaryMuscles: [], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
   { id: 'ex_farmers_carry', name: "Farmer's Carry", primaryMuscle: 'forearms', secondaryMuscles: ['abs', 'full_body', 'shoulders'], equipment: ['dumbbell'], category: 'compound', workoutSubtype: 'time_weight' },
-  { id: 'ex_dead_hang', name: 'Dead Hang', primaryMuscle: 'forearms', secondaryMuscles: ['core_trunk', 'back'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_dead_hang', name: 'Dead Hang', primaryMuscle: 'forearms', secondaryMuscles: ['core_trunk', 'back', 'biceps'], equipment: ['pull_up_bar'], category: 'isolation', workoutSubtype: 'time' },
 
   // Glutes
   { id: 'ex_cable_kickback', name: 'Cable Glute Kickback', primaryMuscle: 'glutes', secondaryMuscles: ['hamstrings'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
@@ -473,4 +473,28 @@ export const SEED_EXERCISES: Exercise[] = [
   { id: 'ex_single_arm_reverse_tricep_pushdown', name: 'Single Arm Reverse Tricep Pushdown', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_single_arm_tricep_pushdown', name: 'Single Arm Tricep Pushdown', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_side' },
   { id: 'ex_tricep_extension_machine', name: 'Tricep Extension Machine', primaryMuscle: 'triceps', secondaryMuscles: [], equipment: ['machine'], category: 'isolation', workoutSubtype: 'reps_weight' },
+
+  // Biceps (Curl, Hammer Curl, Cable Curl, Concentration Curl, and Zottman Curl already exist
+  // above and already carry 'biceps' as primary; "curl" matched to the existing 'DB Curl' per
+  // user confirmation. "Preacher Curl" matched to the existing 'EZ-Bar Preacher Curl' and
+  // "Incline Curl" matched to the existing 'Seated Incline DB Curl' - both are the only
+  // pre-existing candidate for their respective plain names. Dead Hang gained 'biceps' as a
+  // new secondary muscle in place above instead of a duplicate entry here.)
+  { id: 'ex_3pos_curl', name: '3-Position Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_1_5_rep_curl', name: '1.5 Rep Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_bicep_curl_21s', name: "Bicep Curl 21's", primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_isometric_curl', name: 'Isometric Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_reverse_grip_curl', name: 'Reverse Grip Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['barbell'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_iso_hold_curl', name: 'Iso-Hold Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell'], category: 'isolation', workoutSubtype: 'time' },
+  { id: 'ex_ez_bar_curl', name: 'EZ Bar Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['ez_bar'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_ez_bar_curl_21s', name: "EZ Bar Curl 21's", primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['ez_bar'], category: 'isolation', workoutSubtype: 'reps' },
+  { id: 'ex_prone_incline_curl', name: 'Prone Incline Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_prone_incline_ez_bar_curl', name: 'Prone Incline EZ Bar Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['ez_bar', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight' },
+  { id: 'ex_single_arm_banded_curl', name: 'Single Arm Banded Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_banded_hammer_curl', name: 'Single Arm Banded Hammer Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_banded_lengthened_curl', name: 'Single Arm Banded Lengthened Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_banded_reverse_grip_curl', name: 'Single Arm Banded Reverse Grip Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['resistance_band'], category: 'isolation', workoutSubtype: 'reps_side' },
+  { id: 'ex_single_arm_cable_front_curl', name: 'Single Arm Cable Front Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_single_arm_cable_lengthened_curl', name: 'Single Arm Cable Lengthened Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['cable'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
+  { id: 'ex_single_arm_preacher_curl', name: 'Single Arm Preacher Curl', primaryMuscle: 'biceps', secondaryMuscles: ['forearms'], equipment: ['dumbbell', 'bench'], category: 'isolation', workoutSubtype: 'reps_weight_side' },
 ];
